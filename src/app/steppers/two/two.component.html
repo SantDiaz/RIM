@@ -1,0 +1,760 @@
+
+<app-header></app-header>
+<br>
+
+<div class="container mx-auto p-4">
+  <div class="mb-8">
+    <ol class="flex items-center justify-between w-full">
+      <!-- Paso 1 -->
+      <li class="flex items-center w-full"
+        [ngClass]="{
+          'text-[#FF8300] dark:text-[#FF8300]': currentStep >= 1
+        }">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 1,
+            'bg-gray-100 dark:bg-gray-700': currentStep < 1
+          }">
+          <svg class="w-3.5 h-3.5 text-white lg:w-4 lg:h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+          </svg>
+        </span>
+        <div class="flex-grow h-1 mx-2"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 2,
+            'bg-gray-300 dark:bg-gray-700': currentStep < 2
+          }"></div>
+      </li>
+
+      <!-- Paso 2 -->
+      <li class="flex items-center w-full"
+        [ngClass]="{
+          'text-[#FF8300] dark:text-[#FF8300]': currentStep >= 2
+        }">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 2,
+            'bg-gray-100 dark:bg-gray-700': currentStep < 2
+          }">
+          <span class="text-white">2</span>
+        </span>
+        <div class="flex-grow h-1 mx-2"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 3,
+            'bg-gray-300 dark:bg-gray-700': currentStep < 3
+          }"></div>
+      </li>
+
+      <!-- Paso 3 -->
+      <li class="flex items-center w-full"
+        [ngClass]="{
+          'text-[#FF8300] dark:text-[#FF8300]': currentStep >= 3
+        }">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 3,
+            'bg-gray-100 dark:bg-gray-700': currentStep < 3
+          }">
+          <span class="text-white">3</span>
+        </span>
+        <div class="flex-grow h-1 mx-2"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 4,
+            'bg-gray-300 dark:bg-gray-700': currentStep < 4
+          }"></div>
+      </li>
+
+      <!-- Paso 4 -->
+      <li class="flex items-center">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 4,
+            'bg-gray-100 dark:bg-gray-700': currentStep < 4
+          }">
+          <span class="text-white">4</span>
+        </span>
+      </li>
+    </ol>
+  </div>
+</div>
+
+
+
+  
+  <div id="step-1">
+     <div class="container mx-auto p-4 bg-white p-6 shadow-md rounded-lg">
+  <h1 class="text-2xl font-bold mb-4 text-center bg-gray-200 py-2">INDUSTRIA MANUFACTURERA - PERSONAL EMPLEADO Y HORAS TRABAJADAS</h1>
+  
+  <div class="mb-4">
+    <span class="font-semibold">Periodo a declarar:</span>
+    <span class="ml-2">Enero a Marzo 2023</span>
+  </div>
+
+  <div class="bg-gray-200 p-2 mb-4">
+    <h2 class="font-bold">PERSONAL OCUPADO</h2>
+    <h3 class="font-semibold">Aclaraciones</h3>
+    <p class="text-sm mt-2">
+      Personal ocupado: La información requerida refiere a la cantidad de personal ocupado que en promedio trabajó durante el trimestre en el establecimiento. Comprende al personal de planta permanente (en relación de dependencia) y contratada (directivos, administrativos, obreros, etc.).
+      Debe diferenciarse entre personal afectado al proceso productivo industrial hasta la categoría de supervisor inclusive (quienes trabajan en la elaboración de bienes, control de calidad, programación y control de producción, acarreo dentro del establecimiento, auxiliares de producción, mantenimiento del equipo de producción, almacenaje y reparación de bienes producidos por el establecimiento) y el resto del personal excluido del proceso productivo (administrativos, vendedores, choferes, etc.). Idéntica segregación se aplica al personal Temporario, que se define como aquel personal que posee una duración determinada.
+    </p>
+  </div>
+
+  <div class="p-4">
+    <table class="table-auto border-collapse border border-gray-300 w-full">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+          <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+        </tr>
+        <tr>
+          <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+          <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+          <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfPermanente">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfContratado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaResto">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalAfectado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalResto">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bg-gray-200 p-2 mb-4">
+    <h2 class="font-bold">HORAS TRABAJADAS</h2>
+    <h3 class="font-semibold">Aclaraciones</h3>
+    <p class="text-sm mt-2">
+      Horas trabajadas: La información requerida refiere al personal ocupado que trabajó durante el trimestre en el establecimiento. Comprende al personal de planta permanente (en relación de dependencia) y contratada (directivos, administrativos, obreros, etc.).
+      Debe diferenciarse entre personal afectado al proceso productivo industrial hasta la categoría de supervisor inclusive (quienes trabajan en la elaboración de bienes, control de calidad, programación y control de producción, acarreo dentro del establecimiento, auxiliares de producción, mantenimiento del equipo de producción, almacenaje y reparación de bienes producidos por el establecimiento) y el resto del personal excluido del proceso productivo (administrativos, vendedores, choferes, etc.). Idéntica segregación se aplica al personal Temporario, que se define como aquel personal que posee una duración determinada.
+      No deben incluirse las horas correspondientes al personal suspendido, en uso de licencia o ausentismo (cualquiera fuese el motivo), ni las horas perdidas por huelgas (aun cuando corresponda abonar los respectivos jornales).
+      IMPORTANTE: deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe computarse como 1 hora).
+    </p>
+  </div>
+
+<div class="p-4">
+  <p class="text-sm text-gray-700">
+    <strong>IMPORTANTE:</strong> deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe declararse como 1 hora y no como 2 horas).
+  </p>
+
+
+  <div class="p-4">
+    <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS NORMALES</th>
+
+    <table class="table-auto border-collapse border border-gray-300 w-full">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+          <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+        </tr>
+        <tr>
+          <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+          <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+          <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfPermanente">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfContratado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaResto">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalAfectado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalResto">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="p-4">
+    <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS EXTRAS</th>
+
+    <table class="table-auto border-collapse border border-gray-300 w-full">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+          <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+        </tr>
+        <tr>
+          <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+          <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+          <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfPermanente">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfContratado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaResto">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalAfectado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalResto">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-4">
+    <textarea class="w-full border border-gray-300 p-2" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
+  </div>
+
+  <div class="mt-4 text-sm text-gray-700">
+    <p><strong>Continuidad de la Encuesta</strong></p>
+    <p>Para una mejor planificación de las futuras entregas, se comunica que se les solicitará la información referida, con vencimiento el día 15 posterior a su entrega.</p>
+  </div>
+</div>
+<br>
+<div class="flex justify-center">
+  <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="Step1()">Siguiente</button>
+</div>
+</div>
+
+</div>
+
+
+
+
+  <div id="step-2" class="hidden">
+    <div class="container mx-auto p-4 bg-white p-6 shadow-md rounded-lg">
+      <h1 class="text-2xl font-bold mb-4 text-center bg-gray-200 py-2">INDUSTRIA MANUFACTURERA - PERSONAL EMPLEADO Y HORAS TRABAJADAS</h1>
+      
+      <div class="mb-4">
+        <span class="font-semibold">Periodo a declarar:</span>
+        <span class="ml-2">Abril a Junio</span>
+      </div>
+    
+      <div class="bg-gray-200 p-2 mb-4">
+        <h2 class="font-bold">PERSONAL OCUPADO</h2>
+        <h3 class="font-semibold">Aclaraciones</h3>
+        <p class="text-sm mt-2">
+          Personal ocupado: La información requerida refiere a la cantidad de personal ocupado que en promedio trabajó durante el trimestre en el establecimiento. Comprende al personal de planta permanente (en relación de dependencia) y contratada (directivos, administrativos, obreros, etc.).
+          Debe diferenciarse entre personal afectado al proceso productivo industrial hasta la categoría de supervisor inclusive (quienes trabajan en la elaboración de bienes, control de calidad, programación y control de producción, acarreo dentro del establecimiento, auxiliares de producción, mantenimiento del equipo de producción, almacenaje y reparación de bienes producidos por el establecimiento) y el resto del personal excluido del proceso productivo (administrativos, vendedores, choferes, etc.). Idéntica segregación se aplica al personal Temporario, que se define como aquel personal que posee una duración determinada.
+        </p>
+      </div>
+    
+      <div class="p-4">
+        <table class="table-auto border-collapse border border-gray-300 w-full">
+          <thead>
+            <tr>
+              <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+              <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+            </tr>
+            <tr>
+              <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+              <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+              <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+              <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+              <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfPermanente">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfContratado">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaResto">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalAfectado">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalResto">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+      <div class="bg-gray-200 p-2 mb-4">
+        <h2 class="font-bold">HORAS TRABAJADAS</h2>
+        <h3 class="font-semibold">Aclaraciones</h3>
+        <p class="text-sm mt-2">
+          Horas trabajadas: La información requerida refiere al personal ocupado que trabajó durante el trimestre en el establecimiento. Comprende al personal de planta permanente (en relación de dependencia) y contratada (directivos, administrativos, obreros, etc.).
+          Debe diferenciarse entre personal afectado al proceso productivo industrial hasta la categoría de supervisor inclusive (quienes trabajan en la elaboración de bienes, control de calidad, programación y control de producción, acarreo dentro del establecimiento, auxiliares de producción, mantenimiento del equipo de producción, almacenaje y reparación de bienes producidos por el establecimiento) y el resto del personal excluido del proceso productivo (administrativos, vendedores, choferes, etc.). Idéntica segregación se aplica al personal Temporario, que se define como aquel personal que posee una duración determinada.
+          No deben incluirse las horas correspondientes al personal suspendido, en uso de licencia o ausentismo (cualquiera fuese el motivo), ni las horas perdidas por huelgas (aun cuando corresponda abonar los respectivos jornales).
+          IMPORTANTE: deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe computarse como 1 hora).
+        </p>
+      </div>
+    
+    <div class="p-4">
+      <p class="text-sm text-gray-700">
+        <strong>IMPORTANTE:</strong> deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe declararse como 1 hora y no como 2 horas).
+      </p>
+    
+    
+      <div class="p-4">
+        <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS NORMALES</th>
+    
+        <table class="table-auto border-collapse border border-gray-300 w-full">
+          <thead>
+            <tr>
+              <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+              <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+            </tr>
+            <tr>
+              <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+              <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+              <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+              <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+              <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfPermanente">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfContratado">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaResto">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalAfectado">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalResto">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+      
+      <div class="p-4">
+        <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS EXTRAS</th>
+    
+        <table class="table-auto border-collapse border border-gray-300 w-full">
+          <thead>
+            <tr>
+              <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+              <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+            </tr>
+            <tr>
+              <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+              <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+              <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+              <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+              <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfPermanente">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfContratado">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaResto">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalAfectado">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalResto">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4">
+        <textarea class="w-full border border-gray-300 p-2" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
+      </div>
+    
+      <div class="mt-4 text-sm text-gray-700">
+        <p><strong>Continuidad de la Encuesta</strong></p>
+        <p>Para una mejor planificación de las futuras entregas, se comunica que se les solicitará la información referida, con vencimiento el día 15 posterior a su entrega.</p>
+      </div>
+    </div>
+    <br>
+    <div class="flex justify-center">
+      <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="Step2()">Siguiente</button>
+    </div>
+    </div>
+            </div>
+      
+      
+      
+      
+      
+      
+      
+      
+            <div id="step-3" class="hidden">
+              <div class="container mx-auto p-4 bg-white p-6 shadow-md rounded-lg">
+                <h1 class="text-2xl font-bold mb-4 text-center bg-gray-200 py-2">INDUSTRIA MANUFACTURERA - PERSONAL EMPLEADO Y HORAS TRABAJADAS</h1>
+                
+                <div class="mb-4">
+                  <span class="font-semibold">Periodo a declarar:</span>
+                  <span class="ml-2">Julio a Septiembre</span>
+                </div>
+              
+                <div class="bg-gray-200 p-2 mb-4">
+                  <h2 class="font-bold">PERSONAL OCUPADO</h2>
+                  <h3 class="font-semibold">Aclaraciones</h3>
+                  <p class="text-sm mt-2">
+                    Personal ocupado: La información requerida refiere a la cantidad de personal ocupado que en promedio trabajó durante el trimestre en el establecimiento. Comprende al personal de planta permanente (en relación de dependencia) y contratada (directivos, administrativos, obreros, etc.).
+                    Debe diferenciarse entre personal afectado al proceso productivo industrial hasta la categoría de supervisor inclusive (quienes trabajan en la elaboración de bienes, control de calidad, programación y control de producción, acarreo dentro del establecimiento, auxiliares de producción, mantenimiento del equipo de producción, almacenaje y reparación de bienes producidos por el establecimiento) y el resto del personal excluido del proceso productivo (administrativos, vendedores, choferes, etc.). Idéntica segregación se aplica al personal Temporario, que se define como aquel personal que posee una duración determinada.
+                  </p>
+                </div>
+              
+                <div class="p-4">
+                  <table class="table-auto border-collapse border border-gray-300 w-full">
+                    <thead>
+                      <tr>
+                        <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+                        <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+                      </tr>
+                      <tr>
+                        <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+                        <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+                        <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                        <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+                        <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfPermanente">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfContratado">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaResto">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalAfectado">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalResto">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              
+                <div class="bg-gray-200 p-2 mb-4">
+                  <h2 class="font-bold">HORAS TRABAJADAS</h2>
+                  <h3 class="font-semibold">Aclaraciones</h3>
+                  <p class="text-sm mt-2">
+                    Horas trabajadas: La información requerida refiere al personal ocupado que trabajó durante el trimestre en el establecimiento. Comprende al personal de planta permanente (en relación de dependencia) y contratada (directivos, administrativos, obreros, etc.).
+                    Debe diferenciarse entre personal afectado al proceso productivo industrial hasta la categoría de supervisor inclusive (quienes trabajan en la elaboración de bienes, control de calidad, programación y control de producción, acarreo dentro del establecimiento, auxiliares de producción, mantenimiento del equipo de producción, almacenaje y reparación de bienes producidos por el establecimiento) y el resto del personal excluido del proceso productivo (administrativos, vendedores, choferes, etc.). Idéntica segregación se aplica al personal Temporario, que se define como aquel personal que posee una duración determinada.
+                    No deben incluirse las horas correspondientes al personal suspendido, en uso de licencia o ausentismo (cualquiera fuese el motivo), ni las horas perdidas por huelgas (aun cuando corresponda abonar los respectivos jornales).
+                    IMPORTANTE: deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe computarse como 1 hora).
+                  </p>
+                </div>
+              
+              <div class="p-4">
+                <p class="text-sm text-gray-700">
+                  <strong>IMPORTANTE:</strong> deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe declararse como 1 hora y no como 2 horas).
+                </p>
+              
+              
+                <div class="p-4">
+                  <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS NORMALES</th>
+              
+                  <table class="table-auto border-collapse border border-gray-300 w-full">
+                    <thead>
+                      <tr>
+                        <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+                        <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+                      </tr>
+                      <tr>
+                        <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+                        <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+                        <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                        <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+                        <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfPermanente">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfContratado">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaResto">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalAfectado">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalResto">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              
+                
+                <div class="p-4">
+                  <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS EXTRAS</th>
+              
+                  <table class="table-auto border-collapse border border-gray-300 w-full">
+                    <thead>
+                      <tr>
+                        <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+                        <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+                      </tr>
+                      <tr>
+                        <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+                        <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+                        <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                        <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+                        <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfPermanente">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfContratado">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaResto">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalAfectado">
+                        </td>
+                        <td class="border border-gray-300 p-2">
+                          <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalResto">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mt-4">
+                  <textarea class="w-full border border-gray-300 p-2" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
+                </div>
+              
+                <div class="mt-4 text-sm text-gray-700">
+                  <p><strong>Continuidad de la Encuesta</strong></p>
+                  <p>Para una mejor planificación de las futuras entregas, se comunica que se les solicitará la información referida, con vencimiento el día 15 posterior a su entrega.</p>
+                </div>
+              </div>
+              <br>
+              <div class="flex justify-center">
+                <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="Step3()">Siguiente</button>
+              </div>
+              </div>
+                  </div>
+      
+      
+      
+      
+        <div id="step-4" class="hidden">
+          <div class="container mx-auto p-4 bg-white p-6 shadow-md rounded-lg">
+            <h1 class="text-2xl font-bold mb-4 text-center bg-gray-200 py-2">INDUSTRIA MANUFACTURERA - PERSONAL EMPLEADO Y HORAS TRABAJADAS</h1>
+            
+            <div class="mb-4">
+              <span class="font-semibold">Periodo a declarar:</span>
+              <span class="ml-2">Octubre a Diciembre</span>
+            </div>
+          
+            <div class="bg-gray-200 p-2 mb-4">
+              <h2 class="font-bold">PERSONAL OCUPADO</h2>
+              <h3 class="font-semibold">Aclaraciones</h3>
+              <p class="text-sm mt-2">
+                Personal ocupado: La información requerida refiere a la cantidad de personal ocupado que en promedio trabajó durante el trimestre en el establecimiento. Comprende al personal de planta permanente (en relación de dependencia) y contratada (directivos, administrativos, obreros, etc.).
+                Debe diferenciarse entre personal afectado al proceso productivo industrial hasta la categoría de supervisor inclusive (quienes trabajan en la elaboración de bienes, control de calidad, programación y control de producción, acarreo dentro del establecimiento, auxiliares de producción, mantenimiento del equipo de producción, almacenaje y reparación de bienes producidos por el establecimiento) y el resto del personal excluido del proceso productivo (administrativos, vendedores, choferes, etc.). Idéntica segregación se aplica al personal Temporario, que se define como aquel personal que posee una duración determinada.
+              </p>
+            </div>
+          
+            <div class="p-4">
+              <table class="table-auto border-collapse border border-gray-300 w-full">
+                <thead>
+                  <tr>
+                    <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+                    <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+                  </tr>
+                  <tr>
+                    <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+                    <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+                    <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                    <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+                    <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfPermanente">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfContratado">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaResto">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalAfectado">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalResto">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          
+            <div class="bg-gray-200 p-2 mb-4">
+              <h2 class="font-bold">HORAS TRABAJADAS</h2>
+              <h3 class="font-semibold">Aclaraciones</h3>
+              <p class="text-sm mt-2">
+                Horas trabajadas: La información requerida refiere al personal ocupado que trabajó durante el trimestre en el establecimiento. Comprende al personal de planta permanente (en relación de dependencia) y contratada (directivos, administrativos, obreros, etc.).
+                Debe diferenciarse entre personal afectado al proceso productivo industrial hasta la categoría de supervisor inclusive (quienes trabajan en la elaboración de bienes, control de calidad, programación y control de producción, acarreo dentro del establecimiento, auxiliares de producción, mantenimiento del equipo de producción, almacenaje y reparación de bienes producidos por el establecimiento) y el resto del personal excluido del proceso productivo (administrativos, vendedores, choferes, etc.). Idéntica segregación se aplica al personal Temporario, que se define como aquel personal que posee una duración determinada.
+                No deben incluirse las horas correspondientes al personal suspendido, en uso de licencia o ausentismo (cualquiera fuese el motivo), ni las horas perdidas por huelgas (aun cuando corresponda abonar los respectivos jornales).
+                IMPORTANTE: deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe computarse como 1 hora).
+              </p>
+            </div>
+          
+          <div class="p-4">
+            <p class="text-sm text-gray-700">
+              <strong>IMPORTANTE:</strong> deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe declararse como 1 hora y no como 2 horas).
+            </p>
+          
+          
+            <div class="p-4">
+              <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS NORMALES</th>
+          
+              <table class="table-auto border-collapse border border-gray-300 w-full">
+                <thead>
+                  <tr>
+                    <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+                    <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+                  </tr>
+                  <tr>
+                    <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+                    <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+                    <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                    <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+                    <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfPermanente">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfContratado">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaResto">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalAfectado">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalResto">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          
+            
+            <div class="p-4">
+              <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS EXTRAS</th>
+          
+              <table class="table-auto border-collapse border border-gray-300 w-full">
+                <thead>
+                  <tr>
+                    <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+                    <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+                  </tr>
+                  <tr>
+                    <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+                    <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+                    <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                    <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+                    <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfPermanente">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfContratado">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaResto">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalAfectado">
+                    </td>
+                    <td class="border border-gray-300 p-2">
+                      <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalResto">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-4">
+              <textarea class="w-full border border-gray-300 p-2" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
+            </div>
+          
+            <div class="mt-4 text-sm text-gray-700">
+              <p><strong>Continuidad de la Encuesta</strong></p>
+              <p>Para una mejor planificación de las futuras entregas, se comunica que se les solicitará la información referida, con vencimiento el día 15 posterior a su entrega.</p>
+            </div>
+          </div>
+          <br>
+          <div class="flex justify-center">
+            <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="Step4()">Siguiente</button>
+          </div>
+          </div>
+              </div>

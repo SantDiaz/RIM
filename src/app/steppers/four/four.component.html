@@ -1,0 +1,170 @@
+<app-header></app-header>
+
+<br>
+<div class="container mx-auto p-4">
+  <div class="mb-8">
+    <ol class="flex items-center justify-between w-full">
+      <!-- Paso 1 -->
+      <li class="flex items-center w-full"
+        [ngClass]="{
+          'text-[#FF8300]': currentStep >= 1
+        }">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 1,
+            'bg-gray-100 dark:bg-gray-700': currentStep < 1
+          }">
+          <svg class="w-3.5 h-3.5 text-white lg:w-4 lg:h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+          </svg>
+        </span>
+        <div class="flex-grow h-1 mx-2"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 2,
+            'bg-gray-300 dark:bg-gray-700': currentStep < 2
+          }"></div>
+      </li>
+
+      <!-- Paso 2 -->
+      <li class="flex items-center">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 2,
+            'bg-gray-100 dark:bg-gray-700': currentStep < 2
+          }">
+          <span class="text-white">2</span>
+        </span>
+      </li>
+    </ol>
+  </div>
+</div>
+
+
+  <div id="step-1">
+    <div class="container mx-auto p-4 bg-white p-6 shadow-md rounded-lg">
+
+      <!-- Title -->
+      <h1 class="text-xl font-bold text-center mb-4">
+          INDUSTRIA MANUFACTURERA - ENCUESTA I+D
+      </h1>
+      <h2 class="text-lg font-semibold text-center mb-6">
+          INVERSIÓN EN INVESTIGACIÓN Y DESARROLLO
+      </h2>
+
+      <!-- Explanation section -->
+      <div class="mb-6">
+          <p class="text-sm mb-4">
+            Investigación y Desarrollo (I+D) es el trabajo creativo realizado en forma sistemática, es decir, no ocasional, con el objetivo de generar un nuevo conocimiento (científico o técnico) o de aplicar o aprovechar un conocimiento ya existente o desarrollado por otro. Dentro de la I+D pueden distinguirse tres grandes categorías: la investigación básica (generar un nuevo conocimiento principalmente abstracto o teórico dentro de un área científica o técnica), la investigación aplicada (generar un nuevo conocimiento teniendo desde un principio la finalidad o destino al que se desea arribar) o el desarrollo experimental (fabricación y puesta a prueba de un prototipo, desempeños del nuevo producto, proceso o técnica organizacional o de comercialización). La creación de software se considera I+D, en tanto y en cuanto, implique hacer avances científicos o tecnológicos. Cabe aclarar que las actividades de I+D no siempre se realizan en el ámbito de un laboratorio o de un departamento de I+D. Es más, muchas empresas, en especial medianas y pequeñas, no poseen estructuras formales de I+D y ello no implica que no realicen este tipo de actividades.
+          </p>
+      </div>
+    <!-- Form Title -->
+    <h2 class="text-lg font-bold mb-4">
+        11. Por favor, Indique si en el año en curso realizó alguna de estas actividades en procura de lograr innovaciones de producto, de proceso, o de tipo organizacional.
+    </h2>
+
+    <!-- Form Grid -->
+    <div class="grid grid-cols-12 gap-2">
+        <!-- Labels Row -->
+    </div>
+    <tbody>
+      <tr *ngFor="let actividad of invest.actividad; let i = index">
+        <td class="border p-2">
+          <!-- Radio Button para opción "Si" -->
+          <input type="radio" name="opcionTabla{{i}}" value="Si" class="form-radio" [(ngModel)]="actividad.realiza">
+          Si
+        </td>
+        <td class="border p-2">
+          <!-- Radio Button para opción "No" -->
+          <input type="radio" name="opcionTabla{{i}}" value="No" class="form-radio" [(ngModel)]="actividad.realiza">
+          No
+        </td>
+        <td class="border p-2">
+          <!-- Input de monto -->
+          <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$" [(ngModel)]="actividad.monto">
+        </td>
+        <td class="border p-2">
+          <!-- Nombre de la actividad -->
+          <p class="text-sm">{{ actividad.nombre }}</p>
+    
+          <!-- Descripciones condicionales basadas en el nombre de la actividad -->
+          <p class="text-sm" *ngIf="actividad.nombre === 'b. I+D interna'">
+            Interna, es cuando el trabajo creativo es realizado por personal dependiente de la empresa.
+          </p>
+          <p class="text-sm" *ngIf="actividad.nombre === 'c. Adquisición de maquinarias y equipos'">
+            Son actividades de innovación cuando se trate de mejoras de procesos, productos, etc.
+          </p>
+          <p class="text-sm" *ngIf="actividad.nombre === 'e. Contratación de Tecnología'">
+            Es toda adquisición de derechos de uso de patentes, inventos no patentados, licencias, marcas, diseños, know-how o asistencia técnica vinculada a introducir mejoras y/o innovaciones.
+          </p>
+          <p class="text-sm" *ngIf="actividad.nombre === 'f. Capacitación'">
+            Considerada una actividad de innovación siempre y cuando no signifique capacitar a nuevos trabajadores en métodos, procesos o técnicas ya existentes.
+          </p>
+          <p class="text-sm" *ngIf="actividad.nombre === 'g. Diseño industrial y actividades de ingeniería'">
+            Incluyen todas las preparaciones técnicas, como planos y gráficos, para la definición de procedimientos y especificaciones técnicas.
+          </p>
+          <p class="text-sm" *ngIf="actividad.nombre === 'h. Consultorías'">
+            Implican contratación de servicios científicos y técnicos relacionados con Ingeniería, Diseño Industrial o implementación de sistemas informáticos por terceros externos.
+          </p>
+        </td>
+      </tr>
+    </tbody>
+    
+    
+    <br>
+    <div class="flex justify-center">
+      <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="step1()">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+
+
+  <div id="step-2" class="hidden">
+    <div class="max-w-6xl mx-auto bg-white p-6 shadow-md rounded-lg">
+    <div class="p-4">
+      <h1 class="text-xl font-bold text-center mb-4">INDUSTRIA MANUFACTURERA - ENCUESTA CUALITATIVA</h1>
+      <h2 class="text-lg font-semibold mb-4">PERSPECTIVAS PARA EL SIGUIENTE AÑO</h2>
+      <p class="mb-2">10. ¿Cómo piensa que evolucionarán en su empresa los siguientes ítems en el siguiente año, en comparación con el año actual? (Por favor, marque con una X una opción por fila)</p>
+      <table class="table-auto w-full border-collapse border border-gray-300">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border border-gray-300 p-2 text-left">Item</th>
+            <th class="border border-gray-300 p-2">Aumentará/n</th>
+            <th class="border border-gray-300 p-2">No variará/n</th>
+            <th class="border border-gray-300 p-2">Disminuirá/n</th>
+            <th class="border border-gray-300 p-2">No se aplica</th>
+            <th class="border border-gray-300 p-2">Observaciones</th>
+          </tr>
+        </thead>
+        <tbody >
+          <ng-container *ngFor="let item of perspect.item; let i = index">
+            <tr>
+              <td class="border border-gray-300 p-2">{{ item.nombre }}</td>
+              <td class="border border-gray-300 p-2 text-center">
+                <input [(ngModel)]="item.respuesta" type="radio" id="radio{{i}}_1" name="respuestaGroup{{i}}" value="Aumentará/n">
+              </td>
+              <td class="border border-gray-300 p-2 text-center">
+                <input [(ngModel)]="item.respuesta" type="radio" id="radio{{i}}_2" name="respuestaGroup{{i}}" value="No variará/n">
+              </td>
+              <td class="border border-gray-300 p-2 text-center">
+                <input [(ngModel)]="item.respuesta" type="radio" id="radio{{i}}_3" name="respuestaGroup{{i}}" value="Disminuirá/n">
+              </td>
+              <td class="border border-gray-300 p-2 text-center">
+                <input [(ngModel)]="item.respuesta" type="radio" id="radio{{i}}_4" name="respuestaGroup{{i}}" value="No se aplica">
+              </td>
+              <td class="border border-gray-300 p-2">
+                <input type="text" [(ngModel)]="item.observaciones" class="w-full border border-gray-300 p-1">
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      
+    </div>
+    <br>
+      <div class="flex justify-center">
+      <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2" (click)="previousStep()">Anterior</button>
+      <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2" (click)="step2()">Siguiente</button>
+      </div>
+  </div>
+  </div>
