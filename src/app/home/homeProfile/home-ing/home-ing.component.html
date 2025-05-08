@@ -38,25 +38,22 @@
 <div class="bg-white p-4 shadow-md">
   <!-- Segmentos -->
   <div class="flex border-b border-gray-300">
-    <!-- Botón All -->
     <button 
       id="allSegment"
       class="flex-1 py-2 text-center text-lg font-semibold"
       [ngClass]="{'text-blue-500': activeSegment === 'all'}" 
       (click)="toggleSegment('all')">
-      All
+      Cargar
     </button>
     
-    <!-- Botón Favorites -->
     <button 
       id="favoritesSegment"
       class="flex-1 py-2 text-center text-lg font-semibold"
       [ngClass]="{'text-blue-500': activeSegment === 'favorites'}"
       (click)="toggleSegment('favorites')">
-      Favorites
+      Buscar
     </button>
   </div>
-
   <!-- Contenido de los segmentos -->
   <div *ngIf="activeSegment === 'all'" id="allContent" class="p-4">
     <form>
@@ -140,7 +137,53 @@
     </div>
 
   <div *ngIf="activeSegment === 'favorites'" id="favoritesContent" class="p-4">
-    <p>This is the content for the 'Favorites' section.</p>
+    <div class="overflow-x-auto mt-4">
+      <table class="min-w-full divide-y divide-gray-200 bg-white shadow rounded-lg">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Operativo</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingresador</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Analista</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Entrega</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Recupero</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Supervisión</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingreso</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Medio</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Ingresador</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Analista</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Año</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Estado</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Supervisor</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Supervisor</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Referente</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr (click)="verEncuesta(item.idOperativo)" *ngFor="let item of pendientes">
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td>
+            <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idOperativo }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.ingresador }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.analista }}</td>
+       
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_entrega | date:'yyyy-MM-dd' }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_recupero | date:'yyyy-MM-dd' }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_supervision | date:'yyyy-MM-dd' }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_ingreso | date:'yyyy-MM-dd' }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.medio }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_ingresador }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_analista }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.anio }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.estado }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.supervisor }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_supervisor }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.referente }}</td>
+       
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
   </div>
 </div>
 <br>
