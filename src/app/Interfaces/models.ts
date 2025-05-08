@@ -1,4 +1,24 @@
 
+export interface encuestasObtener{
+
+  idEmpresa: number;
+  idOperativo: number;
+  ingresador: string;
+  analista: string;
+  fecha_entrega : Date;
+  fecha_recupero : Date;
+  fecha_supervision : Date;
+  fecha_ingreso : Date;
+  medio: 'PAPEL' | 'DIGITAL'
+  observaciones_ingresador: string;
+  observaciones_analista: string;
+  anio? : '2024';
+  estado?: string;
+  supervisor?: string;
+  observaciones_supervisor?: string;
+  referente?:string;
+}
+
 
 export interface encuestas {
 

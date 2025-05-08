@@ -14,7 +14,7 @@
             </svg>
           </div>
           <div  class="flex flex-col items-center text-center justify-center">
-            <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">Coordinador</h2>
+            <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">Validador</h2>
             <div class="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
             <p class="text-base">Raclette knausgaard hella meggs normcore williamsburg enamel pin sartorial venmo tbh hot chicken gentrify portland.</p>
           </div>
@@ -42,7 +42,7 @@
         class="flex-1 py-2 text-center text-lg font-semibold"
         [ngClass]="{'text-blue-500': activeSegment === 'all'}" 
         (click)="toggleSegment('all')">
-        Buscar
+        Cargar
       </button>
       
       <button 
@@ -50,7 +50,7 @@
         class="flex-1 py-2 text-center text-lg font-semibold"
         [ngClass]="{'text-blue-500': activeSegment === 'favorites'}"
         (click)="toggleSegment('favorites')">
-        Editar
+        Buscar
       </button>
     </div>
   
@@ -130,8 +130,144 @@
     </div>
 
   <div *ngIf="activeSegment === 'favorites'" id="favoritesContent" class="p-4">
-    <p>This is the content for the 'Favorites' section.</p>
+
+
+    <div class="overflow-x-auto mt-4">
+      <table class="min-w-full divide-y divide-gray-200 bg-white shadow rounded-lg">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Operativo</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingresador</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Analista</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Entrega</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Recupero</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Supervisión</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingreso</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Medio</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Ingresador</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Analista</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Año</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Estado</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Supervisor</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Supervisor</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Referente</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr (click)="abrirModal(item)" *ngFor="let item of pendientes">
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td>
+            <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idOperativo }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.ingresador }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.analista }}</td>
+       
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_entrega | date:'yyyy-MM-dd' }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_recupero | date:'yyyy-MM-dd' }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_supervision | date:'yyyy-MM-dd' }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_ingreso | date:'yyyy-MM-dd' }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.medio }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_ingresador }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_analista }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.anio }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.estado }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.supervisor }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_supervisor }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.referente }}</td>
+       
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+
+
   </div>
 </div>
 <br>
 <br>
+
+<div
+class="fixed z-10 inset-0 overflow-y-auto"
+*ngIf="mostrarModal"
+aria-labelledby="modal-title"
+role="dialog"
+aria-modal="true"
+>
+<div class="flex items-center justify-center min-h-screen">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" (click)="cerrarModal()"></div>
+
+  <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-4xl sm:w-full p-6 z-20">
+    <h2 class="text-xl font-semibold mb-4">Editar Encuesta</h2>
+
+    <form (ngSubmit)="guardarCambios()">
+      <!-- FORMULARIO pegado tal cual -->
+      
+      <div class="mb-4">
+        <label class="block mb-1">ID Empresa:</label>
+        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.idEmpresa }} </h1> 
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1">Estado de la encuesta:</label>
+        <select class="w-full border p-2" name="estado">
+          <option value="No encontrado (no existe)">No encontrado (no existe)</option>
+          <option value="Cierre definitivo">Cierre definitivo</option>
+          <option value="Rechazado">Rechazado</option>
+          <option value="Ausente">Ausente</option>
+          <option value="Entregado">Entregado</option>
+          <option value="Recepcionado">Recepcionado</option>
+          <option value="Pre-validado">Pre-validado</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1">Ingresador:</label>
+        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.ingresador }} </h1> 
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1">Analista:</label>
+        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.analista }} </h1> 
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1">Fecha de Entrega:</label>
+        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_entrega }} </h1> 
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1">Fecha de Recupero:</label>
+        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_recupero }} </h1> 
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1">Fecha de Supervisión:</label>
+        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_supervision }} </h1> 
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1">Medio:</label>
+        <select class="w-full border p-2" [(ngModel)]="encuesta.medio" name="medio">
+          <option value="PAPEL">Papel</option>
+          <option value="DIGITAL">Digital</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1">Observaciones del Ingresador:</label>
+        <textarea class="w-full border p-2"  name="observaciones_ingresador">{{ itemSeleccionado?.observaciones_ingresador }}</textarea>
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1">Observaciones del Analista:</label>
+        <textarea class="w-full border p-2"  name="observaciones_analista">{{ itemSeleccionado?.observaciones_analista }}</textarea>
+      </div>
+      <!-- Repetí esto para los demás campos usando [(ngModel)]="encuestaSeleccionada.campo" -->
+
+      <div class="flex justify-end gap-4 mt-4">
+        <button type="button" (click)="cerrarModal()" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+        <button type="submit" class="bg-[#FF8300] text-white px-4 py-2 rounded">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
