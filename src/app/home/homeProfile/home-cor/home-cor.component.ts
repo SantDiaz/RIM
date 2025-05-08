@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { encuestas } from 'src/app/Interfaces/models';
+import { encuestas, encuestasObtener } from 'src/app/Interfaces/models';
 import { EncuestaService } from 'src/app/services/encuesta.service';
 
 @Component({
@@ -9,13 +10,31 @@ import { EncuestaService } from 'src/app/services/encuesta.service';
   styleUrls: ['./home-cor.component.css']
 })
 export class HomeCorComponent implements OnInit {
-  activeSegment: string = 'all'; // Variable para controlar el segmento activo
 
-  constructor(private encuestaService: EncuestaService, private router: Router ) { }
+  mostrarModal = false;
+  itemSeleccionado: any = null;
+  activeSegment: string = 'all'; // Variable para controlar el segmento activo
+  pendientes: encuestasObtener[] = [];
+  encuestaSeleccionada: any = {};
+  constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient  ) { }
 
   ngOnInit(): void {
   }
 
+
+  // Estados a enviar
+  estados = [
+      'No entregado' ,
+      'No encontrado (no existe)' , 
+      'Cierre definitivo' , 
+      'Rechazado', 
+      'Ausente', 
+      'Entregado', 
+      'Recepcionado', 
+      'Pre-validado', 
+      'Validado', 
+      'Ingresado'
+  ];
 
 
     encuesta: encuestas = {
@@ -35,12 +54,84 @@ export class HomeCorComponent implements OnInit {
   
     idEmpresa: number = 0 ;
 
+
+
+
     // Método para cambiar de segmento
     toggleSegment(segment: string) {
       this.activeSegment = segment;
+    
+      if (segment === 'favorites') {
+        this.cargarPendientes();
+      }
+    }
+    
+
+
+    cargarPendientes() {
+      const estadosParam = this.estados.map(estado => `estado=${encodeURIComponent(estado)}`).join('&');
+      const url = `http://localhost:8080/api/filtrar?${estadosParam}`;
+    
+      console.log('URL construida:', url);
+    
+      this.http.get<any[]>(url).subscribe({
+        next: data => {
+          console.log('Datos recibidos:', data);
+            
+          this.pendientes = data;
+
+        },
+        error: err => {
+          console.error('Error al cargar pendientes:', err);
+        }
+      });
+    }
+    
+
+    guardarCambios() {
+      this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id}`, this.encuestaSeleccionada)
+        .subscribe(() => {
+          this.mostrarModal = false;
+          this.cargarPendientes(); // recargar la tabla
+        });
+    }
+    
+    editarEncuesta(encuestaSeleccionada: encuestasObtener) {
+      this.encuesta = {
+        id_empresa: encuestaSeleccionada.idEmpresa,
+        id_operativo: encuestaSeleccionada.idOperativo,
+        ingresador: encuestaSeleccionada.ingresador,
+        analista: encuestaSeleccionada.analista,
+        fecha_entrega: encuestaSeleccionada.fecha_entrega,
+        fecha_recupero: encuestaSeleccionada.fecha_recupero,
+        fecha_supervision: encuestaSeleccionada.fecha_supervision,
+        fecha_ingreso: encuestaSeleccionada.fecha_ingreso,
+        medio: encuestaSeleccionada.medio,
+        estado: encuestaSeleccionada.estado,
+        observaciones_analista: encuestaSeleccionada.observaciones_analista,
+        observaciones_ingresador: encuestaSeleccionada.observaciones_ingresador,
+        // estado_validacion: encuestaSeleccionada.estado_validacion,
+        // observaciones_validacion: encuestaSeleccionada.observaciones_validacion,
+        referente: encuestaSeleccionada.referente,
+      };
+      this.mostrarModal = true;
+    }
+ 
+    
+    abrirModal(item: any) {
+      this.itemSeleccionado = item;
+      this.mostrarModal = true;
+    }
+    
+    
+    cerrarModal() {
+      this.mostrarModal = false;
+      this.encuestaSeleccionada = {};
     }
 
 
+
+    
     onSubmit() {
 
 

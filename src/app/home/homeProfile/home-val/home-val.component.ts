@@ -10,10 +10,10 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home-val.component.css']
 })
 export class HomeValComponent implements OnInit {
-
+  mostrarModal = false;
+  itemSeleccionado: any = null;
  activeSegment: string = 'all'; // Variable para controlar el segmento activo
   pendientes: encuestasObtener[] = [];
-  mostrarModal: boolean = false;
   encuestaSeleccionada: any = {};
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient  ) { }
 
@@ -73,13 +73,40 @@ export class HomeValComponent implements OnInit {
       });
     }
     
-    verEncuesta(idEncuesta: number) {
-      this.http.get(`http://localhost:8080/api/${idEncuesta}`).subscribe((data: any) => {
-        this.encuestaSeleccionada = data.encuesta;
-        this.mostrarModal = true;
-      });
+    editarEncuesta(encuestaSeleccionada: encuestasObtener) {
+      this.encuesta = {
+        id_empresa: encuestaSeleccionada.idEmpresa,
+        id_operativo: encuestaSeleccionada.idOperativo,
+        ingresador: encuestaSeleccionada.ingresador,
+        analista: encuestaSeleccionada.analista,
+        fecha_entrega: encuestaSeleccionada.fecha_entrega,
+        fecha_recupero: encuestaSeleccionada.fecha_recupero,
+        fecha_supervision: encuestaSeleccionada.fecha_supervision,
+        fecha_ingreso: encuestaSeleccionada.fecha_ingreso,
+        medio: encuestaSeleccionada.medio,
+        estado: encuestaSeleccionada.estado,
+        observaciones_analista: encuestaSeleccionada.observaciones_analista,
+        observaciones_ingresador: encuestaSeleccionada.observaciones_ingresador,
+        // estado_validacion: encuestaSeleccionada.estado_validacion,
+        // observaciones_validacion: encuestaSeleccionada.observaciones_validacion,
+        referente: encuestaSeleccionada.referente,
+      };
+      this.mostrarModal = true;
+    }
+ 
+    
+    abrirModal(item: any) {
+      this.itemSeleccionado = item;
+      this.mostrarModal = true;
+    }
+    
+    
+    cerrarModal() {
+      this.mostrarModal = false;
+      this.encuestaSeleccionada = {};
     }
 
+    
     guardarCambios() {
       this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id}`, this.encuestaSeleccionada)
         .subscribe(() => {
