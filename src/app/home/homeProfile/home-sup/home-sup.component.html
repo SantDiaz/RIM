@@ -125,6 +125,13 @@
           <textarea class="w-full border p-2"  name="observaciones_analista"></textarea>
         </div>
   
+  
+        <div class="mb-4">
+          <label class="block mb-1">Observaciones del Supervisor:</label>
+          <textarea class="w-full border p-2"  name="observaciones_supervisor"></textarea>
+        </div>
+  
+
         <div class="flex justify-center">
           <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="nextStep()">Siguiente</button>
         </div>
@@ -263,6 +270,11 @@
         <div class="mb-4">
           <label class="block mb-1">Observaciones del Analista:</label>
           <textarea class="w-full border p-2"  name="observaciones_analista">{{ itemSeleccionado?.observaciones_analista }}</textarea>
+        </div>
+
+                <div class="mb-4">
+          <label class="block mb-1">Observaciones del Ingresador:</label>
+          <textarea class="w-full border p-2"  name="observaciones_supervisor">{{ itemSeleccionado?.observaciones_supervisor }}</textarea>
         </div>
         <!-- Repetí esto para los demás campos usando [(ngModel)]="encuestaSeleccionada.campo" -->
 

@@ -45,6 +45,7 @@ export class HomeSupComponent implements OnInit {
       medio: 'PAPEL',
       observaciones_ingresador: '',
       observaciones_analista: '',
+      observaciones_supervisor: '',
       anio: '2024', 
     };
   

@@ -11,6 +11,9 @@ import { EncuestaService } from 'src/app/services/encuesta.service';
 })
 export class HomeCorComponent implements OnInit {
 
+  selectedConsulta: string = ''; // puede iniciar vacío o con 'ventas'
+estadoSeleccionado: string = ''; // o algún valor inicial si quieres
+
   mostrarModal = false;
   itemSeleccionado: any = null;
   activeSegment: string = 'all'; // Variable para controlar el segmento activo
@@ -49,6 +52,7 @@ export class HomeCorComponent implements OnInit {
       medio: 'PAPEL',
       observaciones_ingresador: '',
       observaciones_analista: '',
+      observaciones_supervisor: '',
       anio: '2024', 
     };
   
@@ -63,6 +67,8 @@ export class HomeCorComponent implements OnInit {
     
       if (segment === 'favorites') {
         this.cargarPendientes();
+      }else if (segment === 'all') {
+
       }
     }
     
@@ -86,16 +92,33 @@ export class HomeCorComponent implements OnInit {
         }
       });
     }
+
+    guardarCambios2(idOperativo: number) {
+  const body = {
+    
+    observaciones_supervisor: this.encuestaSeleccionada.observaciones_supervisor,
+    observaciones_analista: this.encuestaSeleccionada.observaciones_analista,
+    observaciones_ingresador: this.encuestaSeleccionada.observaciones_ingresador,
+    estado: this.encuestaSeleccionada.estado
+  };
+
+  const id = idOperativo; // Asegurate de que el ID esté en el objeto
+
+  this.http.put(`http://localhost:8080/api/${id}/updateEncuesta`, body)
+    .subscribe({
+      next: () => {
+        console.log('Encuesta actualizada correctamente');
+        this.mostrarModal = false;
+        this.cargarPendientes(); // Vuelve a cargar la tabla actualizada
+      },
+      error: (err) => {
+        console.error('Error al actualizar encuesta:', err);
+      }
+    });
+}
+
     
 
-    guardarCambios() {
-      this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id}`, this.encuestaSeleccionada)
-        .subscribe(() => {
-          this.mostrarModal = false;
-          this.cargarPendientes(); // recargar la tabla
-        });
-    }
-    
     editarEncuesta(encuestaSeleccionada: encuestasObtener) {
       this.encuesta = {
         id_empresa: encuestaSeleccionada.idEmpresa,
@@ -113,6 +136,7 @@ export class HomeCorComponent implements OnInit {
         // estado_validacion: encuestaSeleccionada.estado_validacion,
         // observaciones_validacion: encuestaSeleccionada.observaciones_validacion,
         referente: encuestaSeleccionada.referente,
+              observaciones_supervisor: encuestaSeleccionada.observaciones_supervisor,
       };
       this.mostrarModal = true;
     }

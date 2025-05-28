@@ -11,7 +11,7 @@ import { EncuestaService } from 'src/app/services/encuesta.service';
   styleUrls: ['./home-an.component.css']
 })
 export class HomeAnComponent implements OnInit {
-
+  pasoActual: number = 1;
   mostrarModal = false;
   itemSeleccionado: any = null;
   activeSegment: string = 'all'; // Variable para controlar el segmento activo
@@ -41,6 +41,7 @@ export class HomeAnComponent implements OnInit {
       medio: 'PAPEL',
       observaciones_ingresador: '',
       observaciones_analista: '',
+      observaciones_supervisor: '',
       anio: '2024', 
     };
   
@@ -109,9 +110,17 @@ export class HomeAnComponent implements OnInit {
       this.mostrarModal = true;
     }
  
-    
+    verEncuesta(idEncuesta: number) {
+      this.http.get(`http://localhost:8080/api/${idEncuesta}`).subscribe((data: any) => {
+        this.encuestaSeleccionada = data.encuesta;
+        console.log('Encuesta seleccionada:', this.encuestaSeleccionada);
+        this.mostrarModal = true;
+      });
+    }
+
     abrirModal(item: any) {
       this.itemSeleccionado = item;
+      this.verEncuesta(item.idOperativo);
       this.mostrarModal = true;
     }
     
@@ -120,6 +129,19 @@ export class HomeAnComponent implements OnInit {
       this.mostrarModal = false;
       this.encuestaSeleccionada = {};
     }
+
+
+
+    siguientePaso() {
+      if (this.pasoActual < 13) this.pasoActual++;
+    }
+    
+    pasoAnterior() {
+      if (this.pasoActual > 1) this.pasoActual--;
+    }
+    
+
+
 
     onSubmit() {
 

@@ -124,7 +124,10 @@
           <label class="block mb-1">Observaciones del Analista:</label>
           <textarea class="w-full border p-2"  name="observaciones_analista"></textarea>
         </div>
-  
+       <div class="mb-4">
+          <label class="block mb-1">Observaciones del Supervisor:</label>
+          <textarea class="w-full border p-2"  name="observaciones_analista"></textarea>
+        </div>
         <div class="flex justify-center">
           <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="nextStep()">Siguiente</button>
         </div>
@@ -189,6 +192,10 @@
 <br>
 
 
+
+
+
+
 <div
 class="fixed z-10 inset-0 overflow-y-auto"
 *ngIf="mostrarModal"
@@ -200,77 +207,366 @@ aria-modal="true"
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" (click)="cerrarModal()"></div>
 
   <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-4xl sm:w-full p-6 z-20">
-    <h2 class="text-xl font-semibold mb-4">Editar Encuesta</h2>
+    <h2 class="text-xl font-semibold mb-4">Datos Guardados:</h2>
 
     <form (ngSubmit)="guardarCambios()">
-      <!-- FORMULARIO pegado tal cual -->
+      <!-- Paso 1 -->
+      <div *ngIf="pasoActual === 1">
+        <div class="mb-4">
+          <label class="block mb-1">ID Empresa:</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.idEmpresa }} </h1> 
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-1">Estado de la encuesta:</label>
+          <select class="w-full border p-2" name="estado">
+            <option value="No encontrado (no existe)">No encontrado (no existe)</option>
+            <option value="Cierre definitivo">Cierre definitivo</option>
+            <option value="Rechazado">Rechazado</option>
+            <option value="Ausente">Ausente</option>
+            <option value="Entregado">Entregado</option>
+            <option value="Recepcionado">Recepcionado</option>
+            <option value="Pre-validado">Pre-validado</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Ingresador:</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.ingresador }} </h1> 
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-1">Analista:</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.analista }} </h1> 
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-1">Fecha de Entrega:</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_entrega }} </h1> 
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-1">Fecha de Recupero:</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_recupero }} </h1> 
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-1">Fecha de Supervisión:</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_supervision }} </h1> 
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-1">Medio:</label>
+          <select class="w-full border p-2" [(ngModel)]="encuesta.medio" name="medio">
+            <option value="PAPEL">Papel</option>
+            <option value="DIGITAL">Digital</option>
+          </select>
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-1">Observaciones del Ingresador:</label>
+          <textarea class="w-full border p-2"  name="observaciones_ingresador">{{ itemSeleccionado?.observaciones_ingresador }}</textarea>
+        </div>
+  
+        <div class="mb-4">
+          <label class="block mb-1">Observaciones del Analista:</label>
+          <textarea class="w-full border p-2"  name="observaciones_analista">{{ itemSeleccionado?.observaciones_analista }}</textarea>
+        </div>
+  
+           <div class="mb-4">
+          <label class="block mb-1">Observaciones del Supervisor:</label>
+          <textarea class="w-full border p-2"  name="observaciones_supervisor">{{ itemSeleccionado?.observaciones_supervisor }}</textarea>
+        </div>
+        <!-- <div class="flex justify-end gap-4 mt-4">
+          <button type="button" (click)="cerrarModal()" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
+          <button type="submit" class="bg-[#FF8300] text-white px-4 py-2 rounded">Guardar</button>
+        </div> -->
+      </div>
+    
+      <!-- Paso 2 -->
+      <div *ngIf="pasoActual === 2">
+        <h3>Datos de identificacion de empresa</h3>
+
+        <div class="mb-4">
+          <label class="block mb-1">Nombre</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosIdentificacionEmpresa?.nombreEmpresa }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Nombre Fantasia</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosIdentificacionEmpresa?.nombreFantasia }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Cuit</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosIdentificacionEmpresa?.cuit }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Direccion</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosIdentificacionEmpresa?.direccionEstablecimiento }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Direccion Administracion</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosIdentificacionEmpresa?.direccionAdministracion }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Departamento</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosIdentificacionEmpresa?.localidadEstablecimiento }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Actividad Principal</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosIdentificacionEmpresa?.actividadPrincipal }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Clanae</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosIdentificacionEmpresa?.clanae }}
+          </h1> 
+        </div>
+      </div>
+    
+      <!-- Paso 3 -->
+      <div *ngIf="pasoActual === 3">
+        <h3>Datos Respondiente</h3>
+
+        <div class="mb-4">
+          <label class="block mb-1">Nombre</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosRespondiente?.nombreApellido }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Cargo - Area</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosRespondiente?.cargoArea }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Tipo de Telefono</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosRespondiente?.tipoTelefono }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Numero de Telefono</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosRespondiente?.numeroTelefono }}
+          </h1> 
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Email</label>
+          <h1 type="number" class="w-full border p-2" name="id_empresa" >  {{ encuestaSeleccionada?.datosRespondiente?.email }}
+          </h1> 
+        </div>
+        
+      </div>
+    
+      <div *ngIf="pasoActual === 4">
+        <h3>Producción</h3>
       
-      <div class="mb-4">
-        <label class="block mb-1">ID Empresa:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.idEmpresa }} </h1> 
+        <div *ngFor="let item of encuestaSeleccionada?.produccion" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2">
+            <label class="block font-semibold">Producto:</label>
+            <div>{{ item.producto }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Unidad de Medida:</label>
+            <div>{{ item.unidad_medida }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Mercado Interno:</label>
+            <div>{{ item.mercado_interno }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Mercado Externo:</label>
+            <div>{{ item.mercado_externo }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Observaciones:</label>
+            <div>{{ item.observaciones || 'Sin observaciones' }}</div>
+          </div>
+        </div>
       </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Estado de la encuesta:</label>
-        <select class="w-full border p-2" name="estado">
-          <option value="No encontrado (no existe)">No encontrado (no existe)</option>
-          <option value="Cierre definitivo">Cierre definitivo</option>
-          <option value="Rechazado">Rechazado</option>
-          <option value="Ausente">Ausente</option>
-          <option value="Entregado">Entregado</option>
-          <option value="Recepcionado">Recepcionado</option>
-          <option value="Pre-validado">Pre-validado</option>
-        </select>
+      
+      <div *ngIf="pasoActual === 5">
+        <h3 class="text-xl font-bold mb-4">Insumos Básicos</h3>
+        <div *ngFor="let item of encuestaSeleccionada?.insumosBasicos" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2">
+            <label class="block font-semibold">Tipo:</label>
+            <div>{{ item.tipo }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Cantidad:</label>
+            <div>{{ item.cantidad !== null ? item.cantidad : 'No especificado' }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Monto en Pesos:</label>
+            <div>{{ item.monto_pesos }}</div>
+          </div>
+        </div>
+      
+      
+      
+       
       </div>
-      <div class="mb-4">
-        <label class="block mb-1">Ingresador:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.ingresador }} </h1> 
+      
+
+
+
+      <div *ngIf="pasoActual === 6">
+        <h3 class="text-xl font-bold mb-4">Mano de Obra</h3>
+        <div *ngFor="let item of encuestaSeleccionada?.manoDeObra" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2">
+            <label class="block font-semibold">Tipo:</label>
+            <div>{{ item.tipo }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Monto en Pesos:</label>
+            <div>{{ item.monto_pesos }}</div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Analista:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.analista }} </h1> 
+
+      <div *ngIf="pasoActual === 7">
+        <h3 class="text-xl font-bold mb-4">Utilización de Insumos</h3>
+        <div *ngFor="let item of encuestaSeleccionada?.utilizacionInsumos" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2">
+            <label class="block font-semibold">Producto:</label>
+            <div>{{ item.producto }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Unidad de Medida:</label>
+            <div>{{ item.unidad_medida }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Cantidad:</label>
+            <div>{{ item.cantidad }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Monto en Pesos:</label>
+            <div>{{ item.monto_pesos }}</div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Entrega:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_entrega }} </h1> 
+
+
+      <div *ngIf="pasoActual === 7">
+
+        <h3 class="text-xl font-bold mb-4">Utilización de Servicios</h3>
+        <div *ngFor="let item of encuestaSeleccionada?.utilizacionServicios" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2">
+            <label class="block font-semibold">Nombre:</label>
+            <div>{{ item.nombre }}</div>
+          </div>
+      
+          <div class="mb-2">
+            <label class="block font-semibold">Monto en Pesos:</label>
+            <div>{{ item.monto_pesos }}</div>
+          </div>
+        </div>
+      
       </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Recupero:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_recupero }} </h1> 
+
+      <div *ngIf="pasoActual === 8">
+
+        <h3 class="text-xl font-bold mb-4">Cantidad de Trabajadores por Trimestre</h3>
+        <div *ngFor="let item of encuestaSeleccionada?.cantidadTrabajadores" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
+      
+          <div class="grid grid-cols-2 gap-2">
+            <div>Planta Permanente Afectado: {{ item.plantaAfPermanente ?? 'No especificado' }}</div>
+            <div>Planta Contratado Afectado: {{ item.plantaAfContratado ?? 'No especificado' }}</div>
+            <div>Planta Resto: {{ item.plantaResto ?? 'No especificado' }}</div>
+            <div>Temporal Afectado: {{ item.temporalAfectado ?? 'No especificado' }}</div>
+            <div>Temporal Resto: {{ item.temporalResto ?? 'No especificado' }}</div>
+          </div>
+        </div>
       </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Supervisión:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_supervision }} </h1> 
+
+      <div *ngIf="pasoActual === 9">
+        <h3 class="text-xl font-bold mb-4">Horas Normales por Trimestre</h3>
+        <div *ngFor="let item of encuestaSeleccionada?.horasNormales" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
+      
+          <div class="grid grid-cols-2 gap-2">
+            <div>Planta Permanente Afectado: {{ item.plantaAfPermanente ?? 'No especificado' }}</div>
+            <div>Planta Contratado Afectado: {{ item.plantaAfContratado ?? 'No especificado' }}</div>
+            <div>Planta Resto: {{ item.plantaResto ?? 'No especificado' }}</div>
+            <div>Temporal Afectado: {{ item.temporalAfectado ?? 'No especificado' }}</div>
+            <div>Temporal Resto: {{ item.temporalResto ?? 'No especificado' }}</div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Medio:</label>
-        <select class="w-full border p-2" [(ngModel)]="encuesta.medio" name="medio">
-          <option value="PAPEL">Papel</option>
-          <option value="DIGITAL">Digital</option>
-        </select>
+
+      <div *ngIf="pasoActual === 10">
+        <h3 class="text-xl font-bold mb-4">Ventas por Trimestre</h3>
+      
+        <div *ngFor="let trimestre of encuestaSeleccionada?.venta" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2 font-semibold">Periodo: {{ trimestre.periodo }}</div>
+      
+          <div *ngIf="trimestre.items?.length > 0; else sinItems">
+            <div *ngFor="let item of trimestre.items" class="border p-2 mb-2 rounded bg-white">
+              <div><strong>Ítem:</strong> {{ item.item }}</div>
+              <div><strong>Monto:</strong> {{ item.monto | number:'1.2-2' }}</div>
+            </div>
+          </div>
+      
+          <ng-template #sinItems>
+            <p>No hay datos para este trimestre.</p>
+          </ng-template>
+        </div>
       </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Observaciones del Ingresador:</label>
-        <textarea class="w-full border p-2"  name="observaciones_ingresador">{{ itemSeleccionado?.observaciones_ingresador }}</textarea>
+      <div *ngIf="pasoActual === 11">
+        <h3 class="text-xl font-bold mb-4">Actividades de Investigación y Desarrollo</h3>
+      
+        <div *ngFor="let actividad of encuestaSeleccionada?.investigacionDesarrollo?.actividad" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2"><strong>Nombre:</strong> {{ actividad.nombre }}</div>
+          <div class="mb-2"><strong>¿Realiza?:</strong> {{ actividad.realiza }}</div>
+          <div><strong>Monto:</strong> {{ actividad.monto | number:'1.2-2' }}</div>
+        </div>
       </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Observaciones del Analista:</label>
-        <textarea class="w-full border p-2"  name="observaciones_analista">{{ itemSeleccionado?.observaciones_analista }}</textarea>
+      <div *ngIf="pasoActual === 12">
+        <h3 class="text-xl font-bold mb-4">Perspectiva</h3>
+      
+        <div *ngFor="let item of encuestaSeleccionada?.perspectiva?.item" class="border p-4 mb-4 rounded bg-gray-100">
+          <div class="mb-2"><strong>Nombre:</strong> {{ item.nombre }}</div>
+          <div class="mb-2"><strong>Respuesta:</strong> {{ item.respuesta }}</div>
+          <div><strong>Observaciones:</strong> {{ item.observaciones ?? 'Sin observaciones' }}</div>
+        </div>
       </div>
-      <!-- Repetí esto para los demás campos usando [(ngModel)]="encuestaSeleccionada.campo" -->
+      
 
-      <div class="flex justify-end gap-4 mt-4">
-        <button type="button" (click)="cerrarModal()" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
-        <button type="submit" class="bg-[#FF8300] text-white px-4 py-2 rounded">Guardar</button>
+
+      <!-- Navegación -->
+      <div class="flex justify-between mt-6">
+        <button type="button" class="bg-gray-300 px-4 py-2 rounded" (click)="pasoAnterior()" [disabled]="pasoActual === 1">Anterior</button>
+        <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" (click)="siguientePaso()" *ngIf="pasoActual < 13">Siguiente</button>
+        <button type="submit" class="bg-[#FF8300] text-white px-4 py-2 rounded" *ngIf="pasoActual === 13">Guardar</button>
       </div>
     </form>
+    
   </div>
 </div>
-</div>
+</div> 
+
+
