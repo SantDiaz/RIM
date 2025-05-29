@@ -217,11 +217,7 @@ aria-modal="true"
     <div class="mb-4">
       <label class="block mb-1">Estado de la encuesta:</label>
       <select class="p-2 w-full border" name="estado" [(ngModel)]="encuestaSeleccionada.estado">
-        <option value="No encontrado (no existe)">No encontrado (no existe)</option>
-        <option value="Cierre definitivo">Cierre definitivo</option>
-        <option value="Rechazado">Rechazado</option>
-        <option value="Ausente">Ausente</option>
-        <option value="Entregado">Entregado</option>
+        <option value="Ingresado">Ingresado</option>
         <option value="Recepcionado">Recepcionado</option>
         <option value="Pre-validado">Pre-validado</option>
       </select>
@@ -267,12 +263,12 @@ aria-modal="true"
 
     <div class="mb-4">
       <label class="block mb-1">Observaciones del Analista:</label>
-      <textarea class="p-2 w-full border" name="observaciones_analista" [(ngModel)]="encuestaSeleccionada.observaciones_analista"></textarea>
+      <textarea class="p-2 w-full border" name="observaciones_analista" [disabled]="true" [(ngModel)]="encuestaSeleccionada.observaciones_analista"></textarea>
     </div>
 
     <div class="mb-4">
       <label class="block mb-1">Observaciones del Supervisor:</label>
-      <textarea class="p-2 w-full border" name="observaciones_supervisor" [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
+      <textarea class="p-2 w-full border" name="observaciones_supervisor" [disabled]="true" [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
     </div>
 
   </div>
@@ -554,7 +550,7 @@ aria-modal="true"
       <!-- Navegación -->
       <div class="flex justify-between mt-6">
         <button type="button" class="px-4 py-2 bg-gray-300 rounded" (click)="pasoAnterior()" [disabled]="pasoActual === 1">Anterior</button>
-        <button type="submit" class="mt-4 px-4 py-2 text-white bg-blue-500 rounded">Guardar Cambios</button>
+        <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="guardarCambios()">Guardar Cambios</button>
         <button type="button" class="px-4 py-2 text-white bg-blue-500 rounded" (click)="siguientePaso()" *ngIf="pasoActual < 13">Siguiente</button>
         
         <button type="submit" class="px-4 py-2 text-white bg-[#FF8300] rounded" *ngIf="pasoActual === 13">Guardar</button>

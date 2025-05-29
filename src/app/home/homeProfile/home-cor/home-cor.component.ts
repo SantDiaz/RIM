@@ -53,6 +53,8 @@ estadoSeleccionado: string = ''; // o algún valor inicial si quieres
       observaciones_ingresador: '',
       observaciones_analista: '',
       observaciones_supervisor: '',
+      referente: '',
+      fecha_mod_estado:  new Date(), // Asegurarse de que esta fecha también se incluya
       anio: '2024', 
     };
   
@@ -85,7 +87,10 @@ estadoSeleccionado: string = ''; // o algún valor inicial si quieres
           console.log('Datos recibidos:', data);
             
           this.pendientes = data;
-
+        this.pendientes.forEach(encuesta => {
+ 
+          }
+          );
         },
         error: err => {
           console.error('Error al cargar pendientes:', err);
@@ -93,54 +98,39 @@ estadoSeleccionado: string = ''; // o algún valor inicial si quieres
       });
     }
 
-    guardarCambios2(idOperativo: number) {
-  const body = {
+guardarCambios() {
+  const idEmpresa = this.encuestaSeleccionada.id_empresa;
+  const url = `http://localhost:8080/api/${idEmpresa}/updateEncuestaIngresador`;
+
+  this.http.put(url, this.encuestaSeleccionada).subscribe(() => {
     
-    observaciones_supervisor: this.encuestaSeleccionada.observaciones_supervisor,
-    observaciones_analista: this.encuestaSeleccionada.observaciones_analista,
-    observaciones_ingresador: this.encuestaSeleccionada.observaciones_ingresador,
-    estado: this.encuestaSeleccionada.estado
-  };
+    // ✅ Actualizar solo el registro modificado en el array 'pendientes'
+    const index = this.pendientes.findIndex(p => p.idEmpresa === idEmpresa);
+    if (index !== -1) {
+      this.encuestaSeleccionada.fecha_mod_estado = new Date(); // Actualizar la fecha en el frontend
+      this.pendientes[index] = {
+        ...this.pendientes[index],
+        ...this.encuestaSeleccionada
+      };
+    }
 
-  const id = idOperativo; // Asegurate de que el ID esté en el objeto
-
-  this.http.put(`http://localhost:8080/api/${id}/updateEncuesta`, body)
-    .subscribe({
-      next: () => {
-        console.log('Encuesta actualizada correctamente');
-        this.mostrarModal = false;
-        this.cargarPendientes(); // Vuelve a cargar la tabla actualizada
-      },
-      error: (err) => {
-        console.error('Error al actualizar encuesta:', err);
-      }
-    });
+    console.log('Encuesta actualizada:', this.encuestaSeleccionada);
+    this.cerrarModal(); // Cerrar el modal
+  });
 }
 
-    
 
-    editarEncuesta(encuestaSeleccionada: encuestasObtener) {
-      this.encuesta = {
-        id_empresa: encuestaSeleccionada.idEmpresa,
-        id_operativo: encuestaSeleccionada.idOperativo,
-        ingresador: encuestaSeleccionada.ingresador,
-        analista: encuestaSeleccionada.analista,
-        fecha_entrega: encuestaSeleccionada.fecha_entrega,
-        fecha_recupero: encuestaSeleccionada.fecha_recupero,
-        fecha_supervision: encuestaSeleccionada.fecha_supervision,
-        fecha_ingreso: encuestaSeleccionada.fecha_ingreso,
-        medio: encuestaSeleccionada.medio,
-        estado: encuestaSeleccionada.estado,
-        observaciones_analista: encuestaSeleccionada.observaciones_analista,
-        observaciones_ingresador: encuestaSeleccionada.observaciones_ingresador,
-        // estado_validacion: encuestaSeleccionada.estado_validacion,
-        // observaciones_validacion: encuestaSeleccionada.observaciones_validacion,
-        referente: encuestaSeleccionada.referente,
-              observaciones_supervisor: encuestaSeleccionada.observaciones_supervisor,
-      };
+
+  verEncuesta(idEncuesta: number) {
+    this.http.get(`http://localhost:8080/api/${idEncuesta}`).subscribe((data: any) => {
+      this.encuestaSeleccionada = data.encuesta;
+      console.log('Encuesta seleccionada:', this.encuestaSeleccionada);
       this.mostrarModal = true;
-    }
- 
+    });
+  }
+
+
+   
     
     abrirModal(item: any) {
       this.itemSeleccionado = item;

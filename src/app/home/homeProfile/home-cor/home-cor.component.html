@@ -145,7 +145,7 @@
       <table class="min-w-full bg-white divide-y divide-gray-200 rounded-lg shadow">
         <thead class="bg-gray-100">
           <tr>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th>
+            <!-- <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th> -->
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Operativo</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingresador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Analista</th>
@@ -159,11 +159,13 @@
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Estado</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Año</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Referente</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ultima Modificacion</th>
+            
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          <tr (click)="abrirModal(item)" *ngFor="let item of pendientes">
-            <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td>
+          <tr (click)="verEncuesta(item.idEmpresa)" *ngFor="let item of pendientes">
+            <!-- <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td> -->
             <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idOperativo }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.ingresador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.analista }}</td>
@@ -178,6 +180,7 @@
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.estado }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.anio }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.referente }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_mod_estado | date:'dd/MM/yyyy HH:mm'  }}</td>
        
           </tr>
         </tbody>
@@ -205,75 +208,79 @@ aria-modal="true"
 
     <form >
       
-      <div class="mb-4">
-        <label class="block mb-1">ID Empresa:</label>
-        <h1 type="number" class="p-2 w-full border" name="id_empresa" >{{ itemSeleccionado?.idEmpresa }} </h1> 
-      </div>
+      <div>
+    <div class="mb-4">
+      <label class="block mb-1">ID Empresa:</label>
+      <input type="number" class="p-2 w-full border" [disabled]="true" name="id_empresa" [(ngModel)]="encuestaSeleccionada.id_empresa">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Estado de la encuesta:</label>
-        <select class="p-2 w-full border" [(ngModel)]="estadoSeleccionado" name="estado">
-          <option value="No encontrado (no existe)">No encontrado (no existe)</option>
-          <option value="Cierre definitivo">Cierre definitivo</option>
-          <option value="Rechazado">Rechazado</option>
-          <option value="Ausente">Ausente</option>
-          <option value="Entregado">Entregado</option>
-          <option value="Recepcionado">Recepcionado</option>
-          <option value="Pre-validado">Pre-validado</option>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label class="block mb-1">Ingresador:</label>
-        <h1 type="number" class="p-2 w-full border" name="id_empresa" >{{ itemSeleccionado?.ingresador }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Estado de la encuesta:</label>
+      <select class="p-2 w-full border" name="estado" [(ngModel)]="encuestaSeleccionada.estado">
+        <option value="No encontrado (no existe)">No encontrado (no existe)</option>
+        <option value="Cierre definitivo">Cierre definitivo</option>
+        <option value="Rechazado">Rechazado</option>
+        <option value="Ausente">Ausente</option>
+        <option value="Entregado">Entregado</option>
+        <option value="Recepcionado">Recepcionado</option>
+        <option value="Pre-validado">Validado</option>
+        <option value="Pre-validado">Ingresado</option>
+      </select>
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Analista:</label>
-        <h1 type="number" class="p-2 w-full border" name="id_empresa" >{{ itemSeleccionado?.analista }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Ingresador:</label>
+      <input type="text" class="p-2 w-full border" name="ingresador" [disabled]="true" [(ngModel)]="encuestaSeleccionada.ingresador">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Entrega:</label>
-        <h1 type="number" class="p-2 w-full border" name="id_empresa" >{{ itemSeleccionado?.fecha_entrega }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Analista:</label>
+      <input type="text" class="p-2 w-full border" name="analista" [disabled]="true" [(ngModel)]="encuestaSeleccionada.analista">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Recupero:</label>
-        <h1 type="number" class="p-2 w-full border" name="id_empresa" >{{ itemSeleccionado?.fecha_recupero }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Fecha de Entrega:</label>
+      <input type="date" class="p-2 w-full border" name="fecha_entrega" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_entrega">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Supervisión:</label>
-        <h1 type="number" class="p-2 w-full border" name="id_empresa" >{{ itemSeleccionado?.fecha_supervision }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Fecha de Recupero:</label>
+      <input type="date" class="p-2 w-full border" name="fecha_recupero" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_recupero">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Medio:</label>
-        <select class="p-2 w-full border" [(ngModel)]="encuesta.medio" name="medio">
-          <option value="PAPEL">Papel</option>
-          <option value="DIGITAL">Digital</option>
-        </select>
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Fecha de Supervisión:</label>
+      <input type="date" class="p-2 w-full border" name="fecha_supervision" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_supervision">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Observaciones del Ingresador:</label>
-        <textarea class="p-2 w-full border"  [(ngModel)]="encuesta.observaciones_ingresador" name="observaciones_ingresador">{{ itemSeleccionado?.observaciones_ingresador }}</textarea>
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Medio:</label>
+      <select class="p-2 w-full border" [disabled]="true" [(ngModel)]="encuestaSeleccionada.medio" name="medio">
+        <option value="PAPEL">Papel</option>
+        <option value="DIGITAL">Digital</option>
+      </select>
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Observaciones del Analista:</label>
-        <textarea class="p-2 w-full border" [(ngModel)]="encuesta.observaciones_analista"  name="observaciones_analista">{{ itemSeleccionado?.observaciones_analista }}</textarea>
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Observaciones del Ingresador:</label>
+      <textarea class="p-2 w-full border" name="observaciones_ingresador" [(ngModel)]="encuestaSeleccionada.observaciones_ingresador"></textarea>
+    </div>
 
-            <div class="mb-4">
-        <label class="block mb-1">Observaciones del Supervisor:</label>
-        <textarea class="p-2 w-full border" [(ngModel)]="encuesta.observaciones_supervisor" name="observaciones_supervisor">{{ itemSeleccionado?.observaciones_supervisor }}</textarea>
-      </div>
-      <!-- Repetí esto para los demás campos usando [(ngModel)]="encuestaSeleccionada.campo" -->
+    <div class="mb-4">
+      <label class="block mb-1">Observaciones del Analista:</label>
+      <textarea class="p-2 w-full border" name="observaciones_analista" [(ngModel)]="encuestaSeleccionada.observaciones_analista"></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label class="block mb-1">Observaciones del Supervisor:</label>
+      <textarea class="p-2 w-full border" name="observaciones_supervisor" [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
+    </div>
+
+  </div>
 
       <div class="flex justify-end gap-4 mt-4">
         <button type="button" (click)="cerrarModal()" class="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
-        <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="guardarCambios2(itemSeleccionado.idEmpresa)">Guardar</button>
+        <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="guardarCambios()">Guardar</button>
 
       </div>
     </form>
