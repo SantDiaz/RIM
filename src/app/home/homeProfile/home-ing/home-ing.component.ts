@@ -98,35 +98,54 @@ export class HomeIngComponent implements OnInit {
 // }
 
 
-
 guardarCambios() {
-  const idEmpresa = this.encuestaSeleccionada?.id_empresa;
+  const idEmpresa = this.encuestaSeleccionada.id_empresa;
+  const url = `http://localhost:8080/api/${idEmpresa}/updateEncuestaIngresador`;
 
-  switch (this.pasoActual) {
-    case 1:
-     const url = `http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateEncuestaIngresador`;
   this.http.put(url, this.encuestaSeleccionada).subscribe(() => {
+    
+    // ✅ Actualizar solo el registro modificado en el array 'pendientes'
+    const index = this.pendientes.findIndex(p => p.idEmpresa === idEmpresa);
+    if (index !== -1) {
+      this.encuestaSeleccionada.fecha_mod_estado = new Date(); // Actualizar la fecha en el frontend
+      this.pendientes[index] = {
+        ...this.pendientes[index],
+        ...this.encuestaSeleccionada
+      };
+    }
 
+    console.log('Encuesta actualizada:', this.encuestaSeleccionada);
   });
-      break;
-
-    case 2:
-      // Paso 2: Datos de identificación de empresa
-      this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateDatosEmpresa`, this.encuestaSeleccionada.datosIdentificacionEmpresa)
-        .subscribe(() => console.log('Paso 2: Datos empresa actualizados'), error => console.error(error));
-      break;
-
-    case 3:
-      // Paso 3: Datos del respondiente
-      this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateRespondiente`, this.encuestaSeleccionada.datosRespondiente)
-        .subscribe(() => console.log('Paso 3: Respondiente actualizado'), error => console.error(error));
-      break;
-
-    default:
-      console.log('Paso no manejado aún');
-      break;
-  }
 }
+
+// guardarCambios() {
+//   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
+
+//   switch (this.pasoActual) {
+//     case 1:
+//      const url = `http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateEncuestaIngresador`;
+//   this.http.put(url, this.encuestaSeleccionada).subscribe(() => {
+
+//   });
+//       break;
+
+//     case 2:
+//       // Paso 2: Datos de identificación de empresa
+//       this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateDatosEmpresa`, this.encuestaSeleccionada.datosIdentificacionEmpresa)
+//         .subscribe(() => console.log('Paso 2: Datos empresa actualizados'), error => console.error(error));
+//       break;
+
+//     case 3:
+//       // Paso 3: Datos del respondiente
+//       this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateRespondiente`, this.encuestaSeleccionada.datosRespondiente)
+//         .subscribe(() => console.log('Paso 3: Respondiente actualizado'), error => console.error(error));
+//       break;
+
+//     default:
+//       console.log('Paso no manejado aún');
+//       break;
+//   }
+// }
 
   
   editarEncuesta(encuestaSeleccionada: encuestasObtener) {

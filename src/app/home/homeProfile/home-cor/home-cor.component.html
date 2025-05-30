@@ -217,14 +217,9 @@ aria-modal="true"
     <div class="mb-4">
       <label class="block mb-1">Estado de la encuesta:</label>
       <select class="p-2 w-full border" name="estado" [(ngModel)]="encuestaSeleccionada.estado">
-        <option value="No encontrado (no existe)">No encontrado (no existe)</option>
-        <option value="Cierre definitivo">Cierre definitivo</option>
-        <option value="Rechazado">Rechazado</option>
-        <option value="Ausente">Ausente</option>
-        <option value="Entregado">Entregado</option>
-        <option value="Recepcionado">Recepcionado</option>
-        <option value="Pre-validado">Validado</option>
-        <option value="Pre-validado">Ingresado</option>
+                 <option *ngFor="let estado of estados" [value]="estado">
+                  {{ estado }}
+                 </option>
       </select>
     </div>
 
@@ -252,6 +247,8 @@ aria-modal="true"
       <label class="block mb-1">Fecha de Supervisión:</label>
       <input type="date" class="p-2 w-full border" name="fecha_supervision" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_supervision">
     </div>
+
+    
 
     <div class="mb-4">
       <label class="block mb-1">Medio:</label>

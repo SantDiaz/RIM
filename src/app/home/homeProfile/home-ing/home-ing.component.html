@@ -70,9 +70,9 @@
         <div class="mb-4">
           <label class="block mb-1">Estado de la encuesta:</label>
           <select class="p-2 w-full border" [(ngModel)]="encuesta.estado" name="medio">
-            <option value="Ingresado">Ingresado</option>
-            <option value="Recepcionado">Recepcionado</option>
-            <option value="Pre-validado">Pre-validado</option>
+                     <option *ngFor="let estado of estados" [value]="estado">
+                  {{ estado }}
+                 </option>
           </select>
         </div>
         <!-- <div class="mb-4">
@@ -157,6 +157,8 @@
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Supervisor</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Supervisor</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Referente</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ultima Modificacion</th>
+
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
@@ -178,6 +180,8 @@
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.supervisor }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_supervisor }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.referente }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_mod_estado | date:'dd/MM/yyyy HH:mm'  }}</td>
+
        
           </tr>
         </tbody>
@@ -217,9 +221,9 @@ aria-modal="true"
     <div class="mb-4">
       <label class="block mb-1">Estado de la encuesta:</label>
       <select class="p-2 w-full border" name="estado" [(ngModel)]="encuestaSeleccionada.estado">
-        <option value="Ingresado">Ingresado</option>
-        <option value="Recepcionado">Recepcionado</option>
-        <option value="Pre-validado">Pre-validado</option>
+                 <option *ngFor="let estado of estados" [value]="estado">
+                  {{ estado }}
+                 </option>
       </select>
     </div>
 
