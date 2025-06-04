@@ -353,8 +353,45 @@ aria-modal="true"
   </div>
 </div>
 
-    
-      <div *ngIf="pasoActual === 4">
+<!-- Paso 4 -->
+<div *ngIf="pasoActual === 4">
+  <h3>Datos del Referente</h3>
+
+  <div class="mb-4">
+    <label class="block mb-1">Nombre y Apellido</label>
+    <input type="text" class="p-2 w-full border"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.nombre_apellido"
+           name="nombre_apellido">
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Cargo - Área</label>
+    <input type="text" class="p-2 w-full border"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.cargoArea"
+           name="cargoAreaReferente">
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Tipo de Teléfono</label>
+    <select class="p-2 w-full border"
+            [(ngModel)]="encuestaSeleccionada.datosReferente.tipo_telefono"
+            name="tipoTelefonoReferente">
+      <option [value]="'Particular'">Particular</option>
+      <option [value]="'Corporativo'">Corporativo</option>
+    </select>
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Número de Teléfono</label>
+    <input type="text" class="p-2 w-full border"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.numero_telefono"
+           name="numeroTelefonoReferente">
+  </div>
+</div>
+
+
+<!-- Paso 5     -->
+      <div *ngIf="pasoActual === 5">
         <h3>Producción</h3>
       
         <div *ngFor="let item of encuestaSeleccionada?.produccion" class="p-4 mb-4 bg-gray-100 border rounded">
@@ -386,7 +423,7 @@ aria-modal="true"
       </div>
 
       
-      <div *ngIf="pasoActual === 5">
+      <div *ngIf="pasoActual === 6">
         <h3 class="mb-4 text-xl font-bold">Insumos Básicos</h3>
         <div *ngFor="let item of encuestaSeleccionada?.insumosBasicos" class="p-4 mb-4 bg-gray-100 border rounded">
           <div class="mb-2">
@@ -413,7 +450,7 @@ aria-modal="true"
 
 
 
-      <div *ngIf="pasoActual === 6">
+      <div *ngIf="pasoActual === 7">
         <h3 class="mb-4 text-xl font-bold">Mano de Obra</h3>
         <div *ngFor="let item of encuestaSeleccionada?.manoDeObra" class="p-4 mb-4 bg-gray-100 border rounded">
           <div class="mb-2">
@@ -430,7 +467,7 @@ aria-modal="true"
       </div>
 
 
-      <div *ngIf="pasoActual === 7">
+      <div *ngIf="pasoActual === 8">
         <h3 class="mb-4 text-xl font-bold">Utilización de Insumos</h3>
         <div *ngFor="let item of encuestaSeleccionada?.utilizacionInsumos" class="p-4 mb-4 bg-gray-100 border rounded">
           <div class="mb-2">
@@ -458,7 +495,7 @@ aria-modal="true"
 
 
 
-      <div *ngIf="pasoActual === 7">
+      <div *ngIf="pasoActual === 9">
 
         <h3 class="mb-4 text-xl font-bold">Utilización de Servicios</h3>
         <div *ngFor="let item of encuestaSeleccionada?.utilizacionServicios" class="p-4 mb-4 bg-gray-100 border rounded">
@@ -476,7 +513,7 @@ aria-modal="true"
       </div>
 
 
-      <div *ngIf="pasoActual === 8">
+      <div *ngIf="pasoActual === 10">
 
         <h3 class="mb-4 text-xl font-bold">Cantidad de Trabajadores por Trimestre</h3>
         <div *ngFor="let item of encuestaSeleccionada?.cantidadTrabajadores" class="p-4 mb-4 bg-gray-100 border rounded">
@@ -493,7 +530,7 @@ aria-modal="true"
       </div>
 
 
-      <div *ngIf="pasoActual === 9">
+      <div *ngIf="pasoActual === 11">
         <h3 class="mb-4 text-xl font-bold">Horas Normales por Trimestre</h3>
         <div *ngFor="let item of encuestaSeleccionada?.horasNormales" class="p-4 mb-4 bg-gray-100 border rounded">
           <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
@@ -510,7 +547,7 @@ aria-modal="true"
       </div>
 
 
-      <div *ngIf="pasoActual === 10">
+      <div *ngIf="pasoActual === 12">
         <h3 class="mb-4 text-xl font-bold">Ventas por Trimestre</h3>
       
         <div *ngFor="let trimestre of encuestaSeleccionada?.venta" class="p-4 mb-4 bg-gray-100 border rounded">
@@ -529,7 +566,7 @@ aria-modal="true"
         </div>
       </div>
 
-      <div *ngIf="pasoActual === 11">
+      <div *ngIf="pasoActual === 13">
         <h3 class="mb-4 text-xl font-bold">Actividades de Investigación y Desarrollo</h3>
       
         <div *ngFor="let actividad of encuestaSeleccionada?.investigacionDesarrollo?.actividad" class="p-4 mb-4 bg-gray-100 border rounded">
@@ -539,7 +576,7 @@ aria-modal="true"
         </div>
       </div>
 
-      <div *ngIf="pasoActual === 12">
+      <div *ngIf="pasoActual === 14">
         <h3 class="mb-4 text-xl font-bold">Perspectiva</h3>
       
         <div *ngFor="let item of encuestaSeleccionada?.perspectiva?.item" class="p-4 mb-4 bg-gray-100 border rounded">
@@ -555,7 +592,7 @@ aria-modal="true"
       <div class="flex justify-between mt-6">
         <button type="button" class="px-4 py-2 bg-gray-300 rounded" (click)="pasoAnterior()" [disabled]="pasoActual === 1">Anterior</button>
         <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="guardarCambios()">Guardar Cambios</button>
-        <button type="button" class="px-4 py-2 text-white bg-blue-500 rounded" (click)="siguientePaso()" *ngIf="pasoActual < 13">Siguiente</button>
+        <button type="button" class="px-4 py-2 text-white bg-blue-500 rounded" (click)="siguientePaso()" *ngIf="pasoActual < 14">Siguiente</button>
         
         <button type="submit" class="px-4 py-2 text-white bg-[#FF8300] rounded" *ngIf="pasoActual === 13">Guardar</button>
       </div>

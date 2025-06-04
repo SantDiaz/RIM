@@ -257,7 +257,7 @@ aria-modal="true"
 
     <div class="mb-4">
       <label class="block mb-1">Observaciones del Analista:</label>
-      <textarea class="p-2 w-full border" name="observaciones_analista" [(ngModel)]="encuestaSeleccionada.observaciones_analista"></textarea>
+      <textarea class="p-2 w-full border" name="observaciones_analista" [disabled]="true" [(ngModel)]="encuestaSeleccionada.observaciones_analista"></textarea>
     </div>
 
     <div class="mb-4">
