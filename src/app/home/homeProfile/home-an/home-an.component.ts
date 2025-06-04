@@ -11,7 +11,7 @@ import { EncuestaService } from 'src/app/services/encuesta.service';
   styleUrls: ['./home-an.component.css']
 })
 export class HomeAnComponent implements OnInit {
-
+  pasoActual: number = 1;
   mostrarModal = false;
   itemSeleccionado: any = null;
   activeSegment: string = 'all'; // Variable para controlar el segmento activo
@@ -25,7 +25,24 @@ export class HomeAnComponent implements OnInit {
 
   // Estados a enviar
   estados = [
+      'Ingresado',
+
+  ];
+
+
+   // Estados a enviar
+  estados2 = [
+      'No entregado' ,
+      'No encontrado (no existe)' , 
+      'Cierre definitivo' , 
+      'Rechazado', 
+      'Ausente', 
+      'Entregado', 
       'Recepcionado', 
+      'Pre-validado', 
+      'Validado', 
+      'Ingresado'
+
   ];
 
 
@@ -41,6 +58,7 @@ export class HomeAnComponent implements OnInit {
       medio: 'PAPEL',
       observaciones_ingresador: '',
       observaciones_analista: '',
+      observaciones_supervisor: '',
       anio: '2024', 
     };
   
@@ -80,38 +98,41 @@ export class HomeAnComponent implements OnInit {
     }
     
 
-    guardarCambios() {
-      this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id}`, this.encuestaSeleccionada)
-        .subscribe(() => {
-          this.mostrarModal = false;
-          this.cargarPendientes(); // recargar la tabla
-        });
+
+guardarCambios() {
+  const idEmpresa = this.encuestaSeleccionada.id_empresa;
+  const url = `http://localhost:8080/api/${idEmpresa}/updateEncuestaIngresador`;
+
+  this.http.put(url, this.encuestaSeleccionada).subscribe(() => {
+    
+    // ✅ Actualizar solo el registro modificado en el array 'pendientes'
+    const index = this.pendientes.findIndex(p => p.idEmpresa === idEmpresa);
+    if (index !== -1) {
+      this.encuestaSeleccionada.fecha_mod_estado = new Date(); // Actualizar la fecha en el frontend
+      this.pendientes[index] = {
+        ...this.pendientes[index],
+        ...this.encuestaSeleccionada
+      };
     }
 
-    editarEncuesta(encuestaSeleccionada: encuestasObtener) {
-      this.encuesta = {
-        id_empresa: encuestaSeleccionada.idEmpresa,
-        id_operativo: encuestaSeleccionada.idOperativo,
-        ingresador: encuestaSeleccionada.ingresador,
-        analista: encuestaSeleccionada.analista,
-        fecha_entrega: encuestaSeleccionada.fecha_entrega,
-        fecha_recupero: encuestaSeleccionada.fecha_recupero,
-        fecha_supervision: encuestaSeleccionada.fecha_supervision,
-        fecha_ingreso: encuestaSeleccionada.fecha_ingreso,
-        medio: encuestaSeleccionada.medio,
-        estado: encuestaSeleccionada.estado,
-        observaciones_analista: encuestaSeleccionada.observaciones_analista,
-        observaciones_ingresador: encuestaSeleccionada.observaciones_ingresador,
-        // estado_validacion: encuestaSeleccionada.estado_validacion,
-        // observaciones_validacion: encuestaSeleccionada.observaciones_validacion,
-        referente: encuestaSeleccionada.referente,
-      };
+    console.log('Encuesta actualizada:', this.encuestaSeleccionada);
+    this.cerrarModal(); // Cerrar el modal
+  });
+}
+
+
+
+  verEncuesta(idEncuesta: number) {
+    this.http.get(`http://localhost:8080/api/${idEncuesta}`).subscribe((data: any) => {
+      this.encuestaSeleccionada = data.encuesta;
+      console.log('Encuesta seleccionada:', this.encuestaSeleccionada);
       this.mostrarModal = true;
-    }
- 
-    
+    });
+  }
+
     abrirModal(item: any) {
       this.itemSeleccionado = item;
+      this.verEncuesta(item.idOperativo);
       this.mostrarModal = true;
     }
     
@@ -120,6 +141,19 @@ export class HomeAnComponent implements OnInit {
       this.mostrarModal = false;
       this.encuestaSeleccionada = {};
     }
+
+
+
+    siguientePaso() {
+      if (this.pasoActual < 13) this.pasoActual++;
+    }
+    
+    pasoAnterior() {
+      if (this.pasoActual > 1) this.pasoActual--;
+    }
+    
+
+
 
     onSubmit() {
 

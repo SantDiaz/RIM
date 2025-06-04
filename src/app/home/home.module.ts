@@ -11,20 +11,13 @@ import { HomeValComponent } from './homeProfile/home-val/home-val.component';
 
 @NgModule({
   declarations: [
-    HomeAdmComponent,
-    HomeAnComponent,
-    HomeIngComponent,
-    HomeSupComponent,
-    HomeCorComponent,
-    HomeValComponent,
+
   ],
   imports: [
     CommonModule
   ], 
   exports: [
-    HomeAdmComponent,
-    HomeAnComponent,
-    HomeIngComponent,
+
   ]
 })
 export class HomeModule { }

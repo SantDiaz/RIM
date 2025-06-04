@@ -2,40 +2,33 @@
 
 
 <section class="text-gray-600 body-font">
-  <div class="container px-5  mx-auto flex flex-col">
+  <div class="container flex flex-col px-5 mx-auto">
     <div>
 
-      <div class="flex flex-col sm:flex-row mt-10">
-        <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">
-          <div class="w-20 h-20 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400">
+      <div class="flex flex-col mt-10 sm:flex-row">
+        <div class="py-8 w-1/3 text-center sm:pr-8">
+          <div class="inline-flex items-center justify-center w-20 h-20 text-gray-400 bg-gray-200 rounded-full">
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
               <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
           </div>
-          <div  class="flex flex-col items-center text-center justify-center">
-            <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">Coordinador</h2>
-            <div class="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
-            <p class="text-base">Raclette knausgaard hella meggs normcore williamsburg enamel pin sartorial venmo tbh hot chicken gentrify portland.</p>
+          <div  class="flex flex-col items-center justify-center text-center">
+            <h2 class="mt-4 font-medium text-gray-900 text-lg title-font">Coordinador</h2>
+            <div class="mt-2 mb-4 w-12 h-1 bg-indigo-500 rounded"></div>
           </div>
         </div>
-        <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-          <p class="leading-relaxed text-lg mb-4">Relevamiento industrial manufacturero muestra un panorama crítico para el sector, con caídas en la producción y actividad industrial en varios rubros y una reducción en la utilización de la capacidad instalada. Es importante seguir monitoreando estos indicadores para comprender mejor la situación actual y futura del sector manufacturero.</p>
+        <div class="mt-4 pt-4 py-8 mt-0 w-2/3 text-center text-left border-gray-200 border-t border-l border-t-0 sm:pl-8">
+          <p class="mb-4 leading-relaxed text-lg">Coordinador: Persona responsable de supervisar y gestionar el proceso de recolección y validación de encuestas. Tiene la facultad de editar el estado de una encuesta y asignarle uno de los siguientes valores, según el progreso y resultado de su procesamiento:</p>
+          <p class="text-base">No entregado  |  No encontrado (no existe)  |  Cierre definitivo  |  Rechazado  |  Ausente  |  Entregado  |  Recepcionado  |  Pre-validado  |  Validado  |  Ingresado</p>
 
-          <div  class="flex md:mt-4 mt-6">
-            <a href="/one" class=" inline-flex items-center ml-4"><strong>Comenzar la carga</strong>
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </section>  
 
-<div class="bg-white p-4 shadow-md">
+<div class="p-4 bg-white shadow-md">
     <!-- Segmentos -->
     <div class="flex border-b border-gray-300">
       <!-- Botón All -->
@@ -55,6 +48,14 @@
         (click)="toggleSegment('favorites')">
         Editar
       </button>
+
+           <button 
+        id="ConsultasSegment"
+        class="flex-1 py-2 text-center text-lg font-semibold"
+        [ngClass]="{'text-blue-500': activeSegment === 'Consultas'}"
+        (click)="toggleSegment('Consultas')">
+        Consultas
+      </button>
     </div>
   
 
@@ -63,19 +64,19 @@
   <!-- Contenido de los segmentos -->
   <div *ngIf="activeSegment === 'all'" id="allContent" class="p-4">
     <form>
-      <div class="container bg-white p-6 shadow-md rounded-lg mx-auto p-4 ">
+      <div class="container p-6 mx-auto p-4 bg-white rounded-lg shadow-md">
 
         <br>
         <br>
   
         <div class="mb-4">
           <label class="block mb-1">ID Empresa:</label>
-          <input type="number" class="w-full border p-2"  name="id_operativo" />
+          <input type="number" class="p-2 w-full border"  name="id_operativo" />
         </div>
 
         <div class="mb-4">
             <label class="block mb-1">Estado de la encuesta:</label>
-            <select class="w-full border p-2"  name="medio">
+            <select class="p-2 w-full border"  name="medio">
               <option value="Ingresado">Ingresado</option>
               <option value="Recepcionado">Recepcionado</option>
               <option value="Pre-validado">Pre-validado</option>
@@ -84,32 +85,32 @@
   
         <div class="mb-4">
           <label class="block mb-1">Ingresador:</label>
-          <input type="text" class="w-full border p-2"  name="ingresador" />
+          <input type="text" class="p-2 w-full border"  name="ingresador" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Analista:</label>
-          <input type="text" class="w-full border p-2"  name="analista" />
+          <input type="text" class="p-2 w-full border"  name="analista" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Entrega:</label>
-          <input type="date" class="w-full border p-2"  name="fecha_entrega" />
+          <input type="date" class="p-2 w-full border"  name="fecha_entrega" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Recupero:</label>
-          <input type="date" class="w-full border p-2" name="fecha_recupero" />
+          <input type="date" class="p-2 w-full border" name="fecha_recupero" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Supervisión:</label>
-          <input type="date" class="w-full border p-2"  name="fecha_supervision" />
+          <input type="date" class="p-2 w-full border"  name="fecha_supervision" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Medio:</label>
-          <select class="w-full border p-2" [(ngModel)]="encuesta.medio" name="medio">
+          <select class="p-2 w-full border" [(ngModel)]="encuesta.medio" name="medio">
             <option value="PAPEL">Papel</option>
             <option value="DIGITAL">Digital</option>
           </select>
@@ -117,16 +118,20 @@
   
         <div class="mb-4">
           <label class="block mb-1">Observaciones del Ingresador:</label>
-          <textarea class="w-full border p-2"  name="observaciones_ingresador"></textarea>
+          <textarea class="p-2 w-full border"  name="observaciones_ingresador"></textarea>
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Observaciones del Analista:</label>
-          <textarea class="w-full border p-2"  name="observaciones_analista"></textarea>
+          <textarea class="p-2 w-full border"  name="observaciones_analista"></textarea>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1">Observaciones del Supervisor:</label>
+          <textarea class="p-2 w-full border"  name="observaciones_supervisor"></textarea>
         </div>
   
         <div class="flex justify-center">
-          <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="nextStep()">Siguiente</button>
+          <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="nextStep()">Siguiente</button>
         </div>
       </div>
     </form>
@@ -137,10 +142,10 @@
   <div *ngIf="activeSegment === 'favorites'" id="favoritesContent" class="p-4">
 
     <div class="overflow-x-auto mt-4">
-      <table class="min-w-full divide-y divide-gray-200 bg-white shadow rounded-lg">
+      <table class="min-w-full bg-white divide-y divide-gray-200 rounded-lg shadow">
         <thead class="bg-gray-100">
           <tr>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th>
+            <!-- <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th> -->
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Operativo</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingresador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Analista</th>
@@ -148,19 +153,19 @@
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Recupero</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Supervisión</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingreso</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Medio</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Ingresador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Analista</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Año</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Estado</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Supervisor</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Supervisor</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Estado</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Año</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Referente</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ultima Modificacion</th>
+            
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          <tr (click)="abrirModal(item)" *ngFor="let item of pendientes">
-            <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td>
+          <tr (click)="verEncuesta(item.idEmpresa)" *ngFor="let item of pendientes">
+            <!-- <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td> -->
             <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idOperativo }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.ingresador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.analista }}</td>
@@ -169,14 +174,13 @@
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_recupero | date:'yyyy-MM-dd' }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_supervision | date:'yyyy-MM-dd' }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_ingreso | date:'yyyy-MM-dd' }}</td>
-            <td class="px-4 py-2 text-sm text-gray-700">{{ item.medio }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_ingresador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_analista }}</td>
-            <td class="px-4 py-2 text-sm text-gray-700">{{ item.anio }}</td>
-            <td class="px-4 py-2 text-sm text-gray-700">{{ item.estado }}</td>
-            <td class="px-4 py-2 text-sm text-gray-700">{{ item.supervisor }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_supervisor }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.estado }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.anio }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.referente }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_mod_estado | date:'dd/MM/yyyy HH:mm'  }}</td>
        
           </tr>
         </tbody>
@@ -190,7 +194,7 @@
 
 
 <div
-class="fixed z-10 inset-0 overflow-y-auto"
+class="z-10 overflow-y-auto fixed inset-0"
 *ngIf="mostrarModal"
 aria-labelledby="modal-title"
 role="dialog"
@@ -199,78 +203,135 @@ aria-modal="true"
 <div class="flex items-center justify-center min-h-screen">
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" (click)="cerrarModal()"></div>
 
-  <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-4xl sm:w-full p-6 z-20">
-    <h2 class="text-xl font-semibold mb-4">Editar Encuesta</h2>
+  <div class="overflow-hidden z-20 p-6 w-full bg-white rounded-lg shadow-xl transition-all transform sm:max-w-4xl">
+    <h2 class="mb-4 text-xl font-semibold">Editar Encuesta</h2>
 
-    <form (ngSubmit)="guardarCambios()">
-      <!-- FORMULARIO pegado tal cual -->
+    <form >
       
-      <div class="mb-4">
-        <label class="block mb-1">ID Empresa:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.idEmpresa }} </h1> 
-      </div>
+      <div>
+    <div class="mb-4">
+      <label class="block mb-1">ID Empresa:</label>
+      <input type="number" class="p-2 w-full border" [disabled]="true" name="id_empresa" [(ngModel)]="encuestaSeleccionada.id_empresa">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Estado de la encuesta:</label>
-        <select class="w-full border p-2" name="estado">
-          <option value="No encontrado (no existe)">No encontrado (no existe)</option>
-          <option value="Cierre definitivo">Cierre definitivo</option>
-          <option value="Rechazado">Rechazado</option>
-          <option value="Ausente">Ausente</option>
-          <option value="Entregado">Entregado</option>
-          <option value="Recepcionado">Recepcionado</option>
-          <option value="Pre-validado">Pre-validado</option>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label class="block mb-1">Ingresador:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.ingresador }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Estado de la encuesta:</label>
+      <select class="p-2 w-full border" name="estado" [(ngModel)]="encuestaSeleccionada.estado">
+                 <option *ngFor="let estado of estados" [value]="estado">
+                  {{ estado }}
+                 </option>
+      </select>
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Analista:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.analista }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Ingresador:</label>
+      <input type="text" class="p-2 w-full border" name="ingresador" [disabled]="true" [(ngModel)]="encuestaSeleccionada.ingresador">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Entrega:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_entrega }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Analista:</label>
+      <input type="text" class="p-2 w-full border" name="analista" [disabled]="true" [(ngModel)]="encuestaSeleccionada.analista">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Recupero:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_recupero }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Fecha de Entrega:</label>
+      <input type="date" class="p-2 w-full border" name="fecha_entrega" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_entrega">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Fecha de Supervisión:</label>
-        <h1 type="number" class="w-full border p-2" name="id_empresa" >{{ itemSeleccionado?.fecha_supervision }} </h1> 
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Fecha de Recupero:</label>
+      <input type="date" class="p-2 w-full border" name="fecha_recupero" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_recupero">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Medio:</label>
-        <select class="w-full border p-2" [(ngModel)]="encuesta.medio" name="medio">
-          <option value="PAPEL">Papel</option>
-          <option value="DIGITAL">Digital</option>
-        </select>
-      </div>
+    <div class="mb-4">
+      <label class="block mb-1">Fecha de Supervisión:</label>
+      <input type="date" class="p-2 w-full border" name="fecha_supervision" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_supervision">
+    </div>
 
-      <div class="mb-4">
-        <label class="block mb-1">Observaciones del Ingresador:</label>
-        <textarea class="w-full border p-2"  name="observaciones_ingresador">{{ itemSeleccionado?.observaciones_ingresador }}</textarea>
-      </div>
+    
 
-      <div class="mb-4">
-        <label class="block mb-1">Observaciones del Analista:</label>
-        <textarea class="w-full border p-2"  name="observaciones_analista">{{ itemSeleccionado?.observaciones_analista }}</textarea>
-      </div>
-      <!-- Repetí esto para los demás campos usando [(ngModel)]="encuestaSeleccionada.campo" -->
+    <div class="mb-4">
+      <label class="block mb-1">Medio:</label>
+      <select class="p-2 w-full border" [disabled]="true" [(ngModel)]="encuestaSeleccionada.medio" name="medio">
+        <option value="PAPEL">Papel</option>
+        <option value="DIGITAL">Digital</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="block mb-1">Observaciones del Ingresador:</label>
+      <textarea class="p-2 w-full border" name="observaciones_ingresador" [(ngModel)]="encuestaSeleccionada.observaciones_ingresador"></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label class="block mb-1">Observaciones del Analista:</label>
+      <textarea class="p-2 w-full border" name="observaciones_analista" [(ngModel)]="encuestaSeleccionada.observaciones_analista"></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label class="block mb-1">Observaciones del Supervisor:</label>
+      <textarea class="p-2 w-full border" name="observaciones_supervisor" [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
+    </div>
+
+  </div>
 
       <div class="flex justify-end gap-4 mt-4">
-        <button type="button" (click)="cerrarModal()" class="bg-gray-300 px-4 py-2 rounded">Cancelar</button>
-        <button type="submit" class="bg-[#FF8300] text-white px-4 py-2 rounded">Guardar</button>
+        <button type="button" (click)="cerrarModal()" class="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
+        <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="guardarCambios()">Guardar</button>
+
       </div>
     </form>
   </div>
 </div>
 </div>
+
+
+  <div *ngIf="activeSegment === 'Consultas'" id="ConsultasSegment" class="p-4"  >
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <div class="p-4 w-64 text-white bg-gray-800 space-y-4">
+    <h2 class="mb-6 text-xl font-bold">Consultas</h2>
+    <button 
+      class="px-4 py-2 w-full text-left rounded hover:bg-gray-700"
+      [class.bg-gray-700]="selectedConsulta === 'ventas'"
+      (click)="selectedConsulta = 'ventas'">
+      Consulta 1
+    </button>
+    <button 
+      class="px-4 py-2 w-full text-left rounded hover:bg-gray-700"
+      [class.bg-gray-700]="selectedConsulta === 'clientes'"
+      (click)="selectedConsulta = 'clientes'">
+      Consulta 2
+    </button>
+    <button 
+      class="px-4 py-2 w-full text-left rounded hover:bg-gray-700"
+      [class.bg-gray-700]="selectedConsulta === 'productos'"
+      (click)="selectedConsulta = 'productos'">
+      Consulta 3
+    </button>
+    <!-- Agrega más botones aquí -->
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="flex-1 p-8 bg-gray-50">
+    <h1 class="mb-4 text-2xl font-semibold text-gray-800">Resultado</h1>
+
+    <!-- Contenido dinámico -->
+    <div *ngIf="selectedConsulta === 'ventas'">
+      <!-- Puedes insertar un componente o tabla aquí -->
+      <p class="text-gray-700">Mostrando datos de ventas...</p>
+    </div>
+
+    <div *ngIf="selectedConsulta === 'clientes'">
+      <p class="text-gray-700">Mostrando datos de clientes...</p>
+    </div>
+
+    <div *ngIf="selectedConsulta === 'productos'">
+      <p class="text-gray-700">Mostrando datos de productos...</p>
+    </div>
+
+    <!-- etc... -->
+  </div>
+</div>
+
+  </div>

@@ -39,6 +39,7 @@ export class HomeValComponent implements OnInit {
       medio: 'PAPEL',
       observaciones_ingresador: '',
       observaciones_analista: '',
+      observaciones_supervisor: '',
       anio: '2024', 
     };
   
@@ -107,13 +108,38 @@ export class HomeValComponent implements OnInit {
     }
 
     
-    guardarCambios() {
-      this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id}`, this.encuestaSeleccionada)
-        .subscribe(() => {
-          this.mostrarModal = false;
-          this.cargarPendientes(); // recargar la tabla
-        });
+ 
+guardarCambios() {
+  const idEmpresa = this.encuestaSeleccionada.id_empresa;
+  const url = `http://localhost:8080/api/${idEmpresa}/updateEncuestaIngresador`;
+
+  this.http.put(url, this.encuestaSeleccionada).subscribe(() => {
+    
+    // ✅ Actualizar solo el registro modificado en el array 'pendientes'
+    const index = this.pendientes.findIndex(p => p.idEmpresa === idEmpresa);
+    if (index !== -1) {
+      this.encuestaSeleccionada.fecha_mod_estado = new Date(); // Actualizar la fecha en el frontend
+      this.pendientes[index] = {
+        ...this.pendientes[index],
+        ...this.encuestaSeleccionada
+      };
     }
+
+    console.log('Encuesta actualizada:', this.encuestaSeleccionada);
+    this.cerrarModal(); // Cerrar el modal
+  });
+}
+
+
+
+  verEncuesta(idEncuesta: number) {
+    this.http.get(`http://localhost:8080/api/${idEncuesta}`).subscribe((data: any) => {
+      this.encuestaSeleccionada = data.encuesta;
+      console.log('Encuesta seleccionada:', this.encuestaSeleccionada);
+      this.mostrarModal = true;
+    });
+  }
+
 
     onSubmit() {
 

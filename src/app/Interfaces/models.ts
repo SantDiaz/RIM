@@ -17,6 +17,8 @@ export interface encuestasObtener{
   supervisor?: string;
   observaciones_supervisor?: string;
   referente?:string;
+  fecha_mod_estado?: Date;
+
 }
 
 
@@ -38,6 +40,7 @@ export interface encuestas {
     supervisor?: string;
     observaciones_supervisor?: string;
     referente?:string;
+    fecha_mod_estado?: Date;
 }
 
 export interface DatosEmpresa {
@@ -65,6 +68,15 @@ export interface DatosEmpresa {
 
   }
 
+  export interface Datos_referente {
+    id: number; //hay que agregarselo para hacer las PK Y FK listo.
+    cargoArea: string;
+    nombre_apellido: string;
+    tipo_telefono: 'Particular' | 'Corporativo';
+    numero_telefono: string;
+    id_empresa?: number;  // Agregar id_empresa
+
+  }
 
 export interface produccion {
     id: number ;
