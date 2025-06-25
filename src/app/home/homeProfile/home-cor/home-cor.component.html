@@ -14,7 +14,7 @@
             </svg>
           </div>
           <div  class="flex flex-col items-center justify-center text-center">
-            <h2 class="mt-4 font-medium text-gray-900 text-lg title-font">Coordinador</h2>
+            <h2 class="mt-4 font-medium text-gray-900 text-lg title-font">{{username}} Coordinador</h2>
             <div class="mt-2 mb-4 w-12 h-1 bg-indigo-500 rounded"></div>
           </div>
         </div>
@@ -160,6 +160,7 @@
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Año</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Referente</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ultima Modificacion</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Usuario Modificador</th>
             
           </tr>
         </thead>
@@ -181,6 +182,7 @@
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.anio }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.referente }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.fecha_mod_estado | date:'dd/MM/yyyy HH:mm'  }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.mod_usu }}</td>
        
           </tr>
         </tbody>
@@ -204,11 +206,11 @@ aria-modal="true"
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" (click)="cerrarModal()"></div>
 
   <div class="overflow-hidden z-20 p-6 w-full bg-white rounded-lg shadow-xl transition-all transform sm:max-w-4xl">
-    <h2 class="mb-4 text-xl font-semibold">Editar Encuesta</h2>
+    <h2 class="mb-4 text-xl font-semibold">Datos Guardados:</h2>
 
-    <form >
-      
-      <div>
+    <form (ngSubmit)="guardarCambios()">
+      <!-- Paso 1 -->
+      <div *ngIf="pasoActual === 1">
     <div class="mb-4">
       <label class="block mb-1">ID Empresa:</label>
       <input type="number" class="p-2 w-full border" [disabled]="true" name="id_empresa" [(ngModel)]="encuestaSeleccionada.id_empresa">
@@ -225,34 +227,32 @@ aria-modal="true"
 
     <div class="mb-4">
       <label class="block mb-1">Ingresador:</label>
-      <input type="text" class="p-2 w-full border" name="ingresador" [disabled]="true" [(ngModel)]="encuestaSeleccionada.ingresador">
+      <input type="text" class="p-2 w-full border" name="ingresador" [(ngModel)]="encuestaSeleccionada.ingresador">
     </div>
 
     <div class="mb-4">
       <label class="block mb-1">Analista:</label>
-      <input type="text" class="p-2 w-full border" name="analista" [disabled]="true" [(ngModel)]="encuestaSeleccionada.analista">
+      <input type="text" class="p-2 w-full border" name="analista" [(ngModel)]="encuestaSeleccionada.analista">
     </div>
 
     <div class="mb-4">
       <label class="block mb-1">Fecha de Entrega:</label>
-      <input type="date" class="p-2 w-full border" name="fecha_entrega" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_entrega">
+      <input type="date" class="p-2 w-full border" name="fecha_entrega" [(ngModel)]="encuestaSeleccionada.fecha_entrega">
     </div>
 
     <div class="mb-4">
       <label class="block mb-1">Fecha de Recupero:</label>
-      <input type="date" class="p-2 w-full border" name="fecha_recupero" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_recupero">
+      <input type="date" class="p-2 w-full border" name="fecha_recupero" [(ngModel)]="encuestaSeleccionada.fecha_recupero">
     </div>
 
     <div class="mb-4">
       <label class="block mb-1">Fecha de Supervisión:</label>
-      <input type="date" class="p-2 w-full border" name="fecha_supervision" [disabled]="true" [(ngModel)]="encuestaSeleccionada.fecha_supervision">
+      <input type="date" class="p-2 w-full border" name="fecha_supervision" [(ngModel)]="encuestaSeleccionada.fecha_supervision">
     </div>
-
-    
 
     <div class="mb-4">
       <label class="block mb-1">Medio:</label>
-      <select class="p-2 w-full border" [disabled]="true" [(ngModel)]="encuestaSeleccionada.medio" name="medio">
+      <select class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.medio" name="medio">
         <option value="PAPEL">Papel</option>
         <option value="DIGITAL">Digital</option>
       </select>
@@ -265,73 +265,606 @@ aria-modal="true"
 
     <div class="mb-4">
       <label class="block mb-1">Observaciones del Analista:</label>
-      <textarea class="p-2 w-full border" name="observaciones_analista" [(ngModel)]="encuestaSeleccionada.observaciones_analista"></textarea>
+      <textarea class="p-2 w-full border" name="observaciones_analista"  [(ngModel)]="encuestaSeleccionada.observaciones_analista"></textarea>
     </div>
 
     <div class="mb-4">
       <label class="block mb-1">Observaciones del Supervisor:</label>
-      <textarea class="p-2 w-full border" name="observaciones_supervisor" [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
+      <textarea class="p-2 w-full border" name="observaciones_supervisor"  [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
+    </div>
+
+  </div>
+    
+      <!-- Paso 2 -->
+    <div *ngIf="pasoActual === 2">
+  <h3>Datos de identificación de empresa</h3>
+
+  <div class="mb-4">
+    <label class="block mb-1">Nombre</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosIdentificacionEmpresa.nombreEmpresa" name="nombreEmpresa" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Nombre Fantasía</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosIdentificacionEmpresa.nombreFantasia" name="nombreFantasia" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">CUIT</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosIdentificacionEmpresa.cuit" name="cuit" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Dirección Establecimiento</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosIdentificacionEmpresa.direccionEstablecimiento" name="direccionEstablecimiento" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Dirección Administración</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosIdentificacionEmpresa.direccionAdministracion" name="direccionAdministracion" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Departamento</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosIdentificacionEmpresa.localidadEstablecimiento" name="localidadEstablecimiento" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Actividad Principal</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosIdentificacionEmpresa.actividadPrincipal" name="actividadPrincipal" />
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">CLANAE</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosIdentificacionEmpresa.clanae" name="clanae" />
+  </div>
+</div>
+
+    
+      <!-- Paso 3 -->
+      <div *ngIf="pasoActual === 3">
+  <h3>Datos Respondiente</h3>
+
+  <div class="mb-4">
+    <label class="block mb-1">Nombre</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosRespondiente.nombreApellido" name="nombreApellido">
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Cargo - Área</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosRespondiente.cargoArea" name="cargoArea">
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Tipo de Teléfono</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosRespondiente.tipoTelefono" name="tipoTelefono">
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Número de Teléfono</label>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosRespondiente.numeroTelefono" name="numeroTelefono">
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Email</label>
+    <input type="email" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosRespondiente.email" name="email">
+  </div>
+</div>
+
+<!-- Paso 4 -->
+<div *ngIf="pasoActual === 4">
+  <h3>Datos del Referente</h3>
+
+  <div class="mb-4">
+    <label class="block mb-1">Nombre y Apellido</label>
+    <input type="text" class="p-2 w-full border"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.nombre_apellido"
+           name="nombre_apellido" [ngModelOptions]="{standalone: true}">
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Cargo - Área</label>
+    <input type="text" class="p-2 w-full border"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.cargoArea"
+           name="cargoAreaReferente" [ngModelOptions]="{standalone: true}">
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Tipo de Teléfono</label>
+    <select class="p-2 w-full border"
+            [(ngModel)]="encuestaSeleccionada.datosReferente.tipo_telefono"
+            name="tipoTelefonoReferente" [ngModelOptions]="{standalone: true}">
+      <option [value]="'Particular'">Particular</option>
+      <option [value]="'Corporativo'">Corporativo</option>
+    </select>
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Número de Teléfono</label>
+    <input type="text" class="p-2 w-full border"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.numero_telefono"
+           name="numeroTelefonoReferente" [ngModelOptions]="{standalone: true}">
+  </div>
+</div>
+
+<!-- Paso 5 -->
+<div *ngIf="pasoActual === 5">
+  <h3>Producción</h3>
+
+  <div *ngFor="let item of encuestaSeleccionada?.produccion; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+
+    <div class="mb-2">
+      <label class="block font-semibold">Producto:</label>
+      <input type="text" class="p-2 w-full border" [(ngModel)]="item.producto" name="producto_{{i}}">
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Unidad de Medida:</label>
+      <input type="text" class="p-2 w-full border" [(ngModel)]="item.unidad_medida" name="unidad_medida_{{i}}">
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Mercado Interno:</label>
+      <input type="number" class="p-2 w-full border" [(ngModel)]="item.mercado_interno" name="mercado_interno_{{i}}">
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Mercado Externo:</label>
+      <input type="number" class="p-2 w-full border" [(ngModel)]="item.mercado_externo" name="mercado_externo_{{i}}">
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Observaciones:</label>
+      <input type="text" class="p-2 w-full border" [(ngModel)]="item.observaciones" name="observaciones_{{i}}">
     </div>
 
   </div>
 
-      <div class="flex justify-end gap-4 mt-4">
-        <button type="button" (click)="cerrarModal()" class="px-4 py-2 bg-gray-300 rounded">Cancelar</button>
-        <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="guardarCambios()">Guardar</button>
+</div>
 
+
+      
+<div *ngIf="pasoActual === 6">
+  <h3 class="mb-4 text-xl font-bold">Insumos Básicos</h3>
+  <div *ngFor="let item of encuestaSeleccionada?.insumosBasicos; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+
+    <div class="mb-2">
+      <label class="block font-semibold">Tipo:</label>
+      <input type="text" class="p-2 w-full border" [(ngModel)]="item.tipo" [ngModelOptions]="{standalone: true}"  name="tipo_{{i}}" />
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Cantidad:</label>
+      <input type="number" class="p-2 w-full border" [(ngModel)]="item.cantidad" [ngModelOptions]="{standalone: true}" name="cantidad_{{i}}" />
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Monto en Pesos:</label>
+      <input type="number" class="p-2 w-full border" [(ngModel)]="item.monto_pesos" [ngModelOptions]="{standalone: true}"  name="monto_pesos_{{i}}" />
+    </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="pasoActual === 7">
+  <h3 class="mb-4 text-xl font-bold">Mano de Obra</h3>
+  <div *ngFor="let item of encuestaSeleccionada?.manoDeObra; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+
+    <div class="mb-2">
+      <label class="block font-semibold">Tipo:</label>
+      <input type="text" class="p-2 w-full border" [(ngModel)]="item.tipo" [ngModelOptions]="{standalone: true}" name="mano_tipo_{{i}}" />
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Monto en Pesos:</label>
+      <input type="number" class="p-2 w-full border" [(ngModel)]="item.monto_pesos" [ngModelOptions]="{standalone: true}" name="mano_monto_{{i}}" />
+    </div>
+
+  </div>
+</div>
+
+
+
+<div *ngIf="pasoActual === 8">
+  <h3 class="mb-4 text-xl font-bold">Utilización de Insumos</h3>
+  <div *ngFor="let item of encuestaSeleccionada?.utilizacionInsumos; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+
+    <div class="mb-2">
+      <label class="block font-semibold">Producto:</label>
+      <input type="text" class="p-2 w-full border" [(ngModel)]="item.producto"  [ngModelOptions]="{standalone: true}" name="util_producto_{{i}}" />
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Unidad de Medida:</label>
+      <input type="text" class="p-2 w-full border" [(ngModel)]="item.unidad_medida"  [ngModelOptions]="{standalone: true}" name="util_unidad_{{i}}" />
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Cantidad:</label>
+      <input type="number" class="p-2 w-full border" [(ngModel)]="item.cantidad"  [ngModelOptions]="{standalone: true}" name="util_cantidad_{{i}}" />
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Monto en Pesos:</label>
+      <input type="number" class="p-2 w-full border" [(ngModel)]="item.monto_pesos"  [ngModelOptions]="{standalone: true}" name="util_monto_{{i}}" />
+    </div>
+
+  </div>
+</div>
+
+
+
+<div *ngIf="pasoActual === 9">
+  <h3 class="mb-4 text-xl font-bold">Utilización de Servicios</h3>
+
+  <div *ngFor="let item of encuestaSeleccionada?.utilizacionServicios; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+    
+    <div class="mb-2">
+      <label class="block font-semibold">Nombre:</label>
+      <input
+        type="text"
+        class="p-2 w-full border"
+        [(ngModel)]="item.nombre"
+        [ngModelOptions]="{ standalone: true }"
+        name="servicio_nombre_{{ i }}"
+      />
+    </div>
+
+    <div class="mb-2">
+      <label class="block font-semibold">Monto en Pesos:</label>
+      <input
+        type="number"
+        class="p-2 w-full border"
+        [(ngModel)]="item.monto_pesos"
+        [ngModelOptions]="{ standalone: true }"
+        name="servicio_monto_{{ i }}"
+      />
+    </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="pasoActual === 10">
+  <h3 class="mb-4 text-xl font-bold">Cantidad de Trabajadores por Trimestre</h3>
+
+  <div *ngFor="let item of encuestaSeleccionada?.cantidadTrabajadores; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+    <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
+
+    <div class="grid grid-cols-2 gap-2">
+      <div>
+        <label>Planta Permanente Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaAfPermanente" name="cantTrabajadores_plantaAfPermanente_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Planta Contratado Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaAfContratado" name="cantTrabajadores_plantaAfContratado_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Planta Resto:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaResto" name="cantTrabajadores_plantaResto_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Temporal Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.temporalAfectado" name="cantTrabajadores_temporalAfectado_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Temporal Resto:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.temporalResto" name="cantTrabajadores_temporalResto_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="pasoActual === 11">
+  <h3 class="mb-4 text-xl font-bold">Horas Normales por Trimestre</h3>
+
+  <div *ngFor="let item of encuestaSeleccionada?.horasNormales; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+    <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
+
+    <div class="grid grid-cols-2 gap-2">
+      <div>
+        <label>Planta Permanente Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaAfPermanente" name="horasNormales_plantaAfPermanente_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Planta Contratado Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaAfContratado" name="horasNormales_plantaAfContratado_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Planta Resto:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaResto" name="horasNormales_plantaResto_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Temporal Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.temporalAfectado" name="horasNormales_temporalAfectado_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Temporal Resto:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.temporalResto" name="horasNormales_temporalResto_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="pasoActual === 12">
+  <h3 class="mb-4 text-xl font-bold">Horas Extras por Trimestre</h3>
+
+  <div *ngFor="let item of encuestaSeleccionada?.horasExtras; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+    <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
+
+    <div class="grid grid-cols-2 gap-2">
+      <div>
+        <label>Planta Permanente Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaAfPermanente" name="horasExtras_plantaAfPermanente_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Planta Contratado Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaAfContratado" name="horasExtras_plantaAfContratado_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Planta Resto:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.plantaResto" name="horasExtras_plantaResto_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Temporal Afectado:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.temporalAfectado" name="horasExtras_temporalAfectado_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div>
+        <label>Temporal Resto:</label>
+        <input type="number" class="w-full border p-1" [(ngModel)]="item.temporalResto" name="horasExtras_temporalResto_{{i}}" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <div *ngIf="pasoActual === 13">
+  <h3 class="mb-4 text-xl font-bold">Ventas por Trimestre</h3>
+
+  <div *ngFor="let trimestre of encuestaSeleccionada?.venta; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+    <div class="mb-2 font-semibold">Periodo: {{ trimestre.periodo }}</div>
+
+    <div *ngIf="trimestre.items?.length > 0; else sinItems">
+      <div *ngFor="let item of trimestre.items; let j = index" class="p-2 mb-2 bg-white border rounded">
+        <div>
+          <label><strong>Ítem:</strong></label>
+          <input type="text" class="w-full border p-1" [(ngModel)]="item.item" name="ventas_item_{{i}}_{{j}}" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div>
+          <label><strong>Monto:</strong></label>
+          <input type="number" class="w-full border p-1" [(ngModel)]="item.monto" name="ventas_monto_{{i}}_{{j}}" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+    </div>
+
+    <ng-template #sinItems>
+      <p>No hay datos para este trimestre.</p>
+    </ng-template>
+  </div>
+</div>
+
+
+<div *ngIf="pasoActual === 14">
+  <h3 class="mb-4 text-xl font-bold">Actividades de Investigación y Desarrollo</h3>
+
+  <div *ngFor="let actividad of encuestaSeleccionada?.investigacionDesarrollo?.actividad; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+    
+    <div class="mb-2">
+      <label class="font-semibold">Nombre:</label>
+      <input
+        type="text"
+        class="w-full border p-1"
+        [(ngModel)]="actividad.nombre"
+        name="actividad_nombre_{{ i }}"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <div class="mb-2">
+      <label class="font-semibold">¿Realiza?:</label>
+      <select
+        class="w-full border p-1"
+        [(ngModel)]="actividad.realiza"
+        name="actividad_realiza_{{ i }}"
+        [ngModelOptions]="{ standalone: true }"
+      >
+        <option [value]="true">Sí</option>
+        <option [value]="false">No</option>
+      </select>
+    </div>
+
+    <div class="mb-2">
+      <label class="font-semibold">Monto:</label>
+      <input
+        type="number"
+        class="w-full border p-1"
+        [(ngModel)]="actividad.monto"
+        name="actividad_monto_{{ i }}"
+        [ngModelOptions]="{ standalone: true }"
+        min="0"
+      />
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="pasoActual === 15">
+  <h3 class="mb-4 text-xl font-bold">Perspectiva</h3>
+
+  <div *ngFor="let item of encuestaSeleccionada?.perspectiva?.item; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+    
+    <div class="mb-2">
+      <label class="font-semibold">Nombre:</label>
+      <input
+        type="text"
+        class="w-full border p-1"
+        [(ngModel)]="item.nombre"
+        name="perspectiva_nombre_{{i}}"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <div class="mb-2">
+      <label class="font-semibold">Respuesta:</label>
+      <input
+        type="text"
+        class="w-full border p-1"
+        [(ngModel)]="item.respuesta"
+        name="perspectiva_respuesta_{{i}}"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <div class="mb-2">
+      <label class="font-semibold">Observaciones:</label>
+      <input
+        type="text"
+        class="w-full border p-1"
+        [(ngModel)]="item.observaciones"
+        name="perspectiva_observaciones_{{i}}"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+  </div>
+</div>
+
+      
+
+
+      <!-- Navegación -->
+      <div class="flex justify-between mt-6">
+        <button type="button" class="px-4 py-2 bg-gray-300 rounded" (click)="pasoAnterior()" [disabled]="pasoActual === 1">Anterior</button>
+        <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="guardarCambios()">Guardar Cambios</button>
+        <button type="button" class="px-4 py-2 text-white bg-blue-500 rounded" (click)="siguientePaso()" *ngIf="pasoActual < 16">Siguiente</button>
+        
+        <!-- <button type="submit" class="px-4 py-2 text-white bg-[#FF8300] rounded" *ngIf="pasoActual === 1">Guardar</button> -->
       </div>
     </form>
+    
   </div>
 </div>
+</div> 
+
+<div *ngIf="activeSegment === 'Consultas'" class="flex h-screen">
+
+  <aside class="w-64 bg-gray-800 text-white p-4 flex flex-col space-y-4">
+    <h2 class="text-xl font-bold mb-4">Consultas</h2>
+    <button (click)="mostrarConsulta('consulta1')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Consulta 1</button>
+    <button (click)="mostrarConsulta('consulta2')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Consulta 2</button>
+    <button (click)="mostrarConsulta('consulta3')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Consulta 3</button>
+    <button (click)="mostrarConsulta('consulta4')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Consulta 4</button>
+  </aside>
+
+  <main class="flex-1 p-6 overflow-auto">
+    <h2 class="text-2xl font-semibold mb-4">Resultados</h2>
+
+    <ng-container [ngSwitch]="consultaActiva">
+
+      <div *ngSwitchCase="'consulta1'">
+        <table class="min-w-full bg-white rounded shadow">
+          <thead>
+            <tr class="bg-blue-100 text-left">
+              <th class="py-2 px-4">ID</th>
+              <th class="py-2 px-4">Supervisor</th>
+              <th class="py-2 px-4">Referente</th>
+              <th class="py-2 px-4">Razón</th>
+              <th class="py-2 px-4">Clanea</th>
+              <th class="py-2 px-4">Localidad</th>
+              <th class="py-2 px-4">Dirección</th>
+              <th class="py-2 px-4">Informante</th>
+              <th class="py-2 px-4">Forma Relevamiento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dato of C1" class="hover:bg-gray-50">
+              <td class="py-2 px-4">{{ dato.id }}</td>
+              <td class="py-2 px-4">{{ dato.supervisor }}</td>
+              <td class="py-2 px-4">{{ dato.referente }}</td>
+              <td class="py-2 px-4">{{ dato.razon }}</td>
+              <td class="py-2 px-4">{{ dato.clanea }}</td>
+              <td class="py-2 px-4">{{ dato.localidad }}</td>
+              <td class="py-2 px-4">{{ dato.direccion }}</td>
+              <td class="py-2 px-4">{{ dato.nombreInformante }}</td>
+              <td class="py-2 px-4">{{ dato.formaRelevamiento }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngSwitchCase="'consulta2'">
+        <table *ngIf="C2?.length" class="min-w-full bg-white rounded shadow">
+          <thead>
+            <tr class="bg-blue-100 text-left">
+              <th class="py-2 px-4">Categoría</th>
+              <th class="py-2 px-4">Cantidad</th>
+              <th class="py-2 px-4">Porcentaje (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of C2" class="hover:bg-gray-50">
+              <td class="py-2 px-4">{{ item.categoria }}</td>
+              <td class="py-2 px-4">{{ item.cantidad }}</td>
+              <td class="py-2 px-4">{{ item.porcentaje !== null ? item.porcentaje : 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="!C2?.length" class="text-gray-500 mt-4">No hay datos para mostrar.</p>
+      </div>
+
+      <div *ngSwitchCase="'consulta3'">
+        <table *ngIf="C3?.length" class="min-w-full bg-white rounded shadow">
+          <thead>
+            <tr class="bg-blue-100 text-left">
+              <th class="py-2 px-4">Categoría</th>
+              <th class="py-2 px-4">Cantidad</th>
+              <th class="py-2 px-4">Porcentaje (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of C3" class="hover:bg-gray-50">
+              <td class="py-2 px-4">{{ item.categoria }}</td>
+              <td class="py-2 px-4">{{ item.cantidad !== null ? item.cantidad : 'N/A' }}</td>
+              <td class="py-2 px-4">{{ item.porcentaje !== null ? item.porcentaje : 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="!C3?.length" class="text-gray-500 mt-4">No hay datos para mostrar.</p>
+      </div>
+
+      <div *ngSwitchCase="'consulta4'">
+
+        <table *ngIf="C4?.length" class="min-w-full bg-white rounded shadow">
+          <thead>
+            <tr class="bg-blue-100 text-left">
+              <th class="py-2 px-4">Sección</th>
+              <th class="py-2 px-4">Cantidad sin respuesta</th>
+              <th class="py-2 px-4">Cantidad total</th>
+              <th class="py-2 px-4">Tasa de no respuesta (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of C4" class="hover:bg-gray-50">
+              <td class="py-2 px-4">{{ item.tabla }}</td>
+              <td class="py-2 px-4">{{ item.cant_no_respuesta }}</td>
+              <td class="py-2 px-4">{{ item.cant_total }}</td>
+              <td class="py-2 px-4">{{ item.tasa_no_respuesta }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p *ngIf="!C4?.length" class="text-gray-500 mt-4">No hay datos para mostrar.</p>
+      </div>
+
+      <div *ngSwitchDefault>
+        <p class="text-gray-500">Selecciona una consulta del panel izquierdo.</p>
+      </div>
+
+    </ng-container>
+  </main>
 </div>
-
-
-  <div *ngIf="activeSegment === 'Consultas'" id="ConsultasSegment" class="p-4"  >
-<div class="flex min-h-screen">
-  <!-- Sidebar -->
-  <div class="p-4 w-64 text-white bg-gray-800 space-y-4">
-    <h2 class="mb-6 text-xl font-bold">Consultas</h2>
-    <button 
-      class="px-4 py-2 w-full text-left rounded hover:bg-gray-700"
-      [class.bg-gray-700]="selectedConsulta === 'ventas'"
-      (click)="selectedConsulta = 'ventas'">
-      Consulta 1
-    </button>
-    <button 
-      class="px-4 py-2 w-full text-left rounded hover:bg-gray-700"
-      [class.bg-gray-700]="selectedConsulta === 'clientes'"
-      (click)="selectedConsulta = 'clientes'">
-      Consulta 2
-    </button>
-    <button 
-      class="px-4 py-2 w-full text-left rounded hover:bg-gray-700"
-      [class.bg-gray-700]="selectedConsulta === 'productos'"
-      (click)="selectedConsulta = 'productos'">
-      Consulta 3
-    </button>
-    <!-- Agrega más botones aquí -->
-  </div>
-
-  <!-- Contenido principal -->
-  <div class="flex-1 p-8 bg-gray-50">
-    <h1 class="mb-4 text-2xl font-semibold text-gray-800">Resultado</h1>
-
-    <!-- Contenido dinámico -->
-    <div *ngIf="selectedConsulta === 'ventas'">
-      <!-- Puedes insertar un componente o tabla aquí -->
-      <p class="text-gray-700">Mostrando datos de ventas...</p>
-    </div>
-
-    <div *ngIf="selectedConsulta === 'clientes'">
-      <p class="text-gray-700">Mostrando datos de clientes...</p>
-    </div>
-
-    <div *ngIf="selectedConsulta === 'productos'">
-      <p class="text-gray-700">Mostrando datos de productos...</p>
-    </div>
-
-    <!-- etc... -->
-  </div>
-</div>
-
-  </div>

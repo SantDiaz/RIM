@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
       next: (response: any) => {
         // Guardar user en localStorage
         localStorage.setItem('user', JSON.stringify(response));
+        localStorage.setItem('username', username); // Línea añadida
+
         Swal.fire('¡Bienvenido!', 'Sesión iniciada correctamente.', 'success').then(() => {
           // Redirigir según rol
           const role = response.roles[0];

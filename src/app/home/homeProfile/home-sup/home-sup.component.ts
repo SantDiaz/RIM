@@ -15,9 +15,12 @@ export class HomeSupComponent implements OnInit {
   activeSegment: string = 'all'; // Variable para controlar el segmento activo
   pendientes: encuestasObtener[] = [];
   encuestaSeleccionada: any = {};
+  username: string = '';
+  
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient ) { }
 
   ngOnInit(): void {
+     this.username = localStorage.getItem('username') || '';
 
   }
 

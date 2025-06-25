@@ -1,4 +1,39 @@
+// CONSULTA1
+export interface DatoControl {
+  id: number;
+  supervisor: string;
+  referente: string;
+  estratificación: string;
+  razon: string;
+  clanea: string;
+  emailReferente: string;
+  localidad: string;
+  direccion: string;
+  nombreInformante: string;
+  telefonoReferente: string;
+  formaRelevamiento: string;
+}
+// src/app/Interfaces/models.ts (añade esto a tu archivo models.ts)
+// CONSULTA 2
+export interface ResumenRim {
+  categoria: string;
+  cantidad: number;
+  porcentaje: number | null; // Puede ser null en algunos casos
+}
+// CONSULTA 3
+export interface Campo {
+  categoria: string;
+  cantidad: number | null; // Puede ser null en algunos casos
+  porcentaje: number | null; // Puede ser null en algunos casos
+}
+// CONSULTA 4
 
+export interface TasaNoRespuesta {
+  tabla: string;
+  cant_no_respuesta: number;
+  cant_total: number;
+  tasa_no_respuesta: number;
+}
 export interface encuestasObtener{
 
   idEmpresa: number;
@@ -18,7 +53,7 @@ export interface encuestasObtener{
   observaciones_supervisor?: string;
   referente?:string;
   fecha_mod_estado?: Date;
-
+  mod_usu: string;
 }
 
 
@@ -41,6 +76,8 @@ export interface encuestas {
     observaciones_supervisor?: string;
     referente?:string;
     fecha_mod_estado?: Date;
+    mod_usu?: string;
+
 }
 
 export interface DatosEmpresa {
