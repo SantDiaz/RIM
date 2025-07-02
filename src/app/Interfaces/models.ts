@@ -1,19 +1,23 @@
 // CONSULTA1
+// src/app/Interfaces/models.ts (modify your existing DatoControl interface)
+
 export interface DatoControl {
-  id: number;
+  ID: number;
   supervisor: string;
-  referente: string;
-  estratificación: string;
-  razon: string;
-  clanea: string;
-  emailReferente: string;
-  localidad: string;
-  direccion: string;
-  nombreInformante: string;
-  telefonoReferente: string;
-  formaRelevamiento: string;
+  Referente: string;
+  Estrato: string | null; // Keep this as string literal
+  Razon: string; // Keep this as string literal
+  CLANAE: string;
+  Email_referente: string | null;
+  Localidad: string;
+  Dirección: string; // Keep this as string literal
+  NombreInformante: string;
+  Teléfono_referente: string | null;
+  Forma_de_relevamiento: string;
+  
+
 }
-// src/app/Interfaces/models.ts (añade esto a tu archivo models.ts)
+
 // CONSULTA 2
 export interface ResumenRim {
   categoria: string;

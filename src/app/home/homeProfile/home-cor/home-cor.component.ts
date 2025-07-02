@@ -70,18 +70,21 @@ export class HomeCorComponent implements OnInit {
   
     idEmpresa: number = 0 ;
 
-
-mostrarConsulta(consulta: string) {
-  this.consultaActiva = consulta;
-  this.datoss = [];
-
-  switch (consulta) {
-    case 'consulta1':
+    
+    mostrarConsulta(consulta: string) {
+      this.consultaActiva = consulta;
+      this.datoss = [];
+      switch (consulta) {
+        case 'consulta1':
       this.encuestaService.obtenerDatos().subscribe({
-        next: (resp) => this.C1 = resp,
+        next: (resp) => {
+          console.log("Consulta 1", resp);
+          this.C1 = resp;
+        },
         error: (err) => console.error('Error en consulta 1:', err)
-      });
-      break;
+        });
+
+        break;
     case 'consulta2':
       this.encuestaService.obtenerResumenRim().subscribe({
         next: (resp) => this.C2 = resp,
@@ -101,6 +104,7 @@ mostrarConsulta(consulta: string) {
       });
       break;
   }
+
   }
 
 cargarConsulta() {

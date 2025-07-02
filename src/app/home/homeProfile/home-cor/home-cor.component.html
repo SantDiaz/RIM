@@ -755,10 +755,10 @@ aria-modal="true"
 
   <aside class="w-64 bg-gray-800 text-white p-4 flex flex-col space-y-4">
     <h2 class="text-xl font-bold mb-4">Consultas</h2>
-    <button (click)="mostrarConsulta('consulta1')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Consulta 1</button>
-    <button (click)="mostrarConsulta('consulta2')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Consulta 2</button>
-    <button (click)="mostrarConsulta('consulta3')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Consulta 3</button>
-    <button (click)="mostrarConsulta('consulta4')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Consulta 4</button>
+    <button (click)="mostrarConsulta('consulta1')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Datos de Control </button>
+    <button (click)="mostrarConsulta('consulta2')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Resumen RIM</button>
+    <button (click)="mostrarConsulta('consulta3')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Campos</button>
+    <button (click)="mostrarConsulta('consulta4')" class="bg-gray-700 hover:bg-blue-600 px-4 py-2 rounded">Tasas de no respuesta </button>
   </aside>
 
   <main class="flex-1 p-6 overflow-auto">
@@ -768,33 +768,39 @@ aria-modal="true"
 
       <div *ngSwitchCase="'consulta1'">
         <table class="min-w-full bg-white rounded shadow">
-          <thead>
-            <tr class="bg-blue-100 text-left">
-              <th class="py-2 px-4">ID</th>
-              <th class="py-2 px-4">Supervisor</th>
-              <th class="py-2 px-4">Referente</th>
-              <th class="py-2 px-4">Razón</th>
-              <th class="py-2 px-4">Clanea</th>
-              <th class="py-2 px-4">Localidad</th>
-              <th class="py-2 px-4">Dirección</th>
-              <th class="py-2 px-4">Informante</th>
-              <th class="py-2 px-4">Forma Relevamiento</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let dato of C1" class="hover:bg-gray-50">
-              <td class="py-2 px-4">{{ dato.id }}</td>
-              <td class="py-2 px-4">{{ dato.supervisor }}</td>
-              <td class="py-2 px-4">{{ dato.referente }}</td>
-              <td class="py-2 px-4">{{ dato.razon }}</td>
-              <td class="py-2 px-4">{{ dato.clanea }}</td>
-              <td class="py-2 px-4">{{ dato.localidad }}</td>
-              <td class="py-2 px-4">{{ dato.direccion }}</td>
-              <td class="py-2 px-4">{{ dato.nombreInformante }}</td>
-              <td class="py-2 px-4">{{ dato.formaRelevamiento }}</td>
-            </tr>
-          </tbody>
-        </table>
+  <thead>
+    <tr class="bg-blue-100 text-left">
+      <th class="py-2 px-4">ID</th>
+      <th class="py-2 px-4">Supervisor</th>
+      <th class="py-2 px-4">Referente</th>
+      <th class="py-2 px-4">Estratificación</th>
+      <th class="py-2 px-4">Razón</th>
+      <th class="py-2 px-4">CLANAE</th>
+      <th class="py-2 px-4">Email Referente</th>
+      <th class="py-2 px-4">Localidad</th>
+      <th class="py-2 px-4">Dirección</th>
+      <th class="py-2 px-4">Nombre Informante</th>
+      <th class="py-2 px-4">Teléfono Referente</th>
+      <th class="py-2 px-4">Forma de Relevamiento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dato of C1" class="hover:bg-gray-50">
+      <td class="py-2 px-4">{{ dato.ID }}</td>
+      <td class="py-2 px-4">{{ dato.supervisor }}</td>
+      <td class="py-2 px-4">{{ dato.Referente }}</td>
+      <td class="py-2 px-4">{{ dato.Estrato }}</td>
+      <td class="py-2 px-4">{{ dato.Razon }}</td>
+      <td class="py-2 px-4">{{ dato.CLANAE }}</td>
+      <td class="py-2 px-4">{{ dato.Email_referente }}</td>
+      <td class="py-2 px-4">{{ dato.Localidad }}</td>
+      <td class="py-2 px-4">{{ dato['Dirección'] }}</td>
+      <td class="py-2 px-4">{{ dato.NombreInformante }}</td>
+      <!-- <td class="py-2 px-4">{{ dato[Teléfono_referente] }}</td>
+      <td class="py-2 px-4">{{ dato.Forma_de_relevamiento }}</td> -->
+    </tr>
+  </tbody>
+</table>
       </div>
 
       <div *ngSwitchCase="'consulta2'">
