@@ -3,7 +3,7 @@
 
 export interface DatoControl {
   ID: number;
-  supervisor: string;
+  Supervisor: string;
   Referente: string;
   Estrato: string | null; // Keep this as string literal
   Razon: string; // Keep this as string literal
@@ -11,7 +11,7 @@ export interface DatoControl {
   Email_referente: string | null;
   Localidad: string;
   Dirección: string; // Keep this as string literal
-  NombreInformante: string;
+  Nombre_informante: string;
   Teléfono_referente: string | null;
   Forma_de_relevamiento: string;
   
