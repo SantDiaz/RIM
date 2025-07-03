@@ -206,11 +206,12 @@ aria-modal="true"
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" (click)="cerrarModal()"></div>
 
   <div class="overflow-hidden z-20 p-6 w-full bg-white rounded-lg shadow-xl transition-all transform sm:max-w-4xl">
-    <h2 class="mb-4 text-xl font-semibold">Datos Guardados:</h2>
 
     <form (ngSubmit)="guardarCambios()">
       <!-- Paso 1 -->
       <div *ngIf="pasoActual === 1">
+          <h3 class="mb-4 text-center text-2xl font-bold">Encuesta</h3>
+
     <div class="mb-4">
       <label class="block mb-1">ID Empresa:</label>
       <input type="number" class="p-2 w-full border" [disabled]="true" name="id_empresa" [(ngModel)]="encuestaSeleccionada.id_empresa">
@@ -277,7 +278,7 @@ aria-modal="true"
     
       <!-- Paso 2 -->
     <div *ngIf="pasoActual === 2">
-  <h3>Datos de identificación de empresa</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Datos de identificación de empresa</h3>
 
   <div class="mb-4">
     <label class="block mb-1">Nombre</label>
@@ -323,7 +324,7 @@ aria-modal="true"
     
       <!-- Paso 3 -->
       <div *ngIf="pasoActual === 3">
-  <h3>Datos Respondiente</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Datos Respondiente</h3>
 
   <div class="mb-4">
     <label class="block mb-1">Nombre</label>
@@ -353,7 +354,7 @@ aria-modal="true"
 
 <!-- Paso 4 -->
 <div *ngIf="pasoActual === 4">
-  <h3>Datos del Referente</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Datos del Referente</h3>
 
   <div class="mb-4">
     <label class="block mb-1">Nombre y Apellido</label>
@@ -389,7 +390,7 @@ aria-modal="true"
 
 <!-- Paso 5 -->
 <div *ngIf="pasoActual === 5">
-  <h3>Producción</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Producción</h3>
 
   <div *ngFor="let item of encuestaSeleccionada?.produccion; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
@@ -425,7 +426,8 @@ aria-modal="true"
 
       
 <div *ngIf="pasoActual === 6">
-  <h3 class="mb-4 text-xl font-bold">Insumos Básicos</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Insumos Básicos</h3>
+
   <div *ngFor="let item of encuestaSeleccionada?.insumosBasicos; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
     <div class="mb-2">
@@ -448,7 +450,8 @@ aria-modal="true"
 
 
 <div *ngIf="pasoActual === 7">
-  <h3 class="mb-4 text-xl font-bold">Mano de Obra</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Mano de Obra</h3>
+
   <div *ngFor="let item of encuestaSeleccionada?.manoDeObra; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
     <div class="mb-2">
@@ -467,7 +470,8 @@ aria-modal="true"
 
 
 <div *ngIf="pasoActual === 8">
-  <h3 class="mb-4 text-xl font-bold">Utilización de Insumos</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Utilización de Insumos</h3>
+
   <div *ngFor="let item of encuestaSeleccionada?.utilizacionInsumos; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
     <div class="mb-2">
@@ -496,7 +500,7 @@ aria-modal="true"
 
 
 <div *ngIf="pasoActual === 9">
-  <h3 class="mb-4 text-xl font-bold">Utilización de Servicios</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Utilización de Servicios</h3>
 
   <div *ngFor="let item of encuestaSeleccionada?.utilizacionServicios; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
     
@@ -527,7 +531,7 @@ aria-modal="true"
 
 
 <div *ngIf="pasoActual === 10">
-  <h3 class="mb-4 text-xl font-bold">Cantidad de Trabajadores por Trimestre</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Cantidad de Trabajadores por Trimestre</h3>
 
   <div *ngFor="let item of encuestaSeleccionada?.cantidadTrabajadores; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
     <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
@@ -560,7 +564,7 @@ aria-modal="true"
 
 
 <div *ngIf="pasoActual === 11">
-  <h3 class="mb-4 text-xl font-bold">Horas Normales por Trimestre</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Horas Normales por Trimestre</h3>
 
   <div *ngFor="let item of encuestaSeleccionada?.horasNormales; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
     <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
@@ -591,7 +595,7 @@ aria-modal="true"
 </div>
 
 <div *ngIf="pasoActual === 12">
-  <h3 class="mb-4 text-xl font-bold">Horas Extras por Trimestre</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Horas Extras por Trimestre</h3>
 
   <div *ngFor="let item of encuestaSeleccionada?.horasExtras; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
     <div class="mb-2 font-semibold">Periodo: {{ item.periodo }}</div>
@@ -625,7 +629,7 @@ aria-modal="true"
 
 
   <div *ngIf="pasoActual === 13">
-  <h3 class="mb-4 text-xl font-bold">Ventas por Trimestre</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Ventas por Trimestre</h3>
 
   <div *ngFor="let trimestre of encuestaSeleccionada?.venta; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
     <div class="mb-2 font-semibold">Periodo: {{ trimestre.periodo }}</div>
@@ -651,7 +655,7 @@ aria-modal="true"
 
 
 <div *ngIf="pasoActual === 14">
-  <h3 class="mb-4 text-xl font-bold">Actividades de Investigación y Desarrollo</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Actividades de Investigación y Desarrollo</h3>
 
   <div *ngFor="let actividad of encuestaSeleccionada?.investigacionDesarrollo?.actividad; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
     
@@ -695,7 +699,7 @@ aria-modal="true"
 
 
 <div *ngIf="pasoActual === 15">
-  <h3 class="mb-4 text-xl font-bold">Perspectiva</h3>
+  <h3 class="mb-4 text-center text-2xl font-bold">Perspectiva</h3>
 
   <div *ngFor="let item of encuestaSeleccionada?.perspectiva?.item; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
     
@@ -818,7 +822,7 @@ aria-modal="true"
             <tr *ngFor="let item of C2" class="hover:bg-gray-50">
               <td class="py-2 px-4">{{ item.categoria }}</td>
               <td class="py-2 px-4">{{ item.cantidad }}</td>
-              <td class="py-2 px-4">{{ item.porcentaje !== null ? item.porcentaje : 'N/A' }}</td>
+              <td class="py-2 px-4">{{ item.porcentaje !== null ? item.porcentaje : '-' }}</td>
             </tr>
           </tbody>
         </table>
@@ -837,8 +841,8 @@ aria-modal="true"
           <tbody>
             <tr *ngFor="let item of C3" class="hover:bg-gray-50">
               <td class="py-2 px-4">{{ item.categoria }}</td>
-              <td class="py-2 px-4">{{ item.cantidad !== null ? item.cantidad : 'N/A' }}</td>
-              <td class="py-2 px-4">{{ item.porcentaje !== null ? item.porcentaje : 'N/A' }}</td>
+              <td class="py-2 px-4">{{ item.cantidad !== null ? item.cantidad : '-' }}</td>
+              <td class="py-2 px-4">{{ item.porcentaje !== null ? item.porcentaje : '-' }}</td>
             </tr>
           </tbody>
         </table>
