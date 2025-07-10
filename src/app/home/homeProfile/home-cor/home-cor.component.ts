@@ -4,13 +4,20 @@ import { Router } from '@angular/router';
 import { Campo, DatoControl, encuestas, encuestasObtener, ResumenRim, TasaNoRespuesta } from 'src/app/Interfaces/models';
 import { EncuestaService } from 'src/app/services/encuesta.service';
 import Swal from 'sweetalert2';
-
+import * as XLSX from 'xlsx';
+// import * as FileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
+import { ViewChild, ElementRef } from '@angular/core';
 @Component({
+  
   selector: 'app-home-cor',
   templateUrl: './home-cor.component.html',
   styleUrls: ['./home-cor.component.css']
 })
+
 export class HomeCorComponent implements OnInit {
+@ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
    pasoActual: number = 1;
   C1: DatoControl[] = [];
   C2: ResumenRim[] = [];
@@ -27,6 +34,13 @@ export class HomeCorComponent implements OnInit {
   activeSegment: string = 'all'; // Variable para controlar el segmento activo
   pendientes: encuestasObtener[] = [];
   encuestaSeleccionada: any = {};
+
+
+  //IMAGEN DE PERFIL
+    avatarUrl: string | null = null;
+  defaultAvatarUrl = 'https://api.dicebear.com/7.x/initials/svg?seed=TuUsuario';
+  randomSeed = Math.random().toString(36).substring(2);
+
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient  ) { }
 
   ngOnInit(): void {
@@ -129,7 +143,36 @@ cargarConsulta() {
     }
 
 
+ exportarAExcel() {
+    let datos: any[] = [];
 
+    switch (this.consultaActiva) {
+      case 'consulta1':
+        datos = this.C1;
+        break;
+      case 'consulta2':
+        datos = this.C2;
+        break;
+      case 'consulta3':
+        datos = this.C3;
+        break;
+      case 'consulta4':
+        datos = this.C4;
+        break;
+      default:
+        return;
+    }
+
+    const hoja = XLSX.utils.json_to_sheet(datos);
+    const libro = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(libro, hoja, 'Datos');
+
+    const nombreArchivo = `${this.consultaActiva}_reporte.xlsx`;
+    const excelBuffer: any = XLSX.write(libro, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+
+    saveAs(blob, nombreArchivo);
+  }
     
 
 
@@ -505,5 +548,30 @@ guardarPerspectiva(callback?: () => void) {
 
 
 
+
+
+
+  //IMAGEN DE PERFIL 
+
+onAvatarSelected(event: any) {
+  const file: File = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = reader.result as string;
+      this.avatarUrl = base64Image;
+      localStorage.setItem('avatarImage', base64Image); // Guarda en localStorage
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+generarSeedAleatorio(): string {
+  return Math.random().toString(36).substring(2, 10);
+}
+
+cambiarAvatarRandom() {
+  this.randomSeed = this.generarSeedAleatorio();
+}
 
 }

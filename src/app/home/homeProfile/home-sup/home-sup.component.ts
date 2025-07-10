@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { encuestas, encuestasObtener } from 'src/app/Interfaces/models';
 import { EncuestaService } from 'src/app/services/encuesta.service';
 import Swal from 'sweetalert2';
-
+import { saveAs } from 'file-saver';
+import { ViewChild, ElementRef } from '@angular/core';
 @Component({
   selector: 'app-home-sup',
   templateUrl: './home-sup.component.html',
@@ -17,7 +18,11 @@ export class HomeSupComponent implements OnInit {
   pendientes: encuestasObtener[] = [];
   encuestaSeleccionada: any = {};
   username: string = '';
-  
+    //IMAGEN DE PERFIL
+
+      avatarUrl: string | null = null;
+  defaultAvatarUrl = 'https://api.dicebear.com/7.x/initials/svg?seed=TuUsuario';
+  randomSeed = Math.random().toString(36).substring(2);
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient ) { }
 
   ngOnInit(): void {
@@ -157,4 +162,27 @@ guardarCambios() {
     console.log(this.encuesta);
     this.onSubmit();  // Save the form data when moving to the next step
   }
+
+    //IMAGEN DE PERFIL 
+
+onAvatarSelected(event: any) {
+  const file: File = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = reader.result as string;
+      this.avatarUrl = base64Image;
+      localStorage.setItem('avatarImage', base64Image); // Guarda en localStorage
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+generarSeedAleatorio(): string {
+  return Math.random().toString(36).substring(2, 10);
+}
+
+cambiarAvatarRandom() {
+  this.randomSeed = this.generarSeedAleatorio();
+}
 }
