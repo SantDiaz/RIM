@@ -52,6 +52,8 @@ export class HomeIngComponent implements OnInit {
     'Ingresado',
     'Recepcionado',
     'Pre-validado',
+    'Validado',
+
   ];
 
 

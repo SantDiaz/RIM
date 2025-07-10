@@ -72,13 +72,13 @@
         <div class="mb-4">
             <label class="block mb-1">Estado de la encuesta:</label>
             <select class="p-2 w-full border"  name="medio">
-              <option value="Ingresado">No encontrado (no existe) </option>
-              <option value="Recepcionado">Cierre definitivo</option>
-              <option value="Recepcionado">Rechazado</option>
-              <option value="Recepcionado">Ausente</option>
-              <option value="Recepcionado">Entregado</option>
+              <option value="No encontrado">No encontrado (no existe) </option>
+              <option value="Cierre definitivo">Cierre definitivo</option>
+              <option value="Rechazado">Rechazado</option>
+              <option value="Ausente">Ausente</option>
+              <option value="Entregado">Entregado</option>
               <option value="Recepcionado">Recepcionado</option>
-              <option value="Recepcionado">Pre-validado</option>
+              <option value="Pre-validado">Pre-validado</option>
             </select>
           </div>
   
@@ -158,6 +158,8 @@
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Ingresador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Analista</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Supervisor</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Validador</th>
+
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Estado</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Año</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Referente</th>
@@ -179,6 +181,8 @@
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_ingresador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_analista }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_supervisor }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_validador }}</td>
+
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.estado }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.anio }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.referente }}</td>
@@ -219,9 +223,15 @@ aria-modal="true"
     <div class="mb-4">
       <label class="block mb-1">Estado de la encuesta:</label>
       <select class="p-2 w-full border" name="estado" [(ngModel)]="encuestaSeleccionada.estado">
-                 <option *ngFor="let estado of estados" [value]="estado">
-                  {{ estado }}
-                 </option>
+      <option
+  *ngFor="let estado of estados"
+  [value]="estado"
+  [disabled]="estado === 'No entregado'"
+  [ngClass]="{ 'text-gray-400': estado === 'No entregado' }"
+>
+  {{ estado }}
+</option>
+
       </select>
     </div>
 

@@ -155,6 +155,7 @@
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Ingresador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Analista</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Supervisor</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Obs. Validador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Estado</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Año</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Referente</th>
@@ -178,6 +179,7 @@
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_ingresador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_analista }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_supervisor }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.observaciones_validador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.estado }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.anio }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.referente }}</td>
@@ -275,6 +277,27 @@ aria-modal="true"
       <textarea class="p-2 w-full border" name="observaciones_supervisor" [disabled]="true" [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
     </div>
 
+   <div class="mb-4">
+        <label class="block mb-1">Observaciones del Validador:</label>
+        <select class="p-2 mb-2 w-full border" [(ngModel)]="encuesta.observaciones_validador" name="observaciones_validador">
+          <option value="Incompleto">Incompleto</option>
+          <option value="Error módulo ventas">Error módulo ventas</option>
+          <option value="Error módulo trabajadores">Error módulo trabajadores</option>
+          <option value="Error módulo producción">Error módulo producción</option>
+          <option value="Error módulo Insumos">Error módulo Insumos</option>
+          <option value="Error particular">Error particular (describir abajo)</option>
+        </select>
+
+        <textarea
+          *ngIf="encuesta.observaciones_validador === 'Error particular'"
+          maxlength="250"
+          rows="3"
+          class="p-2 w-full border"
+          placeholder="Describa el error particular (máx. 250 caracteres)"
+          [(ngModel)]="encuesta.observacion_particular"
+          name="observacion_particular"
+        ></textarea>
+      </div>
   </div>
     
       <!-- Paso 2 -->

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { encuestas, encuestasObtener } from 'src/app/Interfaces/models';
 import { EncuestaService } from 'src/app/services/encuesta.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home-sup',
@@ -33,6 +34,8 @@ export class HomeSupComponent implements OnInit {
     'Entregado',
     'Recepcionado',
     'Pre-validado',
+    'No entregado' ,
+
   ];
 
 
@@ -89,17 +92,19 @@ guardarCambios() {
   const idEmpresa = this.encuestaSeleccionada.id_empresa;
   const url = `http://localhost:8080/api/${idEmpresa}/updateEncuestaIngresador`;
 
+  this.encuestaSeleccionada.mod_usu = this.username;
+  this.encuestaSeleccionada.fecha_mod_estado = new Date(); // ✅ ahora se incluye en el PUT
+
   this.http.put(url, this.encuestaSeleccionada).subscribe(() => {
-    
-    // ✅ Actualizar solo el registro modificado en el array 'pendientes'
+    // Actualizar el array local si todo salió bien
     const index = this.pendientes.findIndex(p => p.idEmpresa === idEmpresa);
     if (index !== -1) {
-      this.encuestaSeleccionada.fecha_mod_estado = new Date(); // Actualizar la fecha en el frontend
       this.pendientes[index] = {
         ...this.pendientes[index],
-        ...this.encuestaSeleccionada
+        ...this.encuestaSeleccionada,
       };
     }
+    Swal.fire('¡Editado con éxito!', 'Los cambios fueron guardados correctamente.', 'success');
 
     console.log('Encuesta actualizada:', this.encuestaSeleccionada);
     this.cerrarModal(); // Cerrar el modal

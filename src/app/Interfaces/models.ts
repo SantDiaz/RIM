@@ -51,10 +51,12 @@ export interface encuestasObtener{
   medio: 'PAPEL' | 'DIGITAL'
   observaciones_ingresador: string;
   observaciones_analista: string;
+  observaciones_supervisor?: string;
+  observaciones_validador?: string;
+  observacion_particular?: string;
   anio? : '2024';
   estado?: string;
   supervisor?: string;
-  observaciones_supervisor?: string;
   referente?:string;
   fecha_mod_estado?: Date;
   mod_usu: string;
@@ -74,10 +76,12 @@ export interface encuestas {
     medio: 'PAPEL' | 'DIGITAL'
     observaciones_ingresador: string;
     observaciones_analista: string;
+    observaciones_supervisor?: string;
+    observaciones_validador?: string;
+    observacion_particular?: string;
     anio? : '2024';
     estado?: string;
     supervisor?: string;
-    observaciones_supervisor?: string;
     referente?:string;
     fecha_mod_estado?: Date;
     mod_usu?: string;
