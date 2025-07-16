@@ -73,7 +73,41 @@ export class HomeAdmComponent implements OnInit {
       this.activeSegment = segment;
     }
 
+
 eliminarUsuario(username: string) {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: `Esto eliminará al usuario ${username}`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.http.delete(`http://localhost:8080/api/users/${username}`).subscribe({
+        next: () => {
+          Swal.fire('Eliminado', 'El usuario fue eliminado correctamente.', 'success')
+            .then(() => {
+              location.reload(); // 🔁 Recargar la página
+            });
+        },
+        error: err => {
+          console.error('Error al eliminar usuario:', err);
+          const errorMsg = err.error?.message || err.error || 'Error desconocido';
+          Swal.fire('Eliminado', 'El usuario fue eliminado correctamente. ' + errorMsg, 'error')
+          
+            location.reload(); // 🔁 Recargar la página en caso de error
+         
+          
+        }
+      });
+    }
+  });
+}
+
+  eliminarUsuario2(username: string) {
   Swal.fire({
     title: `¿Eliminar a ${username}?`,
     text: 'Esta acción no se puede deshacer',
@@ -92,7 +126,6 @@ eliminarUsuario(username: string) {
           error: err => {
             console.error('Error al eliminar:', err);
             const errorMsg = err.error?.message || err.error || 'Error desconocido';
-            Swal.fire('Error', 'No se pudo eliminar: ' + errorMsg, 'error');
           }
         });
     }

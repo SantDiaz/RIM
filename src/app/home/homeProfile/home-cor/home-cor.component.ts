@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 // import * as FileSaver from 'file-saver';
 import { saveAs } from 'file-saver';
 import { ViewChild, ElementRef } from '@angular/core';
+import { frasesLocales } from '../frasesMotivacionales'
 @Component({
   
   selector: 'app-home-cor',
@@ -25,6 +26,7 @@ export class HomeCorComponent implements OnInit {
   C4: TasaNoRespuesta[] = [];
   consultaActiva: string = ''; // consulta1, consulta2, etc.
   datoss: any[] = [];
+  
 
   selectedConsulta: string = ''; // puede iniciar vacío o con 'ventas'
   estadoSeleccionado: string = ''; // o algún valor inicial si quieres
@@ -40,11 +42,19 @@ export class HomeCorComponent implements OnInit {
     avatarUrl: string | null = null;
   defaultAvatarUrl = 'https://api.dicebear.com/7.x/initials/svg?seed=TuUsuario';
   randomSeed = Math.random().toString(36).substring(2);
+ randomSeed2: string = this.generarSeedAleatorio();
+  fraseMotivacional: string = '';
+  autorFrase: string = '';
+  frasesLocales = frasesLocales; // importar las frases
+
+
+
 
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient  ) { }
 
   ngOnInit(): void {
      this.username = localStorage.getItem('username') || '';
+    this.obtenerFraseDelDia(); // ✅ Al cargar
 
   }
 
@@ -173,6 +183,28 @@ cargarConsulta() {
 
     saveAs(blob, nombreArchivo);
   }
+
+  exportarTodasLasConsultas(): void {
+  const libro = XLSX.utils.book_new();
+
+  const consultas = [
+    { nombre: 'Consulta_1', datos: this.C1 },
+    { nombre: 'Consulta_2', datos: this.C2 },
+    { nombre: 'Consulta_3', datos: this.C3 },
+    { nombre: 'Consulta_4', datos: this.C4 },
+  ];
+
+  for (const consulta of consultas) {
+    if (consulta.datos && consulta.datos.length > 0) {
+      const hoja = XLSX.utils.json_to_sheet(consulta.datos);
+      XLSX.utils.book_append_sheet(libro, hoja, consulta.nombre);
+    }
+  }
+
+  const bufferExcel: any = XLSX.write(libro, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([bufferExcel], { type: 'application/octet-stream' });
+  saveAs(blob, 'reporte_completo.xlsx');
+}
     
 
 
@@ -566,12 +598,34 @@ onAvatarSelected(event: any) {
   }
 }
 
-generarSeedAleatorio(): string {
-  return Math.random().toString(36).substring(2, 10);
-}
 
 cambiarAvatarRandom() {
   this.randomSeed = this.generarSeedAleatorio();
+    this.obtenerFraseDelDia();                       // Cambia la frase también
+
 }
+
+ generarSeedAleatorio(): string {
+    return Math.random().toString(36).substring(2, 10);
+  }
+
+  obtenerFraseDelDia(): void {
+    this.http.get<any>('https://frasedeldia.azurewebsites.net/api/frases').subscribe({
+      next: (res) => {
+        this.fraseMotivacional = res.frase;
+        this.autorFrase = res.autor;
+      },
+      error: () => {
+        this.obtenerFraseAleatoria(); // si falla, usa una local
+      }
+    });
+  }
+  obtenerFraseAleatoria(): void {
+    const random = Math.floor(Math.random() * this.frasesLocales.length);
+    const frase = this.frasesLocales[random];
+    this.fraseMotivacional = frase.frase;
+    this.autorFrase = frase.autor;
+  }
+
 
 }

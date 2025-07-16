@@ -6,6 +6,8 @@ import { EncuestaService } from 'src/app/services/encuesta.service';
 import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver';
 import { ViewChild, ElementRef } from '@angular/core';
+import { frasesLocales } from '../frasesMotivacionales'
+
 @Component({
   selector: 'app-home-ing',
   templateUrl: './home-ing.component.html',
@@ -41,12 +43,18 @@ export class HomeIngComponent implements OnInit {
   idEmpresa: number = 0 ;
   activeSegment: string = 'all'; // Variable para controlar el segmento activo
 
-  
-  //IMAGEN DE PERFIL
 
-      avatarUrl: string | null = null;
+
+  //IMAGEN DE PERFIL
+    avatarUrl: string | null = null;
   defaultAvatarUrl = 'https://api.dicebear.com/7.x/initials/svg?seed=TuUsuario';
   randomSeed = Math.random().toString(36).substring(2);
+ randomSeed2: string = this.generarSeedAleatorio();
+  fraseMotivacional: string = '';
+  autorFrase: string = '';
+  frasesLocales = frasesLocales; // importar las frases
+
+
   constructor(private encuestaService: EncuestaService, private router: Router,private http: HttpClient ) { }
 
   ngOnInit(): void {
@@ -428,7 +436,13 @@ guardarPerspectiva(callback?: () => void) {
       }
 
 
-      onAvatarSelected(event: any) {
+
+
+
+
+  //IMAGEN DE PERFIL 
+
+onAvatarSelected(event: any) {
   const file: File = event.target.files[0];
   if (file) {
     const reader = new FileReader();
@@ -441,11 +455,34 @@ guardarPerspectiva(callback?: () => void) {
   }
 }
 
-generarSeedAleatorio(): string {
-  return Math.random().toString(36).substring(2, 10);
-}
 
 cambiarAvatarRandom() {
   this.randomSeed = this.generarSeedAleatorio();
+    this.obtenerFraseDelDia();                       // Cambia la frase también
+
 }
+
+ generarSeedAleatorio(): string {
+    return Math.random().toString(36).substring(2, 10);
+  }
+
+  obtenerFraseDelDia(): void {
+    this.http.get<any>('https://frasedeldia.azurewebsites.net/api/frases').subscribe({
+      next: (res) => {
+        this.fraseMotivacional = res.frase;
+        this.autorFrase = res.autor;
+      },
+      error: () => {
+        this.obtenerFraseAleatoria(); // si falla, usa una local
+      }
+    });
+  }
+  obtenerFraseAleatoria(): void {
+    const random = Math.floor(Math.random() * this.frasesLocales.length);
+    const frase = this.frasesLocales[random];
+    this.fraseMotivacional = frase.frase;
+    this.autorFrase = frase.autor;
+  }
+
+
 }

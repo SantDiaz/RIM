@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver';
 import { ViewChild, ElementRef } from '@angular/core';
+import { frasesLocales } from '../frasesMotivacionales'
+
 @Component({
   selector: 'app-home-val',
   templateUrl: './home-val.component.html',
@@ -18,14 +20,18 @@ export class HomeValComponent implements OnInit {
   pendientes: encuestasObtener[] = [];
   encuestaSeleccionada: any = {};
       username: string = '';
+
+
   //IMAGEN DE PERFIL
-
-      avatarUrl: string | null = null;
+    avatarUrl: string | null = null;
   defaultAvatarUrl = 'https://api.dicebear.com/7.x/initials/svg?seed=TuUsuario';
+  randomSeed = Math.random().toString(36).substring(2);
+ randomSeed2: string = this.generarSeedAleatorio();
+  fraseMotivacional: string = '';
+  autorFrase: string = '';
+  frasesLocales = frasesLocales; // importar las frases
 
-  collections = ['micah', 'bottts', 'avataaars', 'jdenticon', 'gridy', 'pixel-art'];
-currentCollection: string = this.collections[0];
-randomSeed: string = this.generarSeedAleatorio();
+
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient  ) { }
 
   ngOnInit(): void {
@@ -137,6 +143,7 @@ guardarCambios() {
         ...this.encuestaSeleccionada,
       };
     }
+    
 
     // ✅ Mostrar mensaje de éxito
     Swal.fire('¡Editado con éxito!', 'Los cambios fueron guardados correctamente.', 'success');
@@ -181,7 +188,11 @@ guardarCambios() {
     console.log(this.encuesta);
     this.onSubmit();  // Save the form data when moving to the next step
   }
-    //IMAGEN DE PERFIL 
+
+
+
+
+  //IMAGEN DE PERFIL 
 
 onAvatarSelected(event: any) {
   const file: File = event.target.files[0];
@@ -196,11 +207,34 @@ onAvatarSelected(event: any) {
   }
 }
 
-generarSeedAleatorio(): string {
-  return Math.random().toString(36).substring(2, 10);
-}
 
 cambiarAvatarRandom() {
   this.randomSeed = this.generarSeedAleatorio();
+    this.obtenerFraseDelDia();                       // Cambia la frase también
+
 }
+
+ generarSeedAleatorio(): string {
+    return Math.random().toString(36).substring(2, 10);
+  }
+
+  obtenerFraseDelDia(): void {
+    this.http.get<any>('https://frasedeldia.azurewebsites.net/api/frases').subscribe({
+      next: (res) => {
+        this.fraseMotivacional = res.frase;
+        this.autorFrase = res.autor;
+      },
+      error: () => {
+        this.obtenerFraseAleatoria(); // si falla, usa una local
+      }
+    });
+  }
+  obtenerFraseAleatoria(): void {
+    const random = Math.floor(Math.random() * this.frasesLocales.length);
+    const frase = this.frasesLocales[random];
+    this.fraseMotivacional = frase.frase;
+    this.autorFrase = frase.autor;
+  }
+
+
 }
