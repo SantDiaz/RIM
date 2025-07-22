@@ -425,11 +425,13 @@ aria-modal="true"
       <input type="text" class="p-2 w-full border" [(ngModel)]="item.producto" name="producto_{{i}}">
     </div>
 
-    <div class="mb-2">
-      <label class="block font-semibold">Unidad de Medida:</label>
-      <input type="text" class="p-2 w-full border" [(ngModel)]="item.unidad_medida" name="unidad_medida_{{i}}">
-    </div>
-
+      <div class="mb-2">
+        <label class="block font-semibold">Unidad de Medida:</label>
+        <select class="p-2 w-full border" [(ngModel)]="item.unidad_medida" [ngModelOptions]="{standalone: true}" name="util_unidad_{{i}}">
+          <option *ngFor="let unidad of unidades" [value]="unidad">{{ unidad }}</option>
+        </select>
+      </div>
+      
     <div class="mb-2">
       <label class="block font-semibold">Mercado Interno:</label>
       <input type="number" class="p-2 w-full border" [(ngModel)]="item.mercado_interno" name="mercado_interno_{{i}}">
@@ -458,10 +460,12 @@ aria-modal="true"
 </div>
   <div *ngFor="let item of encuestaSeleccionada?.insumosBasicos; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
-    <div class="mb-2">
-      <label class="block font-semibold">Tipo:</label>
-      <input type="text" class="p-2 w-full border" [(ngModel)]="item.tipo" [ngModelOptions]="{standalone: true}"  name="tipo_{{i}}" />
-    </div>
+<div class="mb-2">
+  <label class="block font-semibold">Tipo:</label>
+  <select class="p-2 w-full border" [(ngModel)]="item.tipo" [ngModelOptions]="{standalone: true}" name="tipo_{{i}}">
+    <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+  </select>
+</div>
 
     <div class="mb-2">
       <label class="block font-semibold">Cantidad:</label>
@@ -483,12 +487,22 @@ aria-modal="true"
   <button class="px-4 py-2 text-white bg-green-600 rounded" (click)="agregarItemManoDeObra()">+ Agregar servicio</button>
   <button class="px-4 py-2 text-white bg-red-600 rounded" (click)="eliminarUltimoItemManoDeObra()">– Eliminar último</button>
 </div>
-  <div *ngFor="let item of encuestaSeleccionada?.manoDeObra; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
-    <div class="mb-2">
-      <label class="block font-semibold">Tipo:</label>
-      <input type="text" class="p-2 w-full border" [(ngModel)]="item.tipo" [ngModelOptions]="{standalone: true}" name="mano_tipo_{{i}}" />
-    </div>
+
+  <div *ngFor="let item of encuestaSeleccionada?.manoDeObra; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
+<div class="mb-2">
+  <label class="block font-semibold">Tipo:</label>
+  <select class="p-2 w-full border" [(ngModel)]="item.tipo" [ngModelOptions]="{standalone: true}" name="mano_tipo_{{i}}">
+    <option value="">Seleccione una opción</option>
+    <option value="4.13. Sueldos y Jornales Brutas totales, incluido SAC y horas extras">
+      4.13. Sueldos y Jornales Brutas totales, incluido SAC y horas extras
+    </option>
+    <option value="4.14. Cargas Sociales, incluido A.R.T.">
+      4.14. Cargas Sociales, incluido A.R.T.
+    </option>
+  </select>
+</div>
+
 
     <div class="mb-2">
       <label class="block font-semibold">Monto en Pesos:</label>
@@ -515,10 +529,12 @@ aria-modal="true"
       <input type="text" class="p-2 w-full border" [(ngModel)]="item.producto"  [ngModelOptions]="{standalone: true}" name="util_producto_{{i}}" />
     </div>
 
-    <div class="mb-2">
-      <label class="block font-semibold">Unidad de Medida:</label>
-      <input type="text" class="p-2 w-full border" [(ngModel)]="item.unidad_medida"  [ngModelOptions]="{standalone: true}" name="util_unidad_{{i}}" />
-    </div>
+      <div class="mb-2">
+        <label class="block font-semibold">Unidad de Medida:</label>
+        <select class="p-2 w-full border" [(ngModel)]="item.unidad_medida" [ngModelOptions]="{standalone: true}" name="util_unidad_{{i}}">
+          <option *ngFor="let unidad of unidades" [value]="unidad">{{ unidad }}</option>
+        </select>
+      </div>
 
     <div class="mb-2">
       <label class="block font-semibold">Cantidad:</label>

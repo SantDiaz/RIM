@@ -49,6 +49,32 @@ export class HomeAnComponent implements OnInit {
 
   ];
 
+  tipos = [
+    "4.9. Energía eléctrica consumida (kw/h)",
+    "4.10. GasOil consumido (litros)",
+    "4.11. Gas consumido (m3)",
+    "4.12. Agua consumida (Litros/m3)"
+];
+unidades: string[] = [
+  'METRO (m)',
+  'METRO CUADRADO (m2)',
+  'METRO CÚBICO (m3)',
+  'CENTÍMETRO (cm)',
+  'CENTÍMETRO CUADRADO (cm2)',
+  'CENTÍMETRO CÚBICO (cm3)',
+  'KILOGRAMOS (kg)',
+  'ONZA (oz)',
+  'TONELADA (tn)',
+  'QUINTAL (q)',
+  'LITROS (lts)',
+  'HECTOLITROS (hlts)',
+  'UNIDADES (u)',
+  'DOCENA (d)',
+  'DECENA (dc)',
+  'PACKS (pk)',
+  'PARES (pr)',
+  'OTRA UNIDAD'
+];
 
    // Estados a enviar
   estados2 = [
