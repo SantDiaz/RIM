@@ -6,6 +6,7 @@ import { HomeIngComponent } from './homeProfile/home-ing/home-ing.component';
 import { HomeSupComponent } from './homeProfile/home-sup/home-sup.component';
 import { HomeCorComponent } from './homeProfile/home-cor/home-cor.component';
 import { HomeValComponent } from './homeProfile/home-val/home-val.component';
+import { ComponentsModule } from '../components/components.module';
 
 
 
@@ -14,7 +15,8 @@ import { HomeValComponent } from './homeProfile/home-val/home-val.component';
 
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    
   ], 
   exports: [
 

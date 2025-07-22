@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver';
 import { ViewChild, ElementRef } from '@angular/core';
-import { frasesLocales } from '../frasesMotivacionales'
+// import { frasesLocales } from '../frasesMotivacionales'
 
 @Component({
   selector: 'app-home-val',
@@ -29,7 +29,7 @@ export class HomeValComponent implements OnInit {
  randomSeed2: string = this.generarSeedAleatorio();
   fraseMotivacional: string = '';
   autorFrase: string = '';
-  frasesLocales = frasesLocales; // importar las frases
+  // frasesLocales = frasesLocales; // importar las frases
 
 
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient  ) { }
@@ -109,6 +109,8 @@ export class HomeValComponent implements OnInit {
         observaciones_ingresador: encuestaSeleccionada.observaciones_ingresador,
         // estado_validacion: encuestaSeleccionada.estado_validacion,
         // observaciones_validacion: encuestaSeleccionada.observaciones_validacion,
+        observaciones_validador: encuestaSeleccionada.observaciones_validador,
+        observacion_particular: encuestaSeleccionada.observacion_particular,
         referente: encuestaSeleccionada.referente,
       };
       this.mostrarModal = true;
@@ -134,6 +136,8 @@ guardarCambios() {
 
   this.encuestaSeleccionada.mod_usu = this.username;
   this.encuestaSeleccionada.fecha_mod_estado = new Date(); // ✅ antes del PUT
+this.encuestaSeleccionada.observaciones_validador = this.encuesta.observaciones_validador;
+this.encuestaSeleccionada.observacion_particular = this.encuesta.observacion_particular;
 
   this.http.put(url, this.encuestaSeleccionada).subscribe(() => {
     const index = this.pendientes.findIndex(p => p.idEmpresa === idEmpresa);
@@ -147,8 +151,8 @@ guardarCambios() {
 
     // ✅ Mostrar mensaje de éxito
     Swal.fire('¡Editado con éxito!', 'Los cambios fueron guardados correctamente.', 'success');
+console.log('Objeto enviado al backend:', this.encuestaSeleccionada);
 
-    console.log('Encuesta actualizada:', this.encuestaSeleccionada);
     this.cerrarModal();
   });
 }
@@ -225,16 +229,16 @@ cambiarAvatarRandom() {
         this.autorFrase = res.autor;
       },
       error: () => {
-        this.obtenerFraseAleatoria(); // si falla, usa una local
+        // this.obtenerFraseAleatoria(); // si falla, usa una local
       }
     });
   }
-  obtenerFraseAleatoria(): void {
-    const random = Math.floor(Math.random() * this.frasesLocales.length);
-    const frase = this.frasesLocales[random];
-    this.fraseMotivacional = frase.frase;
-    this.autorFrase = frase.autor;
-  }
+  // obtenerFraseAleatoria(): void {
+  //   const random = Math.floor(Math.random() * this.frasesLocales.length);
+  //   const frase = this.frasesLocales[random];
+  //   this.fraseMotivacional = frase.frase;
+  //   this.autorFrase = frase.autor;
+  // }
 
 
 }

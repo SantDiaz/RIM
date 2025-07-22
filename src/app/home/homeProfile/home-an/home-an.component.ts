@@ -6,7 +6,8 @@ import { EncuestaService } from 'src/app/services/encuesta.service';
 import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver';
 import { ViewChild, ElementRef } from '@angular/core';
-import { frasesLocales } from '../frasesMotivacionales'
+// import { frasesLocales } from '../frasesMotivacionales'
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-home-an',
@@ -22,7 +23,8 @@ export class HomeAnComponent implements OnInit {
   pendientes: encuestasObtener[] = [];
   encuestaSeleccionada: any = {};
 
-  
+  excelData: { sheetName: string, data: any[][] }[] = [];
+
 
   //IMAGEN DE PERFIL
     avatarUrl: string | null = null;
@@ -31,7 +33,7 @@ export class HomeAnComponent implements OnInit {
  randomSeed2: string = this.generarSeedAleatorio();
   fraseMotivacional: string = '';
   autorFrase: string = '';
-  frasesLocales = frasesLocales; // importar las frases
+  // frasesLocales = frasesLocales; // importar las frases
 
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient  ) { }
 
@@ -62,7 +64,8 @@ export class HomeAnComponent implements OnInit {
       'Ingresado'
 
   ];
-
+  tableData: any[] = [];
+  headers: string[] = [];
 
     encuesta: encuestas = {
       id_operativo: 0,
@@ -93,7 +96,37 @@ export class HomeAnComponent implements OnInit {
         this.cargarPendientes();
       }
     }
-    
+
+
+  onFileChange(event: any): void {
+    const target: DataTransfer = <DataTransfer>(event.target);
+    if (target.files.length !== 1) {
+      alert('Por favor, sube un único archivo.');
+      return;
+    }
+
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+      this.excelData = wb.SheetNames.map(sheetName => {
+        const ws: XLSX.WorkSheet = wb.Sheets[sheetName];
+        const data = <any[][]>XLSX.utils.sheet_to_json(ws, { header: 1 });
+        return { sheetName, data };
+      });
+    };
+    reader.readAsBinaryString(target.files[0]);
+  }
+
+getSheetNames(): string[] {
+  return Object.keys(this.excelData);
+}
+
+getKeys(sheetData: any[]): string[] {
+  return sheetData.length > 0 ? Object.keys(sheetData[0]) : [];
+}
+
 
 
     cargarPendientes() {
@@ -489,16 +522,126 @@ cambiarAvatarRandom() {
         this.autorFrase = res.autor;
       },
       error: () => {
-        this.obtenerFraseAleatoria(); // si falla, usa una local
+        // this.obtenerFraseAleatoria(); // si falla, usa una local
       }
     });
   }
-  obtenerFraseAleatoria(): void {
-    const random = Math.floor(Math.random() * this.frasesLocales.length);
-    const frase = this.frasesLocales[random];
-    this.fraseMotivacional = frase.frase;
-    this.autorFrase = frase.autor;
+  // obtenerFraseAleatoria(): void {
+  //   const random = Math.floor(Math.random() * this.frasesLocales.length);
+  //   const frase = this.frasesLocales[random];
+  //   this.fraseMotivacional = frase.frase;
+  //   this.autorFrase = frase.autor;
+  // }
+
+
+  
+agregarItemProduccion() {
+  if (!this.encuestaSeleccionada.produccion) {
+    this.encuestaSeleccionada.produccion = [];
   }
 
+  this.encuestaSeleccionada.produccion.push({
+    producto: '',
+    unidad_medida: '',
+    mercado_interno: null,
+    mercado_externo: null,
+    observaciones: ''
+  });
+}
+
+agregarUtilizacionInsumos(){
+  if (!this.encuestaSeleccionada.utilizacionInsumos) {
+    this.encuestaSeleccionada.utilizacionInsumos = [];
+  }
+
+  this.encuestaSeleccionada.utilizacionInsumos.push({
+    producto: '',
+    unidad_medida: '',
+    cantidad: 0,
+    monto_pesos: 0,
+    });
+}
+
+agregarUtilizacionServicios(){
+  if (!this.encuestaSeleccionada.utilizacionServicios) {
+    this.encuestaSeleccionada.utilizacionServicios = [];
+  }
+
+  this.encuestaSeleccionada.utilizacionServicios.push({
+    nombre: '',
+    monto_pesos: 0,
+    });
+}
+
+
+agregarItemInsumoBasico(){
+  if (!this.encuestaSeleccionada.insumosBasicos) {
+    this.encuestaSeleccionada.insumosBasicos = [];
+  }
+
+  this.encuestaSeleccionada.insumosBasicos.push({
+    tipo: '',
+    cantidad: 0,
+    monto_pesos: 0,
+  });
+}
+
+
+agregarItemManoDeObra(){
+  if (!this.encuestaSeleccionada.manoDeObra) {
+    this.encuestaSeleccionada.manoDeObra = [];
+  }
+
+  this.encuestaSeleccionada.manoDeObra.push({
+    tipo: '',
+    monto_pesos: 0,
+    });
+}
+
+
+eliminarUltimoItemProduccion() {
+  if (this.encuestaSeleccionada?.produccion?.length > 0) {
+    const confirmacion = confirm('¿Estás seguro de que deseas eliminar el último producto de Producción?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.produccion.pop();
+    }
+  }
+}
+
+eliminarUltimoItemUtilizacionInsumos() {
+  if (this.encuestaSeleccionada?.utilizacionInsumos?.length > 0) {
+    const confirmacion = confirm('¿Eliminar el último insumo utilizado?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.utilizacionInsumos.pop();
+    }
+  }
+}
+
+eliminarUltimoItemUtilizacionServicios() {
+  if (this.encuestaSeleccionada?.utilizacionServicios?.length > 0) {
+    const confirmacion = confirm('¿Eliminar el último servicio utilizado?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.utilizacionServicios.pop();
+    }
+  }
+}
+
+
+eliminarUltimoItemManoDeObra() {
+  if (this.encuestaSeleccionada?.manoDeObra?.length > 0) {
+    const confirmacion = confirm('¿Eliminar el último registro de Mano de Obra?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.manoDeObra.pop();
+    }
+  }
+}
+eliminarUltimoItemInsumoBasico() {
+  if (this.encuestaSeleccionada?.insumosBasicos?.length > 0) {
+    const confirmacion = confirm('¿Eliminar el último insumo básico?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.insumosBasicos.pop();
+    }
+  }
+}
 
 }

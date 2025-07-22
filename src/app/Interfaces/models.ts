@@ -99,7 +99,7 @@ export interface DatosEmpresa {
     actividadPrincipal: string;
     id_empresa?: number;  // Agregar id_empresa
     clanae?: string;
-    estratificación?: string;
+    estratificacion?: string;
   }
   
   export interface DatosRespondiente {

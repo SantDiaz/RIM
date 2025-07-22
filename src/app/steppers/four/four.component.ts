@@ -124,7 +124,7 @@ export class FourComponent implements OnInit {
     this.fourServices.enviarPerspectiva(this.idEmpresa, this.perspect).subscribe(
       response => {
         console.log('Datos de perspectiva enviados correctamente:', response);
-        
+        this.router.navigate(['/home']); // Redirige al siguiente paso
         // Aquí puedes manejar la respuesta exitosa, como redirigir o mostrar un mensaje
       },
       error => {

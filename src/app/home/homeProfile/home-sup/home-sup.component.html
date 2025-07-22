@@ -58,7 +58,7 @@
         class="flex-1 py-2 text-center text-lg font-semibold"
         [ngClass]="{'text-blue-500': activeSegment === 'favorites'}"
         (click)="toggleSegment('favorites')">
-        Buscar
+                Agregar Empresa
       </button>
     </div>
   
@@ -224,7 +224,7 @@ aria-modal="true"
       
       <div>
     <div class="mb-4">
-      <label class="block mb-1">ID Empresa:</label>
+      <label class="block mb-1">ID Operativo:</label>
       <input type="number" class="p-2 w-full border" [disabled]="true" name="id_empresa" [(ngModel)]="encuestaSeleccionada.id_empresa">
     </div>
 

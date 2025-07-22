@@ -6,7 +6,7 @@ import { EncuestaService } from 'src/app/services/encuesta.service';
 import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver';
 import { ViewChild, ElementRef } from '@angular/core';
-import { frasesLocales } from '../frasesMotivacionales'
+// import { frasesLocales } from '../frasesMotivacionales'
 
 @Component({
   selector: 'app-home-sup',
@@ -29,7 +29,7 @@ export class HomeSupComponent implements OnInit {
  randomSeed2: string = this.generarSeedAleatorio();
   fraseMotivacional: string = '';
   autorFrase: string = '';
-  frasesLocales = frasesLocales; // importar las frases
+  // frasesLocales = frasesLocales; // importar las frases
 
 
   constructor(private encuestaService: EncuestaService, private router: Router, private http: HttpClient ) { }
@@ -209,16 +209,16 @@ cambiarAvatarRandom() {
         this.autorFrase = res.autor;
       },
       error: () => {
-        this.obtenerFraseAleatoria(); // si falla, usa una local
+        // this.obtenerFraseAleatoria(); // si falla, usa una local
       }
     });
   }
-  obtenerFraseAleatoria(): void {
-    const random = Math.floor(Math.random() * this.frasesLocales.length);
-    const frase = this.frasesLocales[random];
-    this.fraseMotivacional = frase.frase;
-    this.autorFrase = frase.autor;
-  }
+  // obtenerFraseAleatoria(): void {
+  //   const random = Math.floor(Math.random() * this.frasesLocales.length);
+  //   const frase = this.frasesLocales[random];
+  //   this.fraseMotivacional = frase.frase;
+  //   this.autorFrase = frase.autor;
+  // }
 
 
 }

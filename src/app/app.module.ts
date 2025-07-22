@@ -22,12 +22,12 @@ import { AuthGuard } from './guards/auth.guard';
 import { HomeCorComponent } from './home/homeProfile/home-cor/home-cor.component';
 import { HomeSupComponent } from './home/homeProfile/home-sup/home-sup.component';
 import { HomeValComponent } from './home/homeProfile/home-val/home-val.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
     OneComponent,
     TwoComponent,
     ThreeComponent,
@@ -50,10 +50,10 @@ import { HomeValComponent } from './home/homeProfile/home-val/home-val.component
     FormsModule,
     HttpClientModule,  // Add HttpClientModule here
     ReactiveFormsModule,
+    ComponentsModule,
   ],
   exports: [
     HomeComponent,
-    HeaderComponent,
     OneComponent,
     TwoComponent,
     ThreeComponent,

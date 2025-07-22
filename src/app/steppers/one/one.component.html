@@ -8,16 +8,16 @@
         [ngClass]="{
           'text-[#FF8300] dark:text-[#FF8300]': currentStep >= 1
         }">
-        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+        <span class="flex items-center justify-center w-10 h-10 w-12 rounded-full shrink-0 lg:h-12"
           [ngClass]="{
             'bg-[#FF8300] dark:bg-[#FF8300]': currentStep >= 1,
             'bg-gray-100 dark:bg-gray-700': currentStep < 1
           }">
-          <svg class="w-3.5 h-3.5 text-white lg:w-4 lg:h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+          <svg class="w-3.5 h-3.5 h-4 text-white lg:w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
           </svg>
         </span>
-        <div class="flex-grow h-1 mx-2"
+        <div class="flex-grow mx-2 h-1"
           [ngClass]="{
             'bg-[#FF8300]': currentStep >= 2,
             'bg-gray-300 dark:bg-gray-700': currentStep < 2
@@ -28,14 +28,14 @@
         [ngClass]="{
           'text-[#FF8300] dark:text-[#FF8300]': currentStep >= 2
         }">
-        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+        <span class="flex items-center justify-center w-10 h-10 w-12 rounded-full shrink-0 lg:h-12"
           [ngClass]="{
             'bg-[#FF8300]': currentStep >= 2,
             'bg-gray-100 dark:bg-gray-700': currentStep < 2
           }">
           <span class="text-white">2</span>
         </span>
-        <div class="flex-grow h-1 mx-2"
+        <div class="flex-grow mx-2 h-1"
           [ngClass]="{
             'bg-[#FF8300]': currentStep >= 3,
             'bg-gray-300 dark:bg-gray-700': currentStep < 3
@@ -43,7 +43,7 @@
       </li>
 
       <li class="flex items-center">
-        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+        <span class="flex items-center justify-center w-10 h-10 w-12 rounded-full shrink-0 lg:h-12"
           [ngClass]="{
             'bg-[#FF8300]': currentStep >= 3,
             'bg-gray-100 dark:bg-gray-700': currentStep < 3
@@ -59,90 +59,121 @@
   <div id="step-1">
     <form >
         
-      <div class="container bg-white p-6 shadow-md rounded-lg mx-auto p-4 " >
-        <h1 class="text-2xl font-bold mb-4 text-center">RELEVAMIENTO INDUSTRIAL MANUFACTURERO DE SAN JUAN</h1>
+      <div class="container p-6 mx-auto p-4 bg-white rounded-lg shadow-md" >
+        <h1 class="mb-4 text-2xl font-bold text-center">RELEVAMIENTO INDUSTRIAL MANUFACTURERO DE SAN JUAN</h1>
 
        
         <p class="mb-4 text-sm italic">CARÁCTER ESTRICTAMENTE CONFIDENCIAL Y RESERVADO - Ley N° 17.622</p>
        
-        <div class="bg-gray-100 p-4 mb-4 text-sm" >
+        <div class="p-4 mb-4 text-sm bg-gray-100" >
           <p>Las informaciones que se suministren a los organismos que integran el Sistema Estadístico Nacional, en cumplimiento de la presente ley, serán estrictamente secretas y sólo se utilizarán con fines estadísticos. Los datos deberán ser suministrados y publicados, exclusivamente, en compilaciones de conjunto, de modo que no pueda ser violado el secreto comercial o patrimonial, ni individualizarse las personas o entidades a quienes se refieran. Quedan exceptuados del secreto estadístico los siguientes datos de registro: nombre y apellido, o razón social, domicilio y rama de actividad.</p>
         </div>
       
         <form >
-          <h2 class="text-xl font-semibold mb-2 text-center">DATOS DE IDENTIFICACIÓN</h2>
+          <h2 class="mb-2 text-xl font-semibold text-center">DATOS DE IDENTIFICACIÓN</h2>
          
           <div class="mb-4">
             <label class="block mb-1">1. Nombre o razón social de la empresa:</label>
-            <input type="text" class="w-full border p-2" name="nombreEmpresa" [(ngModel)]="datosEmpresa.nombreEmpresa">
+            <input type="text" class="p-2 w-full border" name="nombreEmpresa" [(ngModel)]="datosEmpresa.nombreEmpresa">
           </div>
           
           <div class="mb-4">
             <label class="block mb-1">1.1.1 Nombre de Fantasía:</label>
-            <input type="text" class="w-full border p-2" name="nombreFantasia" [(ngModel)]="datosEmpresa.nombreFantasia">
+            <input type="text" class="p-2 w-full border" name="nombreFantasia" [(ngModel)]="datosEmpresa.nombreFantasia">
           </div>
           
           <div class="mb-4">
             <label class="block mb-1">1.1.2 CUIT:</label>
-            <input type="text" class="w-full border p-2" name="cuit" [(ngModel)]="datosEmpresa.cuit">
+            <input type="text" class="p-2 w-full border" name="cuit" [(ngModel)]="datosEmpresa.cuit">
           </div>
           
           <div class="mb-4">
             <label class="block mb-1">1.2.1 Dirección del Establecimiento Industrial:</label>
-            <input type="text" class="w-full border p-2" name="direccionEstablecimiento" [(ngModel)]="datosEmpresa.direccionEstablecimiento">
+            <input type="text" class="p-2 w-full border" name="direccionEstablecimiento" [(ngModel)]="datosEmpresa.direccionEstablecimiento">
           </div>
           
           <div class="mb-4">
             <label class="block mb-1">1.2.2 Dirección de la Administración:</label>
-            <input type="text" class="w-full border p-2" name="direccionAdministracion" [(ngModel)]="datosEmpresa.direccionAdministracion">
+            <input type="text" class="p-2 w-full border" name="direccionAdministracion" [(ngModel)]="datosEmpresa.direccionAdministracion">
           </div>
           
           <div class="mb-4">
             <label class="block mb-1">1.2.3 Partido o Localidad Est. Industrial:</label>
-            <input type="text" class="w-full border p-2" name="localidadEstablecimiento" [(ngModel)]="datosEmpresa.localidadEstablecimiento">
+            <input type="text" class="p-2 w-full border" name="localidadEstablecimiento" [(ngModel)]="datosEmpresa.localidadEstablecimiento">
           </div>
           
           <div class="mb-4">
             <label class="block mb-1">1.2.4 Actividad principal:</label>
-            <input type="text" class="w-full border p-2" name="actividadPrincipal" [(ngModel)]="datosEmpresa.actividadPrincipal">
+            <input type="text" class="p-2 w-full border" name="actividadPrincipal" [(ngModel)]="datosEmpresa.actividadPrincipal">
           </div>
           <div class="mb-4">
             <label class="block mb-1">1.2.5 Clanae:</label>
-            <input type="text" class="w-full border p-2" name="actividadPrincipal" [(ngModel)]="datosEmpresa.clanae">
+            <input type="text" class="p-2 w-full border" name="actividadPrincipal" [(ngModel)]="datosEmpresa.clanae">
+          </div>
+              <div class="mb-4">
+            <label class="block mb-1">1.2.6 Estratificación:</label>
+            <input type="text" class="p-2 w-full border" name="actividadPrincipal" [(ngModel)]="datosEmpresa.estratificacion">
           </div>
           
-          <h2 class="text-xl font-semibold mb-2 text-center">DATOS DEL RESPONDIENTE DE LA ENCUESTA</h2>
+          <h2 class="mb-2 text-xl font-semibold text-center">DATOS DEL RESPONDIENTE DE LA ENCUESTA</h2>
 
           <div class="mb-4">
             <label class="block mb-1">2.1. Nombre y Apellido:</label>
-            <input type="text" class="w-full border p-2" name="nombreApellido" [(ngModel)]="datosRespondiente.nombreApellido">
+            <input type="text" class="p-2 w-full border" name="nombreApellido" [(ngModel)]="datosRespondiente.nombreApellido">
           </div>
           
           <div class="mb-4">
             <label class="block mb-1">2.2. Cargo/Área:</label>
-            <input type="text" class="w-full border p-2" name="cargoArea" [(ngModel)]="datosRespondiente.cargoArea">
+            <input type="text" class="p-2 w-full border" name="cargoArea" [(ngModel)]="datosRespondiente.cargoArea">
           </div>
           
           <div class="mb-4">
             <label class="block mb-1">2.3. Tipo de Teléfono (Particular/Corporativo):</label>
-            <select class="w-full border p-2" name="tipoTelefono" [(ngModel)]="datosRespondiente.tipoTelefono">
+            <select class="p-2 w-full border" name="tipoTelefono" [(ngModel)]="datosRespondiente.tipoTelefono">
               <option value="Particular">Particular</option>
               <option value="Corporativo">Corporativo</option>
             </select>
           </div>
           <div class="mb-4">
             <label class="block mb-1">2.4. Numero telefonico:</label>
-            <input type="number" class="w-full border p-2" name="numeroTelefono" [(ngModel)]="datosRespondiente.numeroTelefono">
+            <input type="number" class="p-2 w-full border" name="numeroTelefono" [(ngModel)]="datosRespondiente.numeroTelefono">
           </div>
           <div class="mb-4">
             <label class="block mb-1">2.5. Email:</label>
-            <input type="email" class="w-full border p-2" name="email" [(ngModel)]="datosRespondiente.email">
+            <input type="email" class="p-2 w-full border" name="email" [(ngModel)]="datosRespondiente.email">
           </div>
+
+          <h2 class="mb-2 text-xl font-semibold text-center">DATOS DEL REFERENTE DE LA ENCUESTA</h2>
+
+          <div class="mb-4">
+            <label class="block mb-1">2.1. Nombre y Apellido:</label>
+            <input type="text" class="p-2 w-full border" name="nombreApellido" [(ngModel)]="datosRefente.nombre_apellido">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block mb-1">2.2. Cargo/Área:</label>
+            <input type="text" class="p-2 w-full border" name="cargoArea" [(ngModel)]="datosRefente.cargoArea">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block mb-1">2.3. Tipo de Teléfono (Particular/Corporativo):</label>
+            <select class="p-2 w-full border" name="tipoTelefono" [(ngModel)]="datosRefente.tipo_telefono">
+              <option value="Particular">Particular</option>
+              <option value="Corporativo">Corporativo</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block mb-1">2.4. Numero telefonico:</label>
+            <input type="number" class="p-2 w-full border" name="numeroTelefono" [(ngModel)]="datosRefente.numero_telefono">
+          </div>
+
+
+          
           
         </form>
         <br>
         <div class="flex justify-center">
-          <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="EnviarS1()">Siguiente</button>
+          <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="EnviarS1()">Siguiente</button>
         </div>
       </div>
     
@@ -153,55 +184,55 @@
 
 
   <div id="step-2" class="hidden">
-    <div class="container bg-white p-6 shadow-md rounded-lg mx-auto p-4 text-center">
-      <h1 class="text-2xl font-bold mb-4">INDUSTRIA MANUFACTURERA - PRODUCCIÓN Y VENTAS EN UNIDADES FÍSICAS</h1>
+    <div class="container p-6 mx-auto p-4 text-center bg-white rounded-lg shadow-md">
+      <h1 class="mb-4 text-2xl font-bold">INDUSTRIA MANUFACTURERA - PRODUCCIÓN Y VENTAS EN UNIDADES FÍSICAS</h1>
       
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Periodo a declarar:</label>
-        <input type="text" value="Acumulado 2023" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" readonly>
+        <input type="text" value="Acumulado 2023" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" readonly>
       </div>
     
-      <table class="w-full border-collapse border border-gray-300">
+      <table class="w-full border-collapse border-gray-300 border">
         <thead>
           <tr class="bg-gray-100">
-            <th class="border border-gray-300 px-4 py-2">a -Producto</th>
-            <th class="border border-gray-300 px-4 py-2">b- Unidad de medida del producto</th>
-            <th class="border border-gray-300 px-4 py-2">c- Mercado Interno (en unidades físicas)</th>
-            <th class="border border-gray-300 px-4 py-2">d- Mercado Externo (en unidades físicas)</th>
+            <th class="px-4 py-2 border-gray-300 border">a -Producto</th>
+            <th class="px-4 py-2 border-gray-300 border">b- Unidad de medida del producto</th>
+            <th class="px-4 py-2 border-gray-300 border">c- Mercado Interno (en unidades físicas)</th>
+            <th class="px-4 py-2 border-gray-300 border">d- Mercado Externo (en unidades físicas)</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let produccion of producciones; let i = index">
-            <td class="border border-gray-300 px-4 py-2">
+            <td class="px-4 py-2 border-gray-300 border">
               <input type="text" [(ngModel)]="produccion.producto" class="w-full">
             </td>
-            <td class="border border-gray-300 px-4 py-2">
+            <td class="px-4 py-2 border-gray-300 border">
               <select [(ngModel)]="produccion.unidad_medida">
                 <option *ngFor="let opcion of unidad_medida" [value]="opcion">{{ opcion }}</option>
               </select>
             </td>
-            <td class="border border-gray-300 px-4 py-2">
+            <td class="px-4 py-2 border-gray-300 border">
               <input type="number" [(ngModel)]="produccion.mercado_interno" class="w-full">
             </td>
-            <td class="border border-gray-300 px-4 py-2">
+            <td class="px-4 py-2 border-gray-300 border">
               <input type="number" [(ngModel)]="produccion.mercado_externo" class="w-full">
             </td>
           </tr>
         </tbody>
       </table>
       <br>
-      <button (click)="agregarNuevaFila()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">
+      <button (click)="agregarNuevaFila()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">
         Agregar nueva fila
       </button>
-      <button (click)="eliminarUltimaFilaProduccion()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">Eliminar última fila</button>
+      <button (click)="eliminarUltimaFilaProduccion()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">Eliminar última fila</button>
 
       <div class="mt-4">
-        <textarea class="w-full border border-gray-300 p-2" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
+        <textarea class="p-2 w-full border-gray-300 border" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
       </div>
       <br>
       <div class="flex justify-center">
-        <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2" (click)="previousStep()">Anterior</button>
-        <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="step2()">Siguiente</button>
+        <button type="button" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded" (click)="previousStep()">Anterior</button>
+        <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="step2()">Siguiente</button>
       </div>
     </div>
       </div>
@@ -226,77 +257,77 @@
       
 
   <div id="step-3" class="hidden">
-    <div class="container mx-auto p-4 bg-white p-6 shadow-md rounded-lg text-center">
-      <h1 class="text-2xl font-bold mb-4">INDUSTRIA MANUFACTURERA - UTILIZACIÓN DE INSUMOS</h1>
+    <div class="container mx-auto p-4 p-6 text-center bg-white rounded-lg shadow-md">
+      <h1 class="mb-4 text-2xl font-bold">INDUSTRIA MANUFACTURERA - UTILIZACIÓN DE INSUMOS</h1>
       
       <div class="mb-4">
         <span class="font-semibold">Periodo a declarar:</span>
         <span class="ml-2">Acumulado 2023</span>
       </div>
     
-      <div class="bg-gray-200 p-2 mb-4">
+      <div class="p-2 mb-4 bg-gray-200">
         <h2 class="font-bold">UTILIZACIÓN DE INSUMOS</h2>
-        <p class="text-sm mt-2">a-Insumo: Se requiere enumerar de 1 a 4 insumos de mayor relevancia en los costos de la entidad, durante el último año. b-Unidad de medida: Se refiere a la magnitud en que se mide la producción (Toneladas, Kgs, metros, metros cúbicos, litros, pares, docenas, quintales, centímetros, hectolitros, packs, unidades físicas, otras unidades, etc.). c-Cantidad utilizada: Magnitud del insumo utilizado, expresado en la unidad de medida enunciada en la columna b-. d-Monto Total en pesos (sin centavos): Monto Total devengado destinado a la compra de insumos (precio unitario x cantidad utilizada). En todos los casos los montos en pesos ($) deben expresarse sin incluir impuestos. Si los insumos fueran suministrados por otros establecimientos de la misma empresa, para continuar o concluir el proceso productivo, deben valorizar los mismos al precio estimable para esa transferencia.</p>
+        <p class="mt-2 text-sm">a-Insumo: Se requiere enumerar de 1 a 4 insumos de mayor relevancia en los costos de la entidad, durante el último año. b-Unidad de medida: Se refiere a la magnitud en que se mide la producción (Toneladas, Kgs, metros, metros cúbicos, litros, pares, docenas, quintales, centímetros, hectolitros, packs, unidades físicas, otras unidades, etc.). c-Cantidad utilizada: Magnitud del insumo utilizado, expresado en la unidad de medida enunciada en la columna b-. d-Monto Total en pesos (sin centavos): Monto Total devengado destinado a la compra de insumos (precio unitario x cantidad utilizada). En todos los casos los montos en pesos ($) deben expresarse sin incluir impuestos. Si los insumos fueran suministrados por otros establecimientos de la misma empresa, para continuar o concluir el proceso productivo, deben valorizar los mismos al precio estimable para esa transferencia.</p>
       </div>
     
-      <table class="w-full border-collapse border border-gray-300 mb-6">
+      <table class="mb-6 w-full border-collapse border-gray-300 border">
         <thead>
           <tr class="bg-gray-100">
-            <th class="border border-gray-300 px-4 py-2">a- Nombre Insumos</th>
-            <th class="border border-gray-300 px-4 py-2">b- Unidades de medida del insumo</th>
-            <th class="border border-gray-300 px-4 py-2">c- Cantidad utilizada</th>
-            <th class="border border-gray-300 px-4 py-2">d- Monto Total en pesos (sin centavos)</th>
+            <th class="px-4 py-2 border-gray-300 border">a- Nombre Insumos</th>
+            <th class="px-4 py-2 border-gray-300 border">b- Unidades de medida del insumo</th>
+            <th class="px-4 py-2 border-gray-300 border">c- Cantidad utilizada</th>
+            <th class="px-4 py-2 border-gray-300 border">d- Monto Total en pesos (sin centavos)</th>
           </tr>
         </thead>
         <tbody>
           <ng-container >
               <tr *ngFor="let bienes of bieness; let i = index">
 
-              <td class="border border-gray-300 px-4 py-2">
+              <td class="px-4 py-2 border-gray-300 border">
                 <input  [(ngModel)]="bienes.producto" type="text" class="w-full" >
               </td>
-              <td class="border border-gray-300 px-4 py-2">
+              <td class="px-4 py-2 border-gray-300 border">
                 <select [(ngModel)]="bienes.unidad_medida">
                   <option *ngFor="let opcion of unidad_medida" [value]="opcion">{{ opcion }}</option>
                 </select>
               </td>
-              <td class="border border-gray-300 px-4 py-2">
+              <td class="px-4 py-2 border-gray-300 border">
                 <input [(ngModel)]="bienes.cantidad" type="number" class="w-full" >
               </td>
-              <td class="border border-gray-300 px-4 py-2">
+              <td class="px-4 py-2 border-gray-300 border">
                 <input  [(ngModel)]="bienes.monto_pesos" type="number" class="w-full" >
               </td>
             </tr>
           </ng-container>
         </tbody>
       </table>
-      <button (click)="agregarNuevaFila3()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">
+      <button (click)="agregarNuevaFila3()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">
         Agregar nueva fila
       </button> 
-      <button (click)="eliminarUltimaFilaBienes()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">Eliminar última fila </button>
+      <button (click)="eliminarUltimaFilaBienes()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">Eliminar última fila </button>
 
       <br>  
           <br>  
     
-      <div class="bg-gray-200 p-2 mb-4">
+      <div class="p-2 mb-4 bg-gray-200">
         <h2 class="font-bold">UTILIZACIÓN DE SERVICIOS</h2>
-        <p class="text-sm mt-2">a- Principales Servicios: Se requiere enumerar de 1 a 4 insumos de mayor relevancia en los principales servicios demandados, durante el último año. Son ejemplo de ello: Fletes, seguros, telecomunicaciones, alquileres, servicios profesionales, etc. b-Monto total en pesos (sin centavos): Monto total devengado destinado al pago de servicios. En todos los casos los montos en pesos ($) deben expresarse sin incluir impuestos.</p>
+        <p class="mt-2 text-sm">a- Principales Servicios: Se requiere enumerar de 1 a 4 insumos de mayor relevancia en los principales servicios demandados, durante el último año. Son ejemplo de ello: Fletes, seguros, telecomunicaciones, alquileres, servicios profesionales, etc. b-Monto total en pesos (sin centavos): Monto total devengado destinado al pago de servicios. En todos los casos los montos en pesos ($) deben expresarse sin incluir impuestos.</p>
       </div>
     
-      <table class="w-full border-collapse border border-gray-300 mt-4">
+      <table class="mt-4 w-full border-collapse border-gray-300 border">
         <thead>
           <tr class="bg-gray-100">
-            <th class="border border-gray-300 px-4 py-2">Nombre del Servicio</th>
-            <th class="border border-gray-300 px-4 py-2">Monto Total en pesos (sin centavos)</th>
+            <th class="px-4 py-2 border-gray-300 border">Nombre del Servicio</th>
+            <th class="px-4 py-2 border-gray-300 border">Monto Total en pesos (sin centavos)</th>
           </tr>
         </thead>
         <tbody>
           <ng-container *ngFor="let servicio of servicioss; let i = index">
             <tr>
-              <td class="border border-gray-300 px-4 py-2">
+              <td class="px-4 py-2 border-gray-300 border">
                 <input [(ngModel)]="servicio.nombre" type="text" class="w-full" [attr.id]="'servicio-' + i + '-nombre'">
               </td>
-              <td class="border border-gray-300 px-4 py-2">
+              <td class="px-4 py-2 border-gray-300 border">
                 <input [(ngModel)]="servicio.monto_pesos" type="number" class="w-full" [attr.id]="'servicio-' + i + '-monto'">
               </td>
             </tr>
@@ -304,64 +335,64 @@
         </tbody>
       </table>
         <br>
-      <button (click)="agregarNuevaFilaServicio()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">
+      <button (click)="agregarNuevaFilaServicio()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">
         Agregar nueva fila
       </button> 
-      <button (click)="eliminarUltimaFilaServicios()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">Eliminar última fila</button>
+      <button (click)="eliminarUltimaFilaServicios()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">Eliminar última fila</button>
     </div>
       <br>
-    <div class="container mx-auto p-4 bg-white p-6 shadow-md rounded-lg">
-      <div class="bg-gray-200 p-4 mb-6">
-        <h2 class="text-xl font-bold mb-2">CONSUMO DE PRINCIPALES INSUMOS BÁSICOS</h2>
+    <div class="container mx-auto p-4 p-6 bg-white rounded-lg shadow-md">
+      <div class="p-4 mb-6 bg-gray-200">
+        <h2 class="mb-2 text-xl font-bold">CONSUMO DE PRINCIPALES INSUMOS BÁSICOS</h2>
         <p class="text-sm">
           Energía eléctrica: Utilizada durante el año de referencia en kw/h (excluir energía reactiva). Corresponde al total de kw/h y pesos ($) de energía comprada mas la autoproducida, menos la vendida a terceros. Gas Oil: Expendido durante el año de referencia en litros. Corresponde al total de litros y pesos ($) gastados en combustibles. En ambos casos los montos en pesos ($) deben expresarse sin incluir impuestos. Gas consumido: Consumido en el año de referencia en m3. Agua: Consumida durante el año de referencia, medida en litros u m3. Si carece de medidor, estimar el consumo.
         </p>
       </div>
     
-      <table class="w-full border-collapse border border-gray-300 mb-6">
+      <table class="mb-6 w-full border-collapse border-gray-300 border">
         <thead>
           <tr class="bg-gray-100">
-            <th class="border border-gray-300 px-4 py-2"></th>
-            <th class="border border-gray-300 px-4 py-2">a- Cantidad utilizada (en kw/h /lts/ m3)</th>
-            <th class="border border-gray-300 px-4 py-2">b- Monto Total en pesos (sin centavos)</th>
+            <th class="px-4 py-2 border-gray-300 border"></th>
+            <th class="px-4 py-2 border-gray-300 border">a- Cantidad utilizada (en kw/h /lts/ m3)</th>
+            <th class="px-4 py-2 border-gray-300 border">b- Monto Total en pesos (sin centavos)</th>
           </tr>
         </thead> 
         <tbody>
           <tr *ngFor="let servicioB of insumo_basic; let i = index">
-            <td class="border border-gray-300 px-4 py-2">
+            <td class="px-4 py-2 border-gray-300 border">
               <select [(ngModel)]="servicioB.tipo">
                 <option *ngFor="let opcion of tipos" [value]="opcion">{{ opcion }}</option>
               </select>
             </td>
-            <td class="border border-gray-300 px-4 py-2">
+            <td class="px-4 py-2 border-gray-300 border">
               <input [(ngModel)]="servicioB.cantidad" type="number" class="w-full" >
             </td>
-            <td class="border border-gray-300 px-4 py-2">
+            <td class="px-4 py-2 border-gray-300 border">
               <input [(ngModel)]="servicioB.monto_pesos" type="number" class="w-full" >
             </td>
           </tr>
         </tbody>
       </table>
       <div class="flex justify-center">
-        <button (click)="agregarNuevaFilaServicioBasico()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">
+        <button (click)="agregarNuevaFilaServicioBasico()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">
           Agregar nueva fila
         </button> 
-        <button (click)="eliminarUltimaFilaServicioBasico()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">Eliminar última fila </button>
+        <button (click)="eliminarUltimaFilaServicioBasico()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">Eliminar última fila </button>
       </div>
       <br>
 
-      <div class="bg-gray-200 p-4 mb-6">
-        <h2 class="text-xl font-bold mb-2">VALORIZACIÓN DE MANO DE OBRA</h2>
+      <div class="p-4 mb-6 bg-gray-200">
+        <h2 class="mb-2 text-xl font-bold">VALORIZACIÓN DE MANO DE OBRA</h2>
         <p class="text-sm">
           Deben declararse retribuciones devengadas al personal asalariado de la empresa, esté vinculado o no con el proceso productivo, durante el año de referencia. Debe incluirse la remuneración bruta por todo concepto, incluyendo vacaciones gozadas, SAC, Horas extras, y cualquier otro pago habitual al personal. No deben ser incluidos los pagos por asignaciones familiares, preaviso, indemnizaciones, despidos, gratificaciones por cese de tareas, ni retiros voluntarias, tampoco vacaciones no gozadas.
         </p>
       </div>
     
-      <table class="w-full border-collapse border border-gray-300">
+      <table class="w-full border-collapse border-gray-300 border">
         <thead>
           <tr class="bg-gray-100">
-            <th class="border border-gray-300 px-4 py-2"></th>
-            <th class="border border-gray-300 px-4 py-2">a - Monto Total en pesos (sin centavos)</th>
+            <th class="px-4 py-2 border-gray-300 border"></th>
+            <th class="px-4 py-2 border-gray-300 border">a - Monto Total en pesos (sin centavos)</th>
           </tr>
         </thead>
         <tbody>
@@ -369,7 +400,7 @@
             <select [(ngModel)]="remuCarga.tipo">
               <option *ngFor="let opcion of remuneracion_carga" [value]="opcion">{{ opcion }}</option>
             </select>
-          <td class="border border-gray-300 px-4 py-2">
+          <td class="px-4 py-2 border-gray-300 border">
             <input [(ngModel)]="remuCarga.monto_pesos" type="number" class="w-full" >
           </td>
           </tr>
@@ -378,17 +409,17 @@
       </table>
       <br>
       <div class="flex justify-center">
-        <button (click)="agregarNuevaFilaRemuneracionCarga()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">
+        <button (click)="agregarNuevaFilaRemuneracionCarga()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">
           Agregar nueva fila
         </button> 
-        <button (click)="eliminarUltimaFilaRemuneracionCarga()" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2">Eliminar última fila </button>
+        <button (click)="eliminarUltimaFilaRemuneracionCarga()" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded">Eliminar última fila </button>
       </div>
       <div class="mt-4">
-        <textarea class="w-full border border-gray-300 p-2" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
+        <textarea class="p-2 w-full border-gray-300 border" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
       </div>
       <div class="flex justify-center">
-        <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2" (click)="previousStep()">Anterior</button>
-        <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="step3()">Siguiente</button>
+        <button type="button" class="px-4 py-2 mr-2 text-white bg-[#FF8300] rounded" (click)="previousStep()">Anterior</button>
+        <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="step3()">Siguiente</button>
       </div>
   </div>
       </div>

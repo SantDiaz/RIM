@@ -50,7 +50,7 @@
         class="flex-1 py-2 text-center text-lg font-semibold"
         [ngClass]="{'text-blue-500': activeSegment === 'all'}" 
         (click)="toggleSegment('all')">
-        Buscar
+        Agregar Empresa
       </button>
       
       <!-- Botón Favorites -->
@@ -83,7 +83,7 @@
         <br>
   
         <div class="mb-4">
-          <label class="block mb-1">ID Empresa:</label>
+          <label class="block mb-1">ID Operativo:</label>
           <input type="number" class="p-2 w-full border"  name="id_operativo" />
         </div>
 
@@ -223,7 +223,7 @@ aria-modal="true"
 
   <div class="overflow-hidden z-20 p-6 w-full bg-white rounded-lg shadow-xl transition-all transform sm:max-w-4xl">
 
-    <form (ngSubmit)="guardarCambios()">
+    <form >
       <!-- Paso 1 -->
       <div *ngIf="pasoActual === 1">
           <h3 class="mb-4 text-center text-2xl font-bold">Encuesta</h3>
@@ -291,28 +291,7 @@ aria-modal="true"
     </div>
 
   </div>
-   <div class="mb-4">
-        <label class="block mb-1">Observaciones del Validador:</label>
-        <select class="p-2 mb-2 w-full border" [(ngModel)]="encuesta.observaciones_validador" name="observaciones_validador">
-          <option value="Incompleto">Incompleto</option>
-          <option value="Error módulo ventas">Error módulo ventas</option>
-          <option value="Error módulo trabajadores">Error módulo trabajadores</option>
-          <option value="Error módulo producción">Error módulo producción</option>
-          <option value="Error módulo Insumos">Error módulo Insumos</option>
-          <option value="Error particular">Error particular (describir abajo)</option>
-        </select>
 
-        <textarea
-          *ngIf="encuesta.observaciones_validador === 'Error particular'"
-          maxlength="250"
-          rows="3"
-          class="p-2 w-full border"
-          placeholder="Describa el error particular (máx. 250 caracteres)"
-          [(ngModel)]="encuesta.observacion_particular"
-          name="observacion_particular"
-        ></textarea>
-      </div>
-    
       <!-- Paso 2 -->
     <div *ngIf="pasoActual === 2">
   <h3 class="mb-4 text-center text-2xl font-bold">Datos de identificación de empresa</h3>
@@ -426,9 +405,19 @@ aria-modal="true"
 </div>
 
 <!-- Paso 5 -->
+
 <div *ngIf="pasoActual === 5">
+  
   <h3 class="mb-4 text-center text-2xl font-bold">Producción</h3>
 
+  <!-- Botón para agregar un nuevo item -->
+<div class="flex justify-center mb-4 space-x-4">
+  <button class="px-4 py-2 text-white bg-green-600 rounded" (click)="agregarItemProduccion()">+ Agregar Item en blanco</button>
+  <button class="px-4 py-2 text-white bg-red-600 rounded" (click)="eliminarUltimoItemProduccion()">– Eliminar Item en blanco</button>
+</div>
+
+
+  <!-- Lista de items -->
   <div *ngFor="let item of encuestaSeleccionada?.produccion; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
     <div class="mb-2">
@@ -457,14 +446,16 @@ aria-modal="true"
     </div>
 
   </div>
-
 </div>
 
 
       
 <div *ngIf="pasoActual === 6">
   <h3 class="mb-4 text-center text-2xl font-bold">Insumos Básicos</h3>
-
+<div class="flex justify-center mb-4 space-x-4">
+  <button class="px-4 py-2 text-white bg-green-600 rounded" (click)="agregarItemInsumoBasico()">+ Agregar insumo</button>
+  <button class="px-4 py-2 text-white bg-red-600 rounded" (click)="eliminarUltimoItemInsumoBasico()">– Eliminar último</button>
+</div>
   <div *ngFor="let item of encuestaSeleccionada?.insumosBasicos; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
     <div class="mb-2">
@@ -488,7 +479,10 @@ aria-modal="true"
 
 <div *ngIf="pasoActual === 7">
   <h3 class="mb-4 text-center text-2xl font-bold">Mano de Obra</h3>
-
+<div class="flex justify-center mb-4 space-x-4">
+  <button class="px-4 py-2 text-white bg-green-600 rounded" (click)="agregarItemManoDeObra()">+ Agregar servicio</button>
+  <button class="px-4 py-2 text-white bg-red-600 rounded" (click)="eliminarUltimoItemManoDeObra()">– Eliminar último</button>
+</div>
   <div *ngFor="let item of encuestaSeleccionada?.manoDeObra; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
     <div class="mb-2">
@@ -508,6 +502,11 @@ aria-modal="true"
 
 <div *ngIf="pasoActual === 8">
   <h3 class="mb-4 text-center text-2xl font-bold">Utilización de Insumos</h3>
+  <div class="flex justify-center mb-4 space-x-4">
+  <button class="px-4 py-2 text-white bg-green-600 rounded" (click)="agregarUtilizacionInsumos()">+ Agregar Item en blanco</button>
+  <button class="px-4 py-2 text-white bg-red-600 rounded" (click)="eliminarUltimoItemUtilizacionInsumos()">– Eliminar Item en blanco</button>
+</div>
+
 
   <div *ngFor="let item of encuestaSeleccionada?.utilizacionInsumos; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
 
@@ -538,6 +537,11 @@ aria-modal="true"
 
 <div *ngIf="pasoActual === 9">
   <h3 class="mb-4 text-center text-2xl font-bold">Utilización de Servicios</h3>
+  <!-- Botón para agregar un nuevo item -->
+   <div class="flex justify-center mb-4 space-x-4">
+  <button class="px-4 py-2 text-white bg-green-600 rounded" (click)="agregarUtilizacionServicios()">+ Agregar Item en blanco</button>
+  <button class="px-4 py-2 text-white bg-red-600 rounded" (click)="eliminarUltimoItemUtilizacionServicios()">– Eliminar Item en blanco</button>
+</div>
 
   <div *ngFor="let item of encuestaSeleccionada?.utilizacionServicios; let i = index" class="p-4 mb-4 bg-gray-100 border rounded">
     
@@ -565,7 +569,6 @@ aria-modal="true"
 
   </div>
 </div>
-
 
 <div *ngIf="pasoActual === 10">
   <h3 class="mb-4 text-center text-2xl font-bold">Cantidad de Trabajadores por Trimestre</h3>

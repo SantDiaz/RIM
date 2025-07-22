@@ -77,100 +77,105 @@ export class ThreeComponent implements OnInit {
     }
   }
 
+step1(){
+  console.log('Datos a guardar:', this.venta);
+  this.venta.periodo = "Enero a Marzo";
+  this.venta.id_empresa = this.idEmpresa;
 
-  step1(){
-//   console.log('Datos a guardar:', this.venta);
-console.log('Datos a guardar:', this.venta);
-    this.venta.periodo = "Enero a Marzo"
-    this.venta.id_empresa = this.idEmpresa;
+  this.venta.items.forEach(item => {
+    item.periodo = "Enero a Marzo"; // Asigna el periodo a cada item
+    item.id_empresa = this.idEmpresa; // Asigna id_empresa a cada item
+  });
 
-    this.venta.items.forEach(item => {
-      item.periodo = "Enero a Marzo"; // Asigna el periodo a cada item
-      item.id_empresa = this.idEmpresa; // Asigna id_empresa a cada item
-    });
-  
-    this.threeService.createVenta( this.idEmpresa , this.venta).subscribe(response => {
+  this.threeService.createVenta(this.idEmpresa, this.venta).subscribe({
+    next: response => {
       console.log('Venta guardada', response);
-
-      
-    }, error => {
+      if (this.currentStep < 10) {
+        this.currentStep++;
+        this.updateStepVisibility();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
+    error: error => {
       console.error('Error al guardar la venta', error);
-      if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
+      // Aquí podés mostrar mensaje de error, pero no avanzar paso
+    }
+  });
+}
+
+step2(){
+  console.log('Datos a guardar:', this.venta);
+  this.venta.periodo = "Abril a Junio";
+  this.venta.id_empresa = this.idEmpresa;
+  this.venta.items.forEach(item => {
+    item.periodo = "Abril a Junio";
+    item.id_empresa = this.idEmpresa;
+  });
+
+  this.threeService.createVenta(this.idEmpresa, this.venta).subscribe({
+    next: (response) => {
+      console.log('Venta guardada', response);
+      // Avanzar paso en caso exitoso
+      if (this.currentStep < 10) {
+        this.resetFields();  // Opcional: limpiar campos al avanzar
+        this.currentStep++;
+        this.updateStepVisibility();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
+    error: (error) => {
+      console.error('Error al guardar la venta', error);
+      // Podés manejar error acá, no avanzar si falla
+    }
+  });
+}
+step3(){
+  console.log('Datos a guardar:', this.venta);
+  this.venta.periodo = "Julio a Septiembre";
+  this.venta.id_empresa = this.idEmpresa;
+  this.venta.items.forEach(item => {
+    item.periodo = "Julio a Septiembre";
+    item.id_empresa = this.idEmpresa;
+  });
+
+  this.threeService.createVenta(this.idEmpresa, this.venta).subscribe({
+    next: (response) => {
+      console.log('Venta guardada', response);
+      if (this.currentStep < 10) {
         this.resetFields();
         this.currentStep++;
         this.updateStepVisibility();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-  
       }
-    });
-  }
+    },
+    error: (error) => {
+      console.error('Error al guardar la venta', error);
+      // Aquí podés manejar el error, pero no avanzar el step
+    }
+  });
+}
 
+      
+step4(){
+  console.log('Datos a guardar:', this.venta);
+  this.venta.periodo = "Octubre a Diciembre ";
+  this.venta.id_empresa = this.idEmpresa;
+  this.venta.items.forEach(item => {
+    item.periodo = "Octubre a Diciembre"; // Asigna el periodo a cada item
+    item.id_empresa = this.idEmpresa; // Asigna id_empresa a cada item
+  });
 
-  step2(){
-    //   console.log('Datos a guardar:', this.venta);
-    console.log('Datos a guardar:', this.venta);
-        this.venta.periodo = "Abril a Junio"
-        this.venta.id_empresa = this.idEmpresa;
-        this.venta.items.forEach(item => {
-          item.periodo = "Abril a Junio"; // Asigna el periodo a cada item
-          item.id_empresa = this.idEmpresa; // Asigna id_empresa a cada item
-        });
-        this.threeService.createVenta( this.idEmpresa , this.venta).subscribe(response => {
-          console.log('Venta guardada', response);
-        }, error => {
-          console.error('Error al guardar la venta', error);
-          if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
-            this.resetFields();  // Vaciar los campos aquí
-            this.currentStep++;
-            this.updateStepVisibility();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-          }
-        });
-      }
-      
-  step3(){
-    //   console.log('Datos a guardar:', this.venta);
-    console.log('Datos a guardar:', this.venta);
-        this.venta.periodo = "Julio a Septiembre"
-        this.venta.id_empresa = this.idEmpresa;
-        this.venta.items.forEach(item => {
-          item.periodo = "Julio a Septiembre"; // Asigna el periodo a cada item
-          item.id_empresa = this.idEmpresa; // Asigna id_empresa a cada item
-        });
-        this.threeService.createVenta( this.idEmpresa , this.venta).subscribe(response => {
-          console.log('Venta guardada', response);
-        }, error => {
-          console.error('Error al guardar la venta', error);
-          if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
-            this.resetFields();  // Vaciar los campos aquí
-            this.currentStep++;
-            this.updateStepVisibility();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-          }
-        });
-      }
-      
-  step4(){
-    //   console.log('Datos a guardar:', this.venta);
-    console.log('Datos a guardar:', this.venta);
-    this.venta.periodo = "Octubre a Diciembre "
-    this.venta.id_empresa = this.idEmpresa;
-    this.venta.items.forEach(item => {
-      item.periodo = "Octubre a Diciembre"; // Asigna el periodo a cada item
-      item.id_empresa = this.idEmpresa; // Asigna id_empresa a cada item
-    });
-        this.threeService.createVenta( this.idEmpresa , this.venta).subscribe(response => {
-          console.log('Venta guardada', response);
-          
-        }, error => {
-          console.error('Error al guardar la venta', error);
-          this.router.navigate(['/four', this.idEmpresa]);
-        });
-      }
-
-
+  this.threeService.createVenta(this.idEmpresa, this.venta).subscribe({
+    next: response => {
+      console.log('Venta guardada', response);
+      this.router.navigate(['/four', this.idEmpresa]);
+    },
+    error: error => {
+      console.error('Error al guardar la venta', error);
+      // Podrías mostrar mensaje de error y no navegar
+    }
+  });
+}
 
       resetFields() {
         this.venta = {

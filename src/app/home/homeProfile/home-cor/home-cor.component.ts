@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Campo, DatoControl, encuestas, encuestasObtener, ResumenRim, TasaNoRespuesta } from 'src/app/Interfaces/models';
+import { Campo, DatoControl, encuestas, encuestasObtener, ResumenRim, TasaNoRespuesta, tipo } from 'src/app/Interfaces/models';
 import { EncuestaService } from 'src/app/services/encuesta.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-// import * as FileSaver from 'file-saver';
+import * as FileSaver from 'file-saver';
 import { saveAs } from 'file-saver';
 import { ViewChild, ElementRef } from '@angular/core';
-import { frasesLocales } from '../frasesMotivacionales'
+// import { frasesLocales } from '..frasesMotivacionales';
 @Component({
   
   selector: 'app-home-cor',
@@ -45,7 +45,7 @@ export class HomeCorComponent implements OnInit {
  randomSeed2: string = this.generarSeedAleatorio();
   fraseMotivacional: string = '';
   autorFrase: string = '';
-  frasesLocales = frasesLocales; // importar las frases
+  // frasesLocales = frasesLocales; // importar las frases
 
 
 
@@ -616,16 +616,127 @@ cambiarAvatarRandom() {
         this.autorFrase = res.autor;
       },
       error: () => {
-        this.obtenerFraseAleatoria(); // si falla, usa una local
+        // this.obtenerFraseAleatoria(); // si falla, usa una local
       }
     });
   }
-  obtenerFraseAleatoria(): void {
-    const random = Math.floor(Math.random() * this.frasesLocales.length);
-    const frase = this.frasesLocales[random];
-    this.fraseMotivacional = frase.frase;
-    this.autorFrase = frase.autor;
+  // obtenerFraseAleatoria(): void {
+  //   const random = Math.floor(Math.random() * this.frasesLocales.length);
+  //   const frase = this.frasesLocales[random];
+  //   this.fraseMotivacional = frase.frase;
+  //   this.autorFrase = frase.autor;
+  // }
+
+
+  
+agregarItemProduccion() {
+  if (!this.encuestaSeleccionada.produccion) {
+    this.encuestaSeleccionada.produccion = [];
   }
+
+  this.encuestaSeleccionada.produccion.push({
+    producto: '',
+    unidad_medida: '',
+    mercado_interno: null,
+    mercado_externo: null,
+    observaciones: ''
+  });
+}
+
+agregarUtilizacionInsumos(){
+  if (!this.encuestaSeleccionada.utilizacionInsumos) {
+    this.encuestaSeleccionada.utilizacionInsumos = [];
+  }
+
+  this.encuestaSeleccionada.utilizacionInsumos.push({
+    producto: '',
+    unidad_medida: '',
+    cantidad: 0,
+    monto_pesos: 0,
+    });
+}
+
+agregarUtilizacionServicios(){
+  if (!this.encuestaSeleccionada.utilizacionServicios) {
+    this.encuestaSeleccionada.utilizacionServicios = [];
+  }
+
+  this.encuestaSeleccionada.utilizacionServicios.push({
+    nombre: '',
+    monto_pesos: 0,
+    });
+}
+
+
+agregarItemInsumoBasico(){
+  if (!this.encuestaSeleccionada.insumosBasicos) {
+    this.encuestaSeleccionada.insumosBasicos = [];
+  }
+
+  this.encuestaSeleccionada.insumosBasicos.push({
+    tipo: '',
+    cantidad: 0,
+    monto_pesos: 0,
+  });
+}
+
+
+agregarItemManoDeObra(){
+  if (!this.encuestaSeleccionada.manoDeObra) {
+    this.encuestaSeleccionada.manoDeObra = [];
+  }
+
+  this.encuestaSeleccionada.manoDeObra.push({
+    tipo: '',
+    monto_pesos: 0,
+    });
+}
+
+
+eliminarUltimoItemProduccion() {
+  if (this.encuestaSeleccionada?.produccion?.length > 0) {
+    const confirmacion = confirm('¿Estás seguro de que deseas eliminar el último producto de Producción?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.produccion.pop();
+    }
+  }
+}
+
+eliminarUltimoItemUtilizacionInsumos() {
+  if (this.encuestaSeleccionada?.utilizacionInsumos?.length > 0) {
+    const confirmacion = confirm('¿Eliminar el último insumo utilizado?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.utilizacionInsumos.pop();
+    }
+  }
+}
+
+eliminarUltimoItemUtilizacionServicios() {
+  if (this.encuestaSeleccionada?.utilizacionServicios?.length > 0) {
+    const confirmacion = confirm('¿Eliminar el último servicio utilizado?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.utilizacionServicios.pop();
+    }
+  }
+}
+
+eliminarUltimoItemInsumoBasico() {
+  if (this.encuestaSeleccionada?.insumosBasicos?.length > 0) {
+    const confirmacion = confirm('¿Eliminar el último insumo básico?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.insumosBasicos.pop();
+    }
+  }
+}
+
+eliminarUltimoItemManoDeObra() {
+  if (this.encuestaSeleccionada?.manoDeObra?.length > 0) {
+    const confirmacion = confirm('¿Eliminar el último registro de Mano de Obra?');
+    if (confirmacion) {
+      this.encuestaSeleccionada.manoDeObra.pop();
+    }
+  }
+}
 
 
 }

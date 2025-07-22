@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { bienes, datos_empresas, domicilio_industrial, email_respondente, nombres_fantasia, opciones_servicios, produccion, productos, respondente, servicios, telefonos_empresa, telefonos_repondente, unidad_medidas } from 'src/app/Interfaces/models';
-import {  produccion, unidad_medidas, servicios_basicos, remuneraciones_cargas, DatosEmpresa, DatosRespondiente, UtilizacionInsumos, UtilizacionServicio, InsumosBasicos, manoDeObra, tipo  } from 'src/app/Interfaces/models';
+import {  produccion, unidad_medidas, servicios_basicos, remuneraciones_cargas, DatosEmpresa, DatosRespondiente, UtilizacionInsumos, UtilizacionServicio, InsumosBasicos, manoDeObra, tipo, Datos_referente  } from 'src/app/Interfaces/models';
 import { ServicesService } from 'src/app/services/services.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -73,6 +73,15 @@ idEmpresa: number = 0 ;
     tipoTelefono: 'Particular',
     numeroTelefono: '',
     email: ''
+  };
+
+    datosRefente: Datos_referente = {
+    id: 0,
+    cargoArea: '',
+    nombre_apellido: '',
+    tipo_telefono: 'Particular',
+    numero_telefono: '',
+    id_empresa: 0
   };
  
   constructor(
@@ -229,36 +238,37 @@ idEmpresa: number = 0 ;
     }
  
 
-    step2() {
-      console.log(this.producciones); // Verificar datos enviados
-      
-      // Asignar id_empresa a cada producción
-      this.producciones.forEach(produccion => produccion.id_empresa = this.idEmpresa);
-    
-      // Enviar datos de producción
-      this.producciones.forEach(produccion => {
-        this.oneService.enviarDatosProduccion(produccion).subscribe({
-          next: (response) => {
-            console.log('Datos enviados exitosamente:', response);
-            if (this.currentStep < 10) {
-              this.currentStep++;
-              this.updateStepVisibility();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-          },
-          error: (error) => {
-            console.error('Error al enviar los datos:', error);
-          }
-        });
-      });
-    
+ step2() {
+  console.log(this.producciones);
+
+  // Asignar id_empresa a cada producción
+  this.producciones.forEach(produccion => produccion.id_empresa = this.idEmpresa);
+
+  // Crear array de observables
+  const requests = this.producciones.map(produccion => 
+    this.oneService.enviarDatosProduccion(produccion)
+  );
+
+  // Usar forkJoin para esperar a que todas terminen
+  forkJoin(requests).subscribe({
+    next: responses => {
+      console.log('Todos los datos enviados exitosamente:', responses);
+
+      // Avanzar paso sólo una vez cuando terminen todas las llamadas
       if (this.currentStep < 10) {
         this.currentStep++;
         this.updateStepVisibility();
+        this.router.navigate(['/two', this.idEmpresa]);
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+    },
+    error: err => {
+      console.error('Error al enviar los datos:', err);
+      // Aquí podés mostrar mensaje de error
     }
-    
+  });
+}
 
     step3() {
       // Validación de datos

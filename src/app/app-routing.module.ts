@@ -88,8 +88,8 @@ const routes: Routes = [
   {
     path: 'homeVal',
     component: HomeValComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['VALIDADOR'] }
+    // canActivate: [AuthGuard],
+    // data: { roles: ['VALIDADOR'] }
   }
 ];
 
