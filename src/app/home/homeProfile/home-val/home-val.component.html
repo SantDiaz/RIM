@@ -75,12 +75,12 @@
   
         <div class="mb-4">
           <label class="block mb-1">ID Empresa:</label>
-          <input type="number" class="p-2 w-full border"  name="id_operativo" />
+          <input disabled="true" type="number" class="p-2 w-full border"  name="id_operativo" />
         </div>
 
         <div class="mb-4">
             <label class="block mb-1">Estado de la encuesta:</label>
-            <select class="p-2 w-full border"  name="medio">
+            <select disabled="true" class="p-2 w-full border"  name="medio">
               <option value="Ingresado">Recepcionado</option>
               <option value="Recepcionado">Validado</option>
             </select>
@@ -88,32 +88,32 @@
   
         <div class="mb-4">
           <label class="block mb-1">Ingresador:</label>
-          <input type="text" class="p-2 w-full border"  name="ingresador" />
+          <input disabled="true" type="text" class="p-2 w-full border"  name="ingresador" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Analista:</label>
-          <input type="text" class="p-2 w-full border"  name="analista" />
+          <input disabled="true" type="text" class="p-2 w-full border"  name="analista" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Entrega:</label>
-          <input type="date" class="p-2 w-full border"  name="fecha_entrega" />
+          <input disabled="true" type="date" class="p-2 w-full border"  name="fecha_entrega" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Recupero:</label>
-          <input type="date" class="p-2 w-full border" name="fecha_recupero" />
+          <input disabled="true" type="date" class="p-2 w-full border" name="fecha_recupero" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Supervisión:</label>
-          <input type="date" class="p-2 w-full border"  name="fecha_supervision" />
+          <input disabled="true" type="date" class="p-2 w-full border"  name="fecha_supervision" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Medio:</label>
-          <select class="p-2 w-full border" [(ngModel)]="encuesta.medio" name="medio">
+          <select  disabled="true" class="p-2 w-full border" [(ngModel)]="encuesta.medio" name="medio">
             <option value="PAPEL">Papel</option>
             <option value="DIGITAL">Digital</option>
           </select>
@@ -124,20 +124,20 @@
 
         <div class="mb-4">
           <label class="block mb-1">Observaciones del Ingresador:</label>
-          <textarea class="p-2 w-full border"  name="observaciones_ingresador"></textarea>
+          <textarea disabled="true" class="p-2 w-full border"  name="observaciones_ingresador"></textarea>
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Observaciones del Analista:</label>
-          <textarea class="p-2 w-full border"  name="observaciones_analista"></textarea>
+          <textarea disabled="true" disabled="true" class="p-2 w-full border"  name="observaciones_analista"></textarea>
         </div>
           <div class="mb-4">
           <label class="block mb-1">Observaciones del Supervisor:</label>
-          <textarea class="p-2 w-full border"  name="observaciones_supervisor"></textarea>
+          <textarea disabled="true" class="p-2 w-full border"  name="observaciones_supervisor"></textarea>
         </div>
 
         
-          <select class="p-2 mb-2 w-full border" [(ngModel)]="encuestaSeleccionada.observaciones_validador" name="observaciones_validador">
+          <select disabled="true" class="p-2 mb-2 w-full border" [(ngModel)]="encuestaSeleccionada.observaciones_validador" name="observaciones_validador">
         <option value="Incompleto">Incompleto</option>
         <option value="Error módulo ventas">Error módulo ventas</option>
         <option value="Error módulo trabajadores">Error módulo trabajadores</option>
@@ -146,19 +146,20 @@
         <option value="Error particular">Error particular (describir abajo)</option>
       </select>
 
-      <textarea
-        *ngIf="encuestaSeleccionada.observaciones_validador === 'Error particular'"
-        maxlength="250"
-        rows="3"
-        class="p-2 w-full border"
-        placeholder="Describa el error particular (máx. 250 caracteres)"
-        [(ngModel)]="encuestaSeleccionada.observacion_particular"
-        name="observacion_particular"
-      ></textarea>
+<textarea
+  maxlength="250"
+  rows="3"
+  class="p-2 w-full border"
+  placeholder="Describa el error particular (máx. 250 caracteres)"
+  [(ngModel)]="encuestaSeleccionada.observacion_particular"
+  name="observacion_particular"
+  [disabled]="encuestaSeleccionada.observaciones_validador !== 'Error particular'"
+></textarea>
+
 
   
         <div class="flex justify-center">
-          <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="nextStep()">Siguiente</button>
+          <button disabled="true" type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="nextStep()">Siguiente</button>
         </div>
       </div>
     </form>
@@ -173,7 +174,7 @@
         <thead class="bg-gray-100">
           <tr>
             <!-- <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th> -->
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Operativo</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingresador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Analista</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Entrega</th>
@@ -194,7 +195,7 @@
         <tbody class="divide-y divide-gray-200">
           <tr (click)="verEncuesta(item.idEmpresa)" *ngFor="let item of pendientes">
             <!-- <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td> -->
-            <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idOperativo }}</td>
+            <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.ingresador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.analista }}</td>
        
@@ -237,14 +238,14 @@ aria-modal="true"
       
       <div>
     <div class="mb-4">
-      <label class="block mb-1">ID Operativo:</label>
+      <label class="block mb-1">ID Empresa:</label>
       <input type="number" class="p-2 w-full border" [disabled]="true" name="id_empresa" [(ngModel)]="encuestaSeleccionada.id_empresa">
     </div>
 
     <div class="mb-4">
       <label class="block mb-1">Estado de la encuesta:</label>
       <select class="p-2 w-full border" name="estado" [(ngModel)]="encuestaSeleccionada.estado">
-                  <option *ngFor="let estado of estados" [value]="estado">
+                  <option *ngFor="let estado of estados2" [value]="estado">
                   {{ estado }}
                  </option>
       </select>
@@ -300,7 +301,9 @@ aria-modal="true"
       <textarea class="p-2 w-full border" name="observaciones_supervisor" [disabled]="true" [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
     </div>
 
-     <select class="p-2 mb-2 w-full border" [(ngModel)]="encuestaSeleccionada.observaciones_validador" name="observaciones_validador">
+
+<label class="block mb-1">Observaciones del Validador:</label>
+    <select class="p-2 mb-2 w-full border" [(ngModel)]="encuestaSeleccionada.observaciones_validador" name="observaciones_validador">
   <option value="Incompleto">Incompleto</option>
   <option value="Error módulo ventas">Error módulo ventas</option>
   <option value="Error módulo trabajadores">Error módulo trabajadores</option>
@@ -315,7 +318,7 @@ aria-modal="true"
   rows="3"
   class="p-2 w-full border"
   placeholder="Describa el error particular (máx. 250 caracteres)"
-  [(ngModel)]="encuestaSeleccionada.observacion_particular"
+  [(ngModel)]="encuestaSeleccionada.observaciones_particular"
   name="observacion_particular"
 ></textarea>
 

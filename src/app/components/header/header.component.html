@@ -1,9 +1,9 @@
 <nav
-  class="flex-no-wrap relative flex w-full items-center justify-between bg-white py-2 shadow-dark-mild dark:bg-white lg:flex-wrap lg:justify-start lg:py-4">
-  <div class="flex w-full flex-wrap items-center justify-between px-3">
+  class="relative flex-no-wrap flex items-center justify-between justify-start py-2 py-4 w-full bg-white shadow-dark-mild dark:bg-white lg:flex-wrap">
+  <div class="flex flex-wrap items-center justify-between px-3 w-full">
     <!-- Hamburger button for mobile view -->
     <button
-      class="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+      class="block px-2 text-black/50 bg-transparent border-0 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
       type="button"
       data-twe-collapse-init
       data-twe-target="#navbarSupportedContent1"
@@ -27,12 +27,12 @@
 
     <!-- Collapsible navigation container -->
     <div
-      class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+      class="hidden flex-grow items-center !visible basis-[100%] basis-auto lg:!flex"
       id="navbarSupportedContent1"
       data-twe-collapse-item>
       <!-- Logo -->
       <a
-        class="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
+        class="flex items-center mb-4 mt-3 mt-0 text-neutral-900 me-5 ms-2 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0"
         href="#">
         <img
           src="../../../assets/iiee3.svg"
@@ -51,30 +51,30 @@
         <!-- Second dropdown trigger -->
 
         <ul
-        class="list-style-none me-auto flex flex-col ps-0 lg:flex-row"
+        class="flex flex-col list-style-none me-auto ps-0 lg:flex-row"
         data-twe-navbar-nav-ref>
-        <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+        <li class="mb-4 pe-2 lg:mb-0" data-twe-nav-item-ref>
           <!-- Dashboard link -->
           <a
-            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
-            href="/register"
+            class="text-black/60 duration-200 transition hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
+            href="/home"
             data-twe-nav-link-ref
             >Cargar</a
           >
         </li>
         <!-- Team link -->
-        <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+        <li class="mb-4 pe-2 lg:mb-0" data-twe-nav-item-ref>
           <a
-            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
+            class="text-black/60 duration-200 transition hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
             href="/home"
             data-twe-nav-link-ref
             >Inicio</a
           >
         </li>
         <!-- Projects link -->
-        <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+        <li class="mb-4 pe-2 lg:mb-0" data-twe-nav-item-ref>
           <a (click)="logout()"
-            class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
+            class="text-black/60 duration-200 transition hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-black/60 dark:hover:text-black/80 dark:focus:text-black/80 dark:active:text-black/80 lg:px-2"
             href="#"
             data-twe-nav-link-ref
             >Cerrar Sesion</a

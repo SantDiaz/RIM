@@ -53,7 +53,7 @@ export interface encuestasObtener{
   observaciones_analista: string;
   observaciones_supervisor?: string;
   observaciones_validador?: string;
-  observacion_particular?: string;
+  observaciones_particular?: string;
   anio? : '2024';
   estado?: string;
   supervisor?: string;
@@ -78,7 +78,7 @@ export interface encuestas {
     observaciones_analista: string;
     observaciones_supervisor?: string;
     observaciones_validador?: string;
-    observacion_particular?: string;
+    observaciones_particular?: string;
     anio? : '2024';
     estado?: string;
     supervisor?: string;

@@ -101,9 +101,14 @@ unidades: string[] = [
 
   ];
 
+  
+  estados2 = [
+    'Validado',
+  ];
+
 
   cargarPendientes() {
-    const estadosParam = this.estados.map(estado => `estado=${encodeURIComponent(estado)}`).join('&');
+    const estadosParam = this.estados2.map(estado => `estado=${encodeURIComponent(estado)}`).join('&');
     const url = `http://localhost:8080/api/filtrar?${estadosParam}`;
   
     console.log('URL construida:', url);

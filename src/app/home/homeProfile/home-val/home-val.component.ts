@@ -40,9 +40,15 @@ export class HomeValComponent implements OnInit {
   }
 
   // Estados a enviar
-  estados = [
+  estados2 = [
     'Recepcionado',
     'Validado',
+  ];
+
+    estados = [
+    'Validado',
+    'Pre-validado',
+
   ];
 
 
@@ -59,6 +65,8 @@ export class HomeValComponent implements OnInit {
       observaciones_ingresador: '',
       observaciones_analista: '',
       observaciones_supervisor: '',
+      observaciones_validador: '',
+      observaciones_particular: '',   
       anio: '2024', 
     };
   
@@ -110,7 +118,7 @@ export class HomeValComponent implements OnInit {
         // estado_validacion: encuestaSeleccionada.estado_validacion,
         // observaciones_validacion: encuestaSeleccionada.observaciones_validacion,
         observaciones_validador: encuestaSeleccionada.observaciones_validador,
-        observacion_particular: encuestaSeleccionada.observacion_particular,
+        observaciones_particular: encuestaSeleccionada.observaciones_particular,
         referente: encuestaSeleccionada.referente,
       };
       this.mostrarModal = true;
@@ -136,8 +144,9 @@ guardarCambios() {
 
   this.encuestaSeleccionada.mod_usu = this.username;
   this.encuestaSeleccionada.fecha_mod_estado = new Date(); // ✅ antes del PUT
-this.encuestaSeleccionada.observaciones_validador = this.encuesta.observaciones_validador;
-this.encuestaSeleccionada.observacion_particular = this.encuesta.observacion_particular;
+// this.encuestaSeleccionada.observaciones_validador = this.encuesta.observaciones_validador;
+// this.encuestaSeleccionada.observacion_particular = this.encuesta.observacion_particular;
+// delete this.encuestaSeleccionada.observaciones_particular;
 
   this.http.put(url, this.encuestaSeleccionada).subscribe(() => {
     const index = this.pendientes.findIndex(p => p.idEmpresa === idEmpresa);
@@ -156,6 +165,7 @@ console.log('Objeto enviado al backend:', this.encuestaSeleccionada);
     this.cerrarModal();
   });
 }
+
 
 
 
