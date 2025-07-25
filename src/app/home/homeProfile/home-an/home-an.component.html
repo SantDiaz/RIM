@@ -48,13 +48,13 @@
     <!-- Segmentos -->
     <div class="flex border-b border-gray-300">
       <!-- Botón All -->
-      <!-- <button 
+      <button 
         id="allSegment"
         class="flex-1 py-2 text-center text-lg font-semibold"
         [ngClass]="{'text-blue-500': activeSegment === 'all'}" 
         (click)="toggleSegment('all')">
                 Agregar Empresa
-      </button> -->
+      </button>
       
       <!-- Botón Favorites -->
       <button 
@@ -108,12 +108,12 @@
   
         <div class="mb-4">
           <label class="block mb-1">ID Operativo:</label>
-          <input disabled="true" type="number" class="p-2 w-full border"  name="id_operativo" />
+          <input  type="number" class="p-2 w-full border"  name="id_operativo" />
         </div>
 
         <div class="mb-4">
             <label class="block mb-1">Estado de la encuesta:</label>
-            <select  disabled="true" class="p-2 w-full border"  name="medio">
+            <select   class="p-2 w-full border"  name="medio">
               <option value="Ingresado">Ingresado</option>
               <option value="Recepcionado">Recepcionado</option>
               <option value="Pre-validado">Pre-validado</option>
@@ -123,32 +123,32 @@
   
         <div class="mb-4">
           <label class="block mb-1">Ingresador:</label>
-          <input disabled="true" type="text" class="p-2 w-full border"  name="ingresador" />
+          <input  type="text" class="p-2 w-full border"  name="ingresador" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Analista:</label>
-          <input disabled="true" type="text" class="p-2 w-full border"  name="analista" />
+          <input  type="text" class="p-2 w-full border"  name="analista" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Entrega:</label>
-          <input disabled="true" type="date" class="p-2 w-full border"  name="fecha_entrega" />
+          <input  type="date" class="p-2 w-full border"  name="fecha_entrega" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Recupero:</label>
-          <input disabled="true" type="date" class="p-2 w-full border" name="fecha_recupero" />
+          <input  type="date" class="p-2 w-full border" name="fecha_recupero" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Fecha de Supervisión:</label>
-          <input disabled="true" type="date" class="p-2 w-full border"  name="fecha_supervision" />
+          <input  type="date" class="p-2 w-full border"  name="fecha_supervision" />
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Medio:</label>
-          <select disabled="true" class="p-2 w-full border" [(ngModel)]="encuesta.medio" name="medio">
+          <select  class="p-2 w-full border" [(ngModel)]="encuesta.medio" name="medio">
             <option value="PAPEL">Papel</option>
             <option value="DIGITAL">Digital</option>
           </select>
@@ -156,20 +156,20 @@
   
         <div class="mb-4">
           <label class="block mb-1">Observaciones del Ingresador:</label>
-          <textarea disabled="true" class="p-2 w-full border"  name="observaciones_ingresador"></textarea>
+          <textarea disabled="" class="p-2 w-full border"  name="observaciones_ingresador"></textarea>
         </div>
   
         <div class="mb-4">
           <label class="block mb-1">Observaciones del Analista:</label>
-          <textarea  disabled="true" class="p-2 w-full border"  name="observaciones_analista"></textarea>
+          <textarea   class="p-2 w-full border"  name="observaciones_analista"></textarea>
         </div>
        <div class="mb-4">
           <label class="block mb-1">Observaciones del Supervisor:</label>
-          <textarea disabled="true" class="p-2 w-full border"  name="observaciones_analista"></textarea>
+          <textarea disabled="" class="p-2 w-full border"  name="observaciones_analista"></textarea>
         </div>
 
         <label class="block mb-1">Observaciones del Validador:</label>
-        <select  disabled="true" disabled="true"  class="p-2 mb-2 w-full border" [(ngModel)]="encuestaSeleccionada.observaciones_validador" name="observaciones_validador">
+        <select   disabled="true"  class="p-2 mb-2 w-full border" [(ngModel)]="encuestaSeleccionada.observaciones_validador" name="observaciones_validador">
             <option value="Incompleto">Incompleto</option>
             <option value="Error módulo ventas">Error módulo ventas</option>
             <option value="Error módulo trabajadores">Error módulo trabajadores</option>
@@ -178,7 +178,7 @@
             <option value="Error particular">Error particular (describir abajo)</option>
       </select>
 
-      <textarea disabled="true"
+      <textarea
         *ngIf="encuestaSeleccionada.observaciones_validador === 'Error particular'"
         maxlength="250"
         rows="3"
@@ -189,7 +189,7 @@
       ></textarea>
         
         <div class="flex justify-center">
-          <button disabled="true" type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="nextStep()">Siguiente</button>
+          <button  type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="nextStep()">Siguiente</button>
         </div>
       </div>
     </form>
@@ -204,7 +204,8 @@
       <table class="min-w-full bg-white divide-y divide-gray-200 rounded-lg shadow">
         <thead class="bg-gray-100">
           <tr>
-            <!-- <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th> -->
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Empresa</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Operativo</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingresador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Analista</th>
@@ -227,7 +228,8 @@
         </thead>
         <tbody class="divide-y divide-gray-200">
           <tr (click)="verEncuesta(item.idEmpresa)" *ngFor="let item of pendientes">
-            <!-- <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td> -->
+            <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.nombreEmpresa }}</td>
             <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idOperativo }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.ingresador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.analista }}</td>
@@ -272,8 +274,13 @@ aria-modal="true"
 
     <form >
       <!-- Paso 1 -->
-      <div *ngIf="pasoActual === 1">
-          <h3 class="mb-4 text-center text-2xl font-bold">Encuesta</h3>
+      <div  *ngIf="pasoActual === 1" >
+
+
+<h3  class="mb-4 text-center text-2xl font-bold">
+  {{ encuestaSeleccionada.datosIdentificacionEmpresa.nombreEmpresa }}
+</h3>
+
 
     <div class="mb-4">
       <label class="block mb-1">ID Empresa:</label>

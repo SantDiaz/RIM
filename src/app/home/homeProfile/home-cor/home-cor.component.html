@@ -158,7 +158,8 @@
       <table class="min-w-full bg-white divide-y divide-gray-200 rounded-lg shadow">
         <thead class="bg-gray-100">
           <tr>
-            <!-- <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th> -->
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Empresa</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Empresa</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID_Operativo</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Ingresador</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Analista</th>
@@ -180,8 +181,10 @@
         </thead>
         <tbody class="divide-y divide-gray-200">
           <tr (click)="verEncuesta(item.idEmpresa)" *ngFor="let item of pendientes">
-            <!-- <td class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td> -->
+            <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idEmpresa }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ item.nombreEmpresa }}</td>
             <td  class="px-4 py-2 text-sm text-gray-700">{{ item.idOperativo }}</td>
+
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.ingresador }}</td>
             <td class="px-4 py-2 text-sm text-gray-700">{{ item.analista }}</td>
        
@@ -226,7 +229,9 @@ aria-modal="true"
     <form >
       <!-- Paso 1 -->
       <div *ngIf="pasoActual === 1">
-          <h3 class="mb-4 text-center text-2xl font-bold">Encuesta</h3>
+<h3  class="mb-4 text-center text-2xl font-bold">
+  {{ encuestaSeleccionada.datosIdentificacionEmpresa.nombreEmpresa }}
+</h3>
 
     <div class="mb-4">
       <label class="block mb-1">ID Empresa:</label>

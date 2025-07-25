@@ -104,6 +104,7 @@ unidades: string[] = [
   
   estados2 = [
     'Validado',
+    'Ingresado'
   ];
 
 
@@ -146,104 +147,106 @@ unidades: string[] = [
     if (this.pasoActual > 1) this.pasoActual--;
   }
 
-
 guardarCambios() {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
-
   const index = this.pendientes.findIndex(p => p.idEmpresa === idEmpresa);
-  this.encuestaSeleccionada.mod_usu = this.username
-    if (index !== -1) {
-      this.encuestaSeleccionada.fecha_mod_estado = new Date(); // Actualizar la fecha en el frontend
-      this.pendientes[index] = {
-        ...this.pendientes[index],
-        ...this.encuestaSeleccionada,
-      };
-    }
+  this.encuestaSeleccionada.mod_usu = this.username;
 
-const mostrarMensajeExito = () => {
-  Swal.fire('¡Editado con éxito!', 'Los cambios fueron guardados correctamente.', 'success');
-};
+  if (index !== -1) {
+    this.encuestaSeleccionada.fecha_mod_estado = new Date(); // Actualizar la fecha en el frontend
+    this.pendientes[index] = {
+      ...this.pendientes[index],
+      ...this.encuestaSeleccionada,
+    };
+  }
 
-switch (this.pasoActual) {
-  case 1:
-    const url = `http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateEncuestaIngresador`;
-    this.http.put(url, this.encuestaSeleccionada).subscribe({
-      next: () => mostrarMensajeExito(),
-      error: err => console.error(err)
-    });
-    break;
+  const mostrarMensajeExito = () => {
+    Swal.fire('¡Editado con éxito!', 'Los cambios fueron guardados correctamente.', 'success');
+  };
 
-  case 2:
-    this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateDatosIdentificacionEmpresa`, this.encuestaSeleccionada.datosIdentificacionEmpresa)
-      .subscribe({
+  const mostrarMensajeError = (err: any) => {
+    console.error(err);
+    Swal.fire('Error', 'Ocurrió un error al guardar los cambios. Intente nuevamente.', 'error');
+  };
+
+  switch (this.pasoActual) {
+    case 1:
+      const url = `http://localhost:8080/api/${idEmpresa}/updateEncuestaIngresador`;
+      this.http.put(url, this.encuestaSeleccionada).subscribe({
         next: () => mostrarMensajeExito(),
-        error: err => console.error(err)
+        error: err => mostrarMensajeError(err)
       });
-    break;
+      break;
 
-  case 3:
-    this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateDatosRespondiente`, this.encuestaSeleccionada.datosRespondiente)
-      .subscribe({
-        next: () => mostrarMensajeExito(),
-        error: err => console.error(err)
-      });
-    break;
+    case 2:
+      this.http.put(`http://localhost:8080/api/${idEmpresa}/updateDatosIdentificacionEmpresa`, this.encuestaSeleccionada.datosIdentificacionEmpresa)
+        .subscribe({
+          next: () => mostrarMensajeExito(),
+          error: err => mostrarMensajeError(err)
+        });
+      break;
 
-  case 4:
-    this.http.put(`http://localhost:8080/api/${this.encuestaSeleccionada.id_empresa}/updateDatosReferente`, this.encuestaSeleccionada.Datos_referente)
-      .subscribe({
-        next: () => mostrarMensajeExito(),
-        error: err => console.error(err)
-      });
-    break;
+    case 3:
+      this.http.put(`http://localhost:8080/api/${idEmpresa}/updateDatosRespondiente`, this.encuestaSeleccionada.datosRespondiente)
+        .subscribe({
+          next: () => mostrarMensajeExito(),
+          error: err => mostrarMensajeError(err)
+        });
+      break;
 
-  // Para los que llaman funciones como `guardarProduccion()`, pasales el callback:
-  case 5:
-    this.guardarProduccion(mostrarMensajeExito);
-    break;
-  case 6:
-    this.guardarInsumosBasicos(mostrarMensajeExito);
-    break;
-  case 7:
-    this.guardarManoDeObra(mostrarMensajeExito);
-    break;
-  case 8:
-    this.guardarUtilizacionInsumos(mostrarMensajeExito);
-    break;
-  case 9:
-    this.guardarUtilizacionServicios(mostrarMensajeExito);
-    break;
-  case 10:
-    this.guardarCantidadTrabajadores(mostrarMensajeExito);
-    break;
-  case 11:
-    this.guardarHorasNormales(mostrarMensajeExito);
-    break;
-  case 12:
-    this.guardarHorasExtras(mostrarMensajeExito);
-    break;
-  case 13:
-    this.guardarVentas(mostrarMensajeExito);
-    break;
-  case 14:
-    this.guardarHorasNormales(mostrarMensajeExito);
-    break;
-  case 15:
-    this.guardarPerspectiva(mostrarMensajeExito);
-    break;
+    case 4:
+      this.http.put(`http://localhost:8080/api/${idEmpresa}/updateDatosReferente`, this.encuestaSeleccionada.Datos_referente)
+        .subscribe({
+          next: () => mostrarMensajeExito(),
+          error: err => mostrarMensajeError(err)
+        });
+      break;
 
-  default:
-    console.log('Paso no manejado aún');
-    break;
+    case 5:
+      this.guardarProduccion(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 6:
+      this.guardarInsumosBasicos(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 7:
+      this.guardarManoDeObra(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 8:
+      this.guardarUtilizacionInsumos(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 9:
+      this.guardarUtilizacionServicios(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 10:
+      this.guardarCantidadTrabajadores(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 11:
+      this.guardarHorasNormales(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 12:
+      this.guardarHorasExtras(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 13:
+      this.guardarVentas(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 14:
+      this.guardarHorasNormales(mostrarMensajeExito, mostrarMensajeError);
+      break;
+    case 15:
+      this.guardarPerspectiva(mostrarMensajeExito, mostrarMensajeError);
+      break;
+
+    default:
+      console.log('Paso no manejado aún');
+      break;
+  }
 }
-}
 
 
-guardarProduccion(callback?: () => void) {
-  // stepper 5 Tabla produccion
+
+guardarProduccion(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const produccionModificada = this.encuestaSeleccionada?.produccion;
-      if (callback) callback();
 
   if (!idEmpresa || !produccionModificada || produccionModificada.length === 0) {
     console.error("No hay datos de producción para guardar.");
@@ -253,36 +256,43 @@ guardarProduccion(callback?: () => void) {
   const url = `http://localhost:8080/api/${idEmpresa}/updateProduccionMasiva`;
 
   this.http.put(url, produccionModificada).subscribe({
-    next: () => console.log('Producción actualizada correctamente'),
-    error: (error) => console.error('Error al actualizar producción', error)
+    next: () => {
+      console.log('Producción actualizada correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (error) => {
+      console.error('Error al actualizar producción', error);
+      if (callbackError) callbackError(error);
+    }
   });
 }
 
-guardarInsumosBasicos(callback?: () => void) {
-  // stepper 6 Tabla InsumosBasicos
-
+guardarInsumosBasicos(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const datos = this.encuestaSeleccionada?.insumosBasicos;
-      if (callback) callback();
 
   if (!idEmpresa || !datos || datos.length === 0) {
     console.error("No hay datos para guardar Insumos Básicos.");
     return;
   }
 
-  const url = `http://localhost:8080/api/${idEmpresa}/updateInsumosMasiva`; // <- adaptá si es necesario
+  const url = `http://localhost:8080/api/${idEmpresa}/updateInsumosMasiva`;
 
   this.http.put(url, datos).subscribe({
-    next: () => console.log('Insumos Básicos actualizados correctamente'),
-    error: (error) => console.error('Error al actualizar Insumos Básicos', error)
+    next: () => {
+      console.log('Insumos Básicos actualizados correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (error) => {
+      console.error('Error al actualizar Insumos Básicos', error);
+      if (callbackError) callbackError(error);
+    }
   });
 }
-guardarManoDeObra(callback?: () => void) {
-  // stepper 7 Tabla ManodeObra
-  
+
+guardarManoDeObra(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const manoDeObraModificada = this.encuestaSeleccionada?.manoDeObra;
-  if (callback) callback();
 
   if (!idEmpresa || !manoDeObraModificada || manoDeObraModificada.length === 0) {
     console.error("No hay datos de Mano de Obra para guardar.");
@@ -292,17 +302,23 @@ guardarManoDeObra(callback?: () => void) {
   const url = `http://localhost:8080/api/${idEmpresa}/updateManoDeObraMasiva`;
 
   this.http.put(url, manoDeObraModificada).subscribe({
-    next: () => console.log('Mano de Obra actualizada correctamente'),
-    error: (error) => console.error('Error al actualizar Mano de Obra', error)
+    next: () => {
+      console.log('Mano de Obra actualizada correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (error) => {
+      console.error('Error al actualizar Mano de Obra', error);
+      if (callbackError) callbackError(error);
+    }
   });
 }
 
-guardarUtilizacionInsumos(callback?: () => void) {
-  // stepper 8 Tabla UitilizacionInsumos
 
+
+
+guardarUtilizacionInsumos(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const utilizacionInsumosModificada = this.encuestaSeleccionada?.utilizacionInsumos;
-      if (callback) callback();
 
   if (!idEmpresa || !utilizacionInsumosModificada || utilizacionInsumosModificada.length === 0) {
     console.error("No hay datos de Utilización de Insumos para guardar.");
@@ -312,16 +328,21 @@ guardarUtilizacionInsumos(callback?: () => void) {
   const url = `http://localhost:8080/api/${idEmpresa}/updateUtilizacionInsumosMasiva`;
 
   this.http.put(url, utilizacionInsumosModificada).subscribe({
-    next: () => console.log('Utilización de Insumos actualizada correctamente'),
-    error: (error) => console.error('Error al actualizar Utilización de Insumos', error)
+    next: () => {
+      console.log('Utilización de Insumos actualizada correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (error) => {
+      console.error('Error al actualizar Utilización de Insumos', error);
+      if (callbackError) callbackError(error);
+    }
   });
 }
 
 
-guardarUtilizacionServicios(callback?: () => void) {
+guardarUtilizacionServicios(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const utilizacionServicios = this.encuestaSeleccionada?.utilizacionServicios;
-      if (callback) callback();
 
   if (!idEmpresa || !utilizacionServicios || utilizacionServicios.length === 0) {
     console.error("No hay datos de Utilización de Servicios para guardar.");
@@ -331,15 +352,21 @@ guardarUtilizacionServicios(callback?: () => void) {
   const url = `http://localhost:8080/api/${idEmpresa}/updateUtilizacionServiciosMasiva`;
 
   this.http.put(url, utilizacionServicios).subscribe({
-    next: () => console.log('Utilización de Servicios actualizada correctamente'),
-    error: (error) => console.error('Error al actualizar Utilización de Servicios', error)
+    next: () => {
+      console.log('Utilización de Servicios actualizada correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (error) => {
+      console.error('Error al actualizar Utilización de Servicios', error);
+      if (callbackError) callbackError(error);
+    }
   });
 }
 
-guardarCantidadTrabajadores(callback?: () => void) {
+
+guardarCantidadTrabajadores(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const datos = this.encuestaSeleccionada?.cantidadTrabajadores;
-      if (callback) callback();
 
   if (!idEmpresa || !datos || datos.length === 0) {
     console.error("No hay datos de trabajadores.");
@@ -349,15 +376,21 @@ guardarCantidadTrabajadores(callback?: () => void) {
   const url = `http://localhost:8080/apiTwo/${idEmpresa}/updateCantidadTrabajadoresMasiva`;
 
   this.http.put(url, datos).subscribe({
-    next: () => console.log('Cantidad de trabajadores actualizada correctamente'),
-    error: (err) => console.error('Error al actualizar trabajadores', err)
+    next: () => {
+      console.log('Cantidad de trabajadores actualizada correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (err) => {
+      console.error('Error al actualizar trabajadores', err);
+      if (callbackError) callbackError(err);
+    }
   });
 }
 
-guardarHorasNormales(callback?: () => void) {
+
+guardarHorasNormales(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const datos = this.encuestaSeleccionada?.horasNormales;
-      if (callback) callback();
 
   if (!idEmpresa || !datos || datos.length === 0) {
     console.error("No hay datos de horas normales.");
@@ -367,15 +400,20 @@ guardarHorasNormales(callback?: () => void) {
   const url = `http://localhost:8080/apiTwo/${idEmpresa}/updateHorasNormalesMasiva`;
 
   this.http.put(url, datos).subscribe({
-    next: () => console.log('Horas normales actualizadas correctamente'),
-    error: (err) => console.error('Error al actualizar horas normales', err)
+    next: () => {
+      console.log('Horas normales actualizadas correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (err) => {
+      console.error('Error al actualizar horas normales', err);
+      if (callbackError) callbackError(err);
+    }
   });
 }
 
-guardarHorasExtras(callback?: () => void) {
+guardarHorasExtras(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const datos = this.encuestaSeleccionada?.horasExtras;
-      if (callback) callback();
 
   if (!idEmpresa || !datos || datos.length === 0) {
     console.error("No hay datos de horas extras.");
@@ -385,15 +423,21 @@ guardarHorasExtras(callback?: () => void) {
   const url = `http://localhost:8080/apiTwo/${idEmpresa}/updateHorasExtrasMasiva`;
 
   this.http.put(url, datos).subscribe({
-    next: () => console.log('Horas extras actualizadas correctamente'),
-    error: (err) => console.error('Error al actualizar horas extras', err)
+    next: () => {
+      console.log('Horas extras actualizadas correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (err) => {
+      console.error('Error al actualizar horas extras', err);
+      if (callbackError) callbackError(err);
+    }
   });
 }
 
-guardarVentas(callback?: () => void) {
+
+guardarVentas(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const datos = this.encuestaSeleccionada?.venta;
-      if (callback) callback();
 
   if (!idEmpresa || !datos || datos.length === 0) {
     console.error("No hay datos de ventas.");
@@ -403,15 +447,20 @@ guardarVentas(callback?: () => void) {
   const url = `http://localhost:8080/apiThree/${idEmpresa}/updateVentasMasiva`;
 
   this.http.put(url, datos).subscribe({
-    next: () => console.log('Ventas actualizadas correctamente'),
-    error: (err) => console.error('Error al actualizar ventas', err)
+    next: () => {
+      console.log('Ventas actualizadas correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (err) => {
+      console.error('Error al actualizar ventas', err);
+      if (callbackError) callbackError(err);
+    }
   });
 }
 
-guardarPerspectiva(callback?: () => void) {
+guardarPerspectiva(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
   const datos = this.encuestaSeleccionada?.perspectiva?.item;
-      if (callback) callback();
 
   if (!idEmpresa || !datos || datos.length === 0) {
     console.error("No hay datos de perspectiva para guardar.");
@@ -421,10 +470,17 @@ guardarPerspectiva(callback?: () => void) {
   const url = `http://localhost:8080/apiFour/${idEmpresa}/updatePerspectivasMasiva`;
 
   this.http.put(url, datos).subscribe({
-    next: () => console.log('Perspectiva actualizada correctamente'),
-    error: (err) => console.error('Error al actualizar perspectiva', err)
+    next: () => {
+      console.log('Perspectiva actualizada correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (err) => {
+      console.error('Error al actualizar perspectiva', err);
+      if (callbackError) callbackError(err);
+    }
   });
 }
+
 
     
   abrirModal(item: any) {

@@ -210,6 +210,7 @@ idEmpresa: number = 0 ;
       // Agrega el idEmpresa a los datos que vas a enviar
       this.datosEmpresa.id_empresa = this.idEmpresa;
       this.datosRespondiente.id_empresa = this.idEmpresa;
+      // this.datosEmpresa.estratificacion = 
     
       // Enviar datos de la empresa
       this.oneService.enviarDatosEmpresa(this.datosEmpresa).subscribe({

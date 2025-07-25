@@ -60,6 +60,7 @@ export interface encuestasObtener{
   referente?:string;
   fecha_mod_estado?: Date;
   mod_usu: string;
+  nombreEmpresa?: string; // Agregar este campo para la empresa
 }
 
 
@@ -100,6 +101,7 @@ export interface DatosEmpresa {
     id_empresa?: number;  // Agregar id_empresa
     clanae?: string;
     estratificacion?: string;
+    
   }
   
   export interface DatosRespondiente {
