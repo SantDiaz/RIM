@@ -147,7 +147,7 @@
 
           <div class="mb-4">
             <label class="block mb-1">2.1. Nombre y Apellido:</label>
-            <input type="text" class="p-2 w-full border" name="nombreApellido" [(ngModel)]="datosRefente.nombre_apellido">
+            <input type="text" class="p-2 w-full border" name="nombreApellido" [(ngModel)]="datosRefente.nombreApellido">
           </div>
           
           <div class="mb-4">
@@ -157,14 +157,18 @@
           
           <div class="mb-4">
             <label class="block mb-1">2.3. Tipo de Teléfono (Particular/Corporativo):</label>
-            <select class="p-2 w-full border" name="tipoTelefono" [(ngModel)]="datosRefente.tipo_telefono">
+            <select class="p-2 w-full border" name="tipoTelefono" [(ngModel)]="datosRefente.tipoTelefono">
               <option value="Particular">Particular</option>
               <option value="Corporativo">Corporativo</option>
             </select>
           </div>
           <div class="mb-4">
             <label class="block mb-1">2.4. Numero telefonico:</label>
-            <input type="number" class="p-2 w-full border" name="numeroTelefono" [(ngModel)]="datosRefente.numero_telefono">
+            <input type="number" class="p-2 w-full border" name="numeroTelefono" [(ngModel)]="datosRefente.numeroTelefono">
+          </div>
+          <div class="mb-4">
+            <label class="block mb-1">2.5. Email:</label>
+            <input type="email" class="p-2 w-full border" name="email" [(ngModel)]="datosRefente.email">
           </div>
 
 

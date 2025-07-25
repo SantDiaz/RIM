@@ -118,9 +118,10 @@ export interface DatosEmpresa {
   export interface Datos_referente {
     id: number; //hay que agregarselo para hacer las PK Y FK listo.
     cargoArea: string;
-    nombre_apellido: string;
-    tipo_telefono: 'Particular' | 'Corporativo';
-    numero_telefono: string;
+    nombreApellido: string;
+    tipoTelefono: 'Particular' | 'Corporativo';
+    numeroTelefono: string;
+    email: string;
     id_empresa?: number;  // Agregar id_empresa
 
   }

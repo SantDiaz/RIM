@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {   cantidadTrabajadores, DatosEmpresa, DatosRespondiente, horasExtras, horasNormales, InsumosBasicos, investigacionDesarrollo, manoDeObra, perspectiva, produccion, remuneraciones_cargas, servicios_basicos, UtilizacionInsumos, UtilizacionServicio, ventas } from 'src/app/Interfaces/models';
+import {   cantidadTrabajadores, Datos_referente, DatosEmpresa, DatosRespondiente, horasExtras, horasNormales, InsumosBasicos, investigacionDesarrollo, manoDeObra, perspectiva, produccion, remuneraciones_cargas, servicios_basicos, UtilizacionInsumos, UtilizacionServicio, ventas } from 'src/app/Interfaces/models';
 
 
 @Injectable({
@@ -28,6 +28,12 @@ export class ServicesService {
     const idEmpresa = datosRespondiente.id_empresa;
     return this.http.post<DatosRespondiente>(`${this.baseUrl}/${idEmpresa}/respondiente`, datosRespondiente);
   }
+
+  enviarDatosReferente(datosRefente: Datos_referente): Observable<Datos_referente> {
+  const idEmpresa = datosRefente.id_empresa;
+  return this.http.post<Datos_referente>(`${this.baseUrl}/${idEmpresa}/referente`, datosRefente);
+}
+
 
 
   enviarDatosProduccion(produccionData: produccion): Observable<any> {

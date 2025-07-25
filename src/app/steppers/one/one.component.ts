@@ -51,6 +51,16 @@ export class OneComponent implements OnInit {
 //Recibir id_empresa de tabla encuestas
 idEmpresa: number = 0 ;
 
+datosRefente: Datos_referente = {
+  id_empresa: 0,
+  nombreApellido: '',
+  cargoArea: '',
+  tipoTelefono: 'Particular',
+  numeroTelefono: '',
+  email: '',
+  id: 0
+
+};
 
 
   datosEmpresa: DatosEmpresa = {
@@ -75,14 +85,7 @@ idEmpresa: number = 0 ;
     email: ''
   };
 
-    datosRefente: Datos_referente = {
-    id: 0,
-    cargoArea: '',
-    nombre_apellido: '',
-    tipo_telefono: 'Particular',
-    numero_telefono: '',
-    id_empresa: 0
-  };
+
  
   constructor(
     private router: Router,
@@ -210,16 +213,15 @@ idEmpresa: number = 0 ;
       // Agrega el idEmpresa a los datos que vas a enviar
       this.datosEmpresa.id_empresa = this.idEmpresa;
       this.datosRespondiente.id_empresa = this.idEmpresa;
-      // this.datosEmpresa.estratificacion = 
+      this.datosRefente.id_empresa = this.idEmpresa;
+
     
       // Enviar datos de la empresa
       this.oneService.enviarDatosEmpresa(this.datosEmpresa).subscribe({
         next: (response) => {
           console.log('Datos enviados exitosamente:', response);
           if (this.currentStep < 10) {
-            this.currentStep++;
-            this.updateStepVisibility();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        
           }    
         },
         complete: () => {
@@ -231,11 +233,24 @@ idEmpresa: number = 0 ;
       this.oneService.enviarDatosRespondiente(this.datosRespondiente).subscribe(
         (response) => {
           console.log('Datos del respondiente enviados exitosamente:', response);
+              this.currentStep++;
+            this.updateStepVisibility();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         (error) => {
           console.error('Error al enviar los datos del respondiente:', error);
         }
       );
+
+
+      // Enviar datos del Referente
+
+      this.oneService.enviarDatosReferente(this.datosRefente).subscribe({
+    next: (response) => {
+      console.log('Datos referente enviados:', response);
+    },
+    error: err => console.error('Error referente:', err)
+  });
     }
  
 
