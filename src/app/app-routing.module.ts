@@ -63,14 +63,14 @@ const routes: Routes = [
   {
     path: 'homeAn',
     component: HomeAnComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ANALISTA'] }
+    // canActivate: [AuthGuard],
+    // data: { roles: ['ANALISTA'] }
   },
   {
     path: 'homeIng',
     component: HomeIngComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['INGRESADOR'] }
+    // canActivate: [AuthGuard],
+    // data: { roles: ['INGRESADOR'++] }
 
   },
   {
@@ -82,8 +82,8 @@ const routes: Routes = [
   {
     path: 'homeCor',
     component: HomeCorComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['COORDINADOR'] }
+    // canActivate: [AuthGuard],
+    // data: { roles: ['COORDINADOR'] }
   },
   {
     path: 'homeVal',

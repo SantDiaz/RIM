@@ -337,7 +337,7 @@ guardarCambios() {
       this.guardarVentas(mostrarMensajeExito, mostrarMensajeError);
       break;
     case 14:
-      this.guardarHorasNormales(mostrarMensajeExito, mostrarMensajeError);
+      this.guardarInvestigaciones(mostrarMensajeExito, mostrarMensajeError);
       break;
     case 15:
       this.guardarPerspectiva(mostrarMensajeExito, mostrarMensajeError);
@@ -564,6 +564,30 @@ guardarVentas(callbackSuccess?: () => void, callbackError?: (err: any) => void) 
     }
   });
 }
+
+guardarInvestigaciones(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
+  const idEmpresa = this.encuestaSeleccionada?.id_empresa;
+  const datos = this.encuestaSeleccionada?.investigacionDesarrollo?.actividad;
+
+  if (!idEmpresa || !datos || datos.length === 0) {
+    console.error("No hay datos de investigación y desarrollo.");
+    return;
+  }
+
+  const url = `http://localhost:8080/apiFour/${idEmpresa}/updateInvestigacionesMasiva`;
+
+  this.http.put(url, datos).subscribe({
+    next: () => {
+      console.log('Investigaciones actualizadas correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (err) => {
+      console.error('Error al actualizar investigaciones', err);
+      if (callbackError) callbackError(err);
+    }
+  });
+}
+
 
 guardarPerspectiva(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;

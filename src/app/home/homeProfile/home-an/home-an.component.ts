@@ -258,7 +258,7 @@ guardarCambios() {
       this.guardarVentas(mostrarMensajeExito, mostrarMensajeError);
       break;
     case 14:
-      this.guardarHorasNormales(mostrarMensajeExito, mostrarMensajeError);
+      this.guardarInvestigaciones(mostrarMensajeExito, mostrarMensajeError);
       break;
     case 15:
       this.guardarPerspectiva(mostrarMensajeExito, mostrarMensajeError);
@@ -481,6 +481,29 @@ guardarVentas(callbackSuccess?: () => void, callbackError?: (err: any) => void) 
     },
     error: (err) => {
       console.error('Error al actualizar ventas', err);
+      if (callbackError) callbackError(err);
+    }
+  });
+}
+
+guardarInvestigaciones(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
+  const idEmpresa = this.encuestaSeleccionada?.id_empresa;
+  const datos = this.encuestaSeleccionada?.investigacionDesarrollo;
+
+  if (!idEmpresa || !datos || datos.length === 0) {
+    console.error("No hay datos de investigación y desarrollo.");
+    return;
+  }
+
+  const url = `http://localhost:8080/apiFour/${idEmpresa}/updateInvestigacionMasiva`;
+
+  this.http.put(url, datos).subscribe({
+    next: () => {
+      console.log('Investigación y desarrollo actualizados correctamente');
+      if (callbackSuccess) callbackSuccess();
+    },
+    error: (err) => {
+      console.error('Error al actualizar investigación y desarrollo', err);
       if (callbackError) callbackError(err);
     }
   });
