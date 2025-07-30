@@ -488,22 +488,33 @@ guardarVentas(callbackSuccess?: () => void, callbackError?: (err: any) => void) 
 
 guardarInvestigaciones(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
-  const datos = this.encuestaSeleccionada?.investigacionDesarrollo;
+  const actividades = this.encuestaSeleccionada?.investigacionDesarrollo?.actividad;
 
-  if (!idEmpresa || !datos || datos.length === 0) {
+  if (!idEmpresa || !actividades || actividades.length === 0) {
     console.error("No hay datos de investigación y desarrollo.");
     return;
   }
 
-  const url = `http://localhost:8080/apiFour/${idEmpresa}/updateInvestigacionMasiva`;
+  // Armamos el objeto igual al de Postman
+  const datos = [
+    {
+      id: this.encuestaSeleccionada?.investigacionDesarrollo?.id,  // asegúrate que exista este id
+      actividad: actividades
+    }
+  ];
+
+  const url = `http://localhost:8080/apiFour/${idEmpresa}/updateInvestigacionesMasiva`;
+
+  console.log('URL:', url);
+  console.log('Datos enviados:', JSON.stringify(datos, null, 2));
 
   this.http.put(url, datos).subscribe({
     next: () => {
-      console.log('Investigación y desarrollo actualizados correctamente');
+      console.log('Investigaciones actualizadas correctamente');
       if (callbackSuccess) callbackSuccess();
     },
     error: (err) => {
-      console.error('Error al actualizar investigación y desarrollo', err);
+      console.error('Error al actualizar investigaciones', err);
       if (callbackError) callbackError(err);
     }
   });

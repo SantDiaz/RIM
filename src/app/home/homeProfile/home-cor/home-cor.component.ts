@@ -567,14 +567,25 @@ guardarVentas(callbackSuccess?: () => void, callbackError?: (err: any) => void) 
 
 guardarInvestigaciones(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
-  const datos = this.encuestaSeleccionada?.investigacionDesarrollo?.actividad;
+  const actividades = this.encuestaSeleccionada?.investigacionDesarrollo?.actividad;
 
-  if (!idEmpresa || !datos || datos.length === 0) {
+  if (!idEmpresa || !actividades || actividades.length === 0) {
     console.error("No hay datos de investigación y desarrollo.");
     return;
   }
 
+  // Armamos el objeto igual al de Postman
+  const datos = [
+    {
+      id: this.encuestaSeleccionada?.investigacionDesarrollo?.id,  // asegúrate que exista este id
+      actividad: actividades
+    }
+  ];
+
   const url = `http://localhost:8080/apiFour/${idEmpresa}/updateInvestigacionesMasiva`;
+
+  console.log('URL:', url);
+  console.log('Datos enviados:', JSON.stringify(datos, null, 2));
 
   this.http.put(url, datos).subscribe({
     next: () => {
@@ -587,6 +598,7 @@ guardarInvestigaciones(callbackSuccess?: () => void, callbackError?: (err: any) 
     }
   });
 }
+
 
 
 guardarPerspectiva(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
