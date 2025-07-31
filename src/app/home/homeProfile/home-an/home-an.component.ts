@@ -46,7 +46,7 @@ intervalId: any;
     // Cambia frase y avatar cada 10 segundos
     this.intervalId = setInterval(() => {
       this.cambiarAvatarRandom();
-    }, 10000);
+    }, 20000);
   } 
 
 
