@@ -364,7 +364,7 @@ aria-modal="true"
 
   <div class="mb-4">
     <label class="block mb-1">Número de Teléfono</label>
-    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosRespondiente.numeroTelefono" name="numeroTelefono">
+    <input type="number" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosRespondiente.numeroTelefono" name="numeroTelefono">
   </div>
 
   <div class="mb-4">
@@ -380,7 +380,7 @@ aria-modal="true"
   <div class="mb-4">
     <label class="block mb-1">Nombre y Apellido</label>
     <input type="text" class="p-2 w-full border"
-           [(ngModel)]="encuestaSeleccionada.datosReferente.nombre_apellido"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.nombreApellido"
            name="nombre_apellido" [ngModelOptions]="{standalone: true}">
   </div>
 
@@ -393,21 +393,26 @@ aria-modal="true"
 
   <div class="mb-4">
     <label class="block mb-1">Tipo de Teléfono</label>
-    <select class="p-2 w-full border"
-            [(ngModel)]="encuestaSeleccionada.datosReferente.tipo_telefono"
-            name="tipoTelefonoReferente" [ngModelOptions]="{standalone: true}">
-      <option [value]="'Particular'">Particular</option>
-      <option [value]="'Corporativo'">Corporativo</option>
-    </select>
+    <input type="text" class="p-2 w-full border" [(ngModel)]="encuestaSeleccionada.datosReferente.tipoTelefono" name="tipoTelefono">
   </div>
+
+
 
   <div class="mb-4">
     <label class="block mb-1">Número de Teléfono</label>
-    <input type="text" class="p-2 w-full border"
-           [(ngModel)]="encuestaSeleccionada.datosReferente.numero_telefono"
+    <input type="number" class="p-2 w-full border"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.numeroTelefono"
            name="numeroTelefonoReferente" [ngModelOptions]="{standalone: true}">
   </div>
+
+    <div class="mb-4">
+    <label class="block mb-1">Email</label>
+    <input type="email" class="p-2 w-full border"
+           [(ngModel)]="encuestaSeleccionada.datosReferente.email"
+           name="emailReferente" [ngModelOptions]="{standalone: true}">
+  </div>
 </div>
+
 
 <!-- Paso 5 -->
 
@@ -688,7 +693,6 @@ aria-modal="true"
 
 
 
-
   <div *ngIf="pasoActual === 13">
   <h3 class="mb-4 text-center text-2xl font-bold">Ventas por Trimestre</h3>
 
@@ -699,7 +703,7 @@ aria-modal="true"
       <div *ngFor="let item of trimestre.items; let j = index" class="p-2 mb-2 bg-white border rounded">
         <div>
           <label><strong>Ítem:</strong></label>
-          <input type="text" class="p-1 w-full border" [(ngModel)]="item.item" name="ventas_item_{{i}}_{{j}}" [ngModelOptions]="{standalone: true}">
+          <input  disabled="true" type="text" class="p-1 w-full border" [(ngModel)]="item.item" name="ventas_item_{{i}}_{{j}}" [ngModelOptions]="{standalone: true}">
         </div>
         <div>
           <label><strong>Monto:</strong></label>
@@ -722,7 +726,7 @@ aria-modal="true"
     
     <div class="mb-2">
       <label class="font-semibold">Nombre:</label>
-      <input
+      <input disabled="true"
         type="text"
         class="p-1 w-full border"
         [(ngModel)]="actividad.nombre"
@@ -746,7 +750,7 @@ aria-modal="true"
 
     <div class="mb-2">
       <label class="font-semibold">Monto:</label>
-      <input
+      <input 
         type="number"
         class="p-1 w-full border"
         [(ngModel)]="actividad.monto"
@@ -766,7 +770,7 @@ aria-modal="true"
     
     <div class="mb-2">
       <label class="font-semibold">Nombre:</label>
-      <input
+      <input disabled="true"
         type="text"
         class="p-1 w-full border"
         [(ngModel)]="item.nombre"
@@ -799,6 +803,7 @@ aria-modal="true"
   </div>
 </div>
 
+      
       
 
 

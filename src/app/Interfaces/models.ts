@@ -109,7 +109,7 @@ export interface DatosEmpresa {
     nombreApellido: string;
     cargoArea: string;
     tipoTelefono: 'Particular' | 'Corporativo';
-    numeroTelefono: string;
+    numeroTelefono: number;
     email: string;
     id_empresa?: number;  // Agregar id_empresa
 
@@ -120,7 +120,7 @@ export interface DatosEmpresa {
     cargoArea: string;
     nombreApellido: string;
     tipoTelefono: 'Particular' | 'Corporativo';
-    numeroTelefono: string;
+    numeroTelefono: number;
     email: string;
     id_empresa?: number;  // Agregar id_empresa
 

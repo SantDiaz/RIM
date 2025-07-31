@@ -56,7 +56,7 @@ datosRefente: Datos_referente = {
   nombreApellido: '',
   cargoArea: '',
   tipoTelefono: 'Particular',
-  numeroTelefono: '',
+  numeroTelefono: 0,
   email: '',
   id: 0
 
@@ -81,7 +81,7 @@ datosRefente: Datos_referente = {
     nombreApellido: '',
     cargoArea: '',
     tipoTelefono: 'Particular',
-    numeroTelefono: '',
+    numeroTelefono: 0,
     email: ''
   };
 

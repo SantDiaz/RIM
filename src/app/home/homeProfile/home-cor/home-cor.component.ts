@@ -300,14 +300,30 @@ guardarCambios() {
           error: err => mostrarMensajeError(err)
         });
       break;
+ case 4:
+          const referente = this.encuestaSeleccionada?.datosReferente;
 
-    case 4:
-      this.http.put(`http://localhost:8080/api/${idEmpresa}/updateDatosReferente`, this.encuestaSeleccionada.Datos_referente)
-        .subscribe({
-          next: () => mostrarMensajeExito(),
-          error: err => mostrarMensajeError(err)
-        });
-      break;
+          if (!referente) {
+            console.error("No hay datos del referente");
+            return;
+          }
+
+          // Mapear propiedades al formato esperado por el backend
+          const datosReferente = {
+            nombreApellido: referente.nombreApellido,
+            cargoArea: referente.cargoArea,
+            tipoTelefono: referente.tipoTelefono,
+            numeroTelefono: referente.numeroTelefono,
+            email: referente.email // si tienes el email cargado
+          };
+
+          this.http.put(`http://localhost:8080/api/${idEmpresa}/updateDatosReferente`, datosReferente)
+            .subscribe({
+              next: () => mostrarMensajeExito(),
+              error: err => mostrarMensajeError(err)
+            });
+          break;
+
 
     case 5:
       this.guardarProduccion(mostrarMensajeExito, mostrarMensajeError);
@@ -567,18 +583,25 @@ guardarVentas(callbackSuccess?: () => void, callbackError?: (err: any) => void) 
 
 guardarInvestigaciones(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
-  const actividades = this.encuestaSeleccionada?.investigacionDesarrollo?.actividad;
+  const investigacion = this.encuestaSeleccionada?.investigacionDesarrollo;
+  const actividades = investigacion?.actividad;
 
   if (!idEmpresa || !actividades || actividades.length === 0) {
     console.error("No hay datos de investigación y desarrollo.");
     return;
   }
 
+  // Convertimos realiza a "Sí" / "No" en cada actividad
+  const actividadesConvertidas = actividades.map((act: any) => ({
+    ...act,
+    realiza: act.realiza === true || act.realiza === "Sí" ? "Sí" : "No"
+  }));
+
   // Armamos el objeto igual al de Postman
   const datos = [
     {
-      id: this.encuestaSeleccionada?.investigacionDesarrollo?.id,  // asegúrate que exista este id
-      actividad: actividades
+      id: investigacion?.id || null, // Si no tenés ID lo mandamos como null
+      actividad: actividadesConvertidas
     }
   ];
 
@@ -601,16 +624,25 @@ guardarInvestigaciones(callbackSuccess?: () => void, callbackError?: (err: any) 
 
 
 
+
 guardarPerspectiva(callbackSuccess?: () => void, callbackError?: (err: any) => void) {
   const idEmpresa = this.encuestaSeleccionada?.id_empresa;
-  const datos = this.encuestaSeleccionada?.perspectiva?.item;
+  const perspectiva = this.encuestaSeleccionada?.perspectiva;
 
-  if (!idEmpresa || !datos || datos.length === 0) {
+  if (!idEmpresa || !perspectiva || !perspectiva.item || perspectiva.item.length === 0) {
     console.error("No hay datos de perspectiva para guardar.");
     return;
   }
 
   const url = `http://localhost:8080/apiFour/${idEmpresa}/updatePerspectivasMasiva`;
+
+  // El backend espera un array con id y el array item
+  const datos = [
+    {
+      id: perspectiva.id, // asegúrate de que tengas el id
+      item: perspectiva.item
+    }
+  ];
 
   this.http.put(url, datos).subscribe({
     next: () => {
