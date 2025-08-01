@@ -42,6 +42,7 @@ intervalId: any;
      this.username = localStorage.getItem('username') || '';
         this.randomSeed = this.generarSeedAleatorio();
     this.obtenerFraseAleatoria(); // Muestra una al iniciar
+  window.addEventListener('keydown', this.manejarTeclado.bind(this));
 
     // Cambia frase y avatar cada 10 segundos
     this.intervalId = setInterval(() => {
@@ -49,7 +50,19 @@ intervalId: any;
     }, 20000);
   } 
 
+ngOnDestroy(): void {
+  clearInterval(this.intervalId); // Limpia el intervalo al destruir el componente
+  window.removeEventListener('keydown', this.manejarTeclado.bind(this));
+}
 
+
+manejarTeclado(event: KeyboardEvent): void {
+  if (event.key === 'ArrowRight') {
+    this.siguientePaso();
+  } else if (event.key === 'ArrowLeft') {
+    this.pasoAnterior();
+  }
+}
 
   // Estados a enviar
   estados = [
@@ -606,10 +619,26 @@ guardarPerspectiva(callbackSuccess?: () => void, callbackError?: (err: any) => v
     }
 
 
-
-    siguientePaso() {
-      if (this.pasoActual < 15) this.pasoActual++;
+siguientePaso() {
+  if (this.pasoActual < 16) {
+    this.pasoActual++;
+    
+    if (this.pasoActual === 16) {
+      Swal.fire({
+        title: 'Encuesta enviada',
+        text: 'Gracias por completar la encuesta.',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+          this.pasoActual = 1;   // Reinicia el stepper al paso 1
+        this.cerrarModal(); // Cierra el modal después de aceptar el Swal
+      });
     }
+  } else {
+    // Si ya está en el paso 15 y vuelve a presionar siguiente, se cierra directamente
+    this.cerrarModal();
+  }
+}
     
     pasoAnterior() {
       if (this.pasoActual > 1) this.pasoActual--;
@@ -643,47 +672,6 @@ guardarPerspectiva(callbackSuccess?: () => void, callbackError?: (err: any) => v
   }
 
 
-  
-   //IMAGEN DE PERFIL 
-
-onAvatarSelected(event: any) {
-  const file: File = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64Image = reader.result as string;
-      this.avatarUrl = base64Image;
-      localStorage.setItem('avatarImage', base64Image); // Guarda en localStorage
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-
-
-  // obtenerFraseAleatoria(): void {
-  //   const random = Math.floor(Math.random() * this.frasesLocales.length);
-  //   const frase = this.frasesLocales[random];
-  //   this.fraseMotivacional = frase.frase;
-  //   this.autorFrase = frase.autor;
-  // }
-
-
-  cambiarAvatarRandom() {
-    this.randomSeed = this.generarSeedAleatorio();
-    this.obtenerFraseAleatoria();
-  }
-
-  generarSeedAleatorio(): string {
-    return Math.random().toString(36).substring(2, 10);
-  }
-
-  obtenerFraseAleatoria(): void {
-    const random = Math.floor(Math.random() * frasesLocales.length);
-    const frase = frasesLocales[random];
-    this.fraseMotivacional = frase.frase;
-    this.autorFrase = frase.autor;
-  }
 
 
   
@@ -795,5 +783,49 @@ eliminarUltimoItemInsumoBasico() {
     }
   }
 }
+
+
+
+
+
+
+
+
+  
+   //IMAGEN DE PERFIL 
+
+onAvatarSelected(event: any) {
+  const file: File = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = reader.result as string;
+      this.avatarUrl = base64Image;
+      localStorage.setItem('avatarImage', base64Image); // Guarda en localStorage
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+
+
+  
+
+  cambiarAvatarRandom() {
+    this.randomSeed = this.generarSeedAleatorio();
+    this.obtenerFraseAleatoria();
+  }
+
+  generarSeedAleatorio(): string {
+    return Math.random().toString(36).substring(2, 10);
+  }
+
+  obtenerFraseAleatoria(): void {
+    const random = Math.floor(Math.random() * frasesLocales.length);
+    const frase = frasesLocales[random];
+    this.fraseMotivacional = frase.frase;
+    this.autorFrase = frase.autor;
+  }
+
 
 }

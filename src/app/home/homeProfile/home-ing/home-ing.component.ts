@@ -94,6 +94,7 @@ intervalId: any;
   constructor(private encuestaService: EncuestaService, private router: Router,private http: HttpClient ) { }
 
   ngOnInit(): void {
+      window.addEventListener('keydown', this.manejarTeclado.bind(this));
      this.username = localStorage.getItem('username') || '';
         this.randomSeed = this.generarSeedAleatorio();
     this.obtenerFraseAleatoria(); // Muestra una al iniciar
@@ -103,6 +104,20 @@ intervalId: any;
       this.cambiarAvatarRandom();
     }, 20000);
   } 
+
+  ngOnDestroy(): void {
+  clearInterval(this.intervalId); // Limpia el intervalo al destruir el componente
+  window.removeEventListener('keydown', this.manejarTeclado.bind(this));
+}
+
+
+manejarTeclado(event: KeyboardEvent): void {
+  if (event.key === 'ArrowRight') {
+    this.siguientePaso();
+  } else if (event.key === 'ArrowLeft') {
+    this.pasoAnterior();
+  }
+}
 
 
   estados = [
@@ -150,11 +165,27 @@ intervalId: any;
   }
 
 
-    siguientePaso() {
-    if (this.pasoActual < 15) this.pasoActual++;
-    // this.guardarCambios(); // Guardar los cambios al avanzar al siguiente paso
+siguientePaso() {
+  if (this.pasoActual < 16) {
+    this.pasoActual++;
+    
+    if (this.pasoActual === 16) {
+      Swal.fire({
+        title: 'Encuesta enviada',
+        text: 'Gracias por completar la encuesta.',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+          this.pasoActual = 1;   // Reinicia el stepper al paso 1
+        this.cerrarModal(); // Cierra el modal después de aceptar el Swal
+      });
+    }
+  } else {
+    // Si ya está en el paso 15 y vuelve a presionar siguiente, se cierra directamente
+    this.cerrarModal();
   }
-  
+}
+
   pasoAnterior() {
     if (this.pasoActual > 1) this.pasoActual--;
   }
