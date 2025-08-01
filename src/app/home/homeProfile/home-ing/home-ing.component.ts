@@ -15,9 +15,7 @@ import { ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./home-ing.component.css']
 })
 export class HomeIngComponent implements OnInit {
-  // @ViewChild('ultimoProduccion') ultimoProduccionRef!: ElementRef;
-  // @ViewChild('ultimoInsumo') ultimoInsumoRef!: ElementRef;
-  // @ViewChild('ultimoServicio') ultimoServicioRef!: ElementRef;
+
    pasoActual: number = 1;
 
     mostrarModal = false;

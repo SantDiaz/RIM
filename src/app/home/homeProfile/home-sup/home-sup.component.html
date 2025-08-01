@@ -23,7 +23,7 @@
         <p class="mt-4 text-sm text-gray-500 italic">"{{ fraseMotivacional }}"</p>
         <p class="text-sm text-gray-400">— {{ autorFrase }}</p>
           <div  class="flex flex-col items-center justify-center text-center">
-            <h2 class="mt-4 font-medium text-gray-900 text-lg title-font">{{username}} Supervisor</h2>
+            <h2 class="mt-4 font-medium text-gray-900 text-lg title-font">{{username}} Ingresador</h2>
             <div class="mt-2 mb-4 w-12 h-1 bg-indigo-500 rounded"></div>
           </div>
         </div>
@@ -297,16 +297,21 @@ aria-modal="true"
       <textarea class="p-2 w-full border" name="observaciones_supervisor" [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
     </div>
 
-    <label class="block mb-1">Observaciones del Validador:</label>
-    <select disabled="true" class="p-2 mb-2 w-full border" [(ngModel)]="encuestaSeleccionada.observaciones_validador" name="observaciones_validador">
-  <option value="Incompleto">Incompleto</option>
-  <option value="Error módulo ventas">Error módulo ventas</option>
-  <option value="Error módulo trabajadores">Error módulo trabajadores</option>
-  <option value="Error módulo producción">Error módulo producción</option>
-  <option value="Error módulo Insumos">Error módulo Insumos</option>
-  <option value="Error particular">Error particular (describir abajo)</option>
-</select>
+    <div class="mb-4">
+        <label class="block mb-1">Observaciones del Validador:</label>
+      <input disabled="true" type="text" class="p-2 w-full border" name="ingresador" [(ngModel)]="encuestaSeleccionada.observaciones_validador">
+    </div>
 
+    <div> 
+        <textarea
+        [(ngModel)]="encuestaSeleccionada.observaciones_particular"
+          maxlength="250"
+          rows="3"
+          class="p-2 w-full border"
+          placeholder="Describa el error particular (máx. 250 caracteres)"
+          name="observacion_particular"
+        ></textarea>
+      </div>
   </div>
 
       <div class="flex justify-end gap-4 mt-4">

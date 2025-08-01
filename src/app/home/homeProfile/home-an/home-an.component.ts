@@ -67,7 +67,7 @@ manejarTeclado(event: KeyboardEvent): void {
   // Estados a enviar
   estados = [
       'Ingresado',
-
+      'No entregado',
   ];
 
   tipos = [

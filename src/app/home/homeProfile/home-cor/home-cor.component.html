@@ -142,6 +142,22 @@
           <label class="block mb-1">Observaciones del Supervisor:</label>
           <textarea class="p-2 w-full border"  name="observaciones_supervisor"></textarea>
         </div>
+
+            <div class="mb-4">
+        <label class="block mb-1">Observaciones del Validador:</label>
+      <input disabled="true" type="text" class="p-2 w-full border" name="ingresador" [(ngModel)]="encuestaSeleccionada.observaciones_validador">
+    </div>
+
+    <div> 
+        <textarea
+        [(ngModel)]="encuestaSeleccionada.observaciones_particular"
+          maxlength="250"
+          rows="3"
+          class="p-2 w-full border"
+          placeholder="Describa el error particular (máx. 250 caracteres)"
+          name="observacion_particular"
+        ></textarea>
+      </div>
   
         <div class="flex justify-center">
           <button type="button" class="px-4 py-2 text-white bg-[#FF8300] rounded" (click)="nextStep()">Siguiente</button>
@@ -294,6 +310,23 @@ aria-modal="true"
       <label class="block mb-1">Observaciones del Supervisor:</label>
       <textarea class="p-2 w-full border" name="observaciones_supervisor"  [(ngModel)]="encuestaSeleccionada.observaciones_supervisor"></textarea>
     </div>
+
+        <div class="mb-4">
+        <label class="block mb-1">Observaciones del Validador:</label>
+      <input disabled="true" type="text" class="p-2 w-full border" name="ingresador" [(ngModel)]="encuestaSeleccionada.observaciones_validador">
+    </div>
+
+    <div> 
+        <textarea
+        disabled="true"
+        [(ngModel)]="encuestaSeleccionada.observaciones_particular"
+          maxlength="250"
+          rows="3"
+          class="p-2 w-full border"
+          placeholder="Describa el error particular (máx. 250 caracteres)"
+          name="observacion_particular"
+        ></textarea>
+      </div>
 
   </div>
 

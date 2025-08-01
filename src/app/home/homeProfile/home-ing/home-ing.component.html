@@ -143,27 +143,34 @@
           <textarea class="p-2 w-full border" disabled="true" [(ngModel)]="encuesta.observaciones_supervisor" name="observaciones_supervisor"></textarea>
         </div>
 
-             
+        <div class="mb-4">
         <label class="block mb-1">Observaciones del Validador:</label>
-        <select class="p-2 mb-2 w-full border" disabled="true" [(ngModel)]="encuestaSeleccionada.observaciones_validador" name="observaciones_validador">
+      <input disabled="true" type="text" class="p-2 w-full border" name="ingresador" [(ngModel)]="encuestaSeleccionada.observaciones_validador">
+    </div>
 
-          <option value="Incompleto">Incompleto</option>
-        <option value="Error módulo ventas">Error módulo ventas</option>
-        <option value="Error módulo trabajadores">Error módulo trabajadores</option>
-        <option value="Error módulo producción">Error módulo producción</option>
-        <option value="Error módulo Insumos">Error módulo Insumos</option>
-        <option value="Error particular">Error particular (describir abajo)</option>
-      </select>
+    <div> 
+        <textarea
+        disabled="true"
+        
+        [(ngModel)]="encuestaSeleccionada.observaciones_particular"
+          maxlength="250"
+          rows="3"
+          class="p-2 w-full border"
+          placeholder="Describa el error particular (máx. 250 caracteres)"
+          name="observacion_particular"
+        ></textarea>
+      </div>
 
-      <textarea
-        *ngIf="encuestaSeleccionada.observaciones_validador === 'Error particular'"
-        maxlength="250"
-        rows="3"
-        class="p-2 w-full border"
-        placeholder="Describa el error particular (máx. 250 caracteres)"
-        [(ngModel)]="encuestaSeleccionada.observacion_particular"
-        name="observacion_particular"
-      ></textarea>
+<textarea
+  *ngIf="encuestaSeleccionada.observaciones_validador?.includes('Error particular')"
+  maxlength="250"
+  rows="3"
+  class="p-2 w-full bg-white border"
+  placeholder="Describa el error particular (máx. 250 caracteres)"
+  [(ngModel)]="encuestaSeleccionada.observacion_particular"
+  name="observacion_particular"
+  readonly
+></textarea>
 
       
         <div class="flex justify-center">
@@ -333,22 +340,16 @@ aria-modal="true"
      
     <div class="mb-4">
         <label class="block mb-1">Observaciones del Validador:</label>
-        <select disabled="true" class="p-2 mb-2 w-full border" [(ngModel)]="encuesta.observaciones_validador" name="observaciones_validador">
-          <option value="Incompleto">Incompleto</option>
-          <option value="Error módulo ventas">Error módulo ventas</option>
-          <option value="Error módulo trabajadores">Error módulo trabajadores</option>
-          <option value="Error módulo producción">Error módulo producción</option>
-          <option value="Error módulo Insumos">Error módulo Insumos</option>
-          <option value="Error particular">Error particular (describir abajo)</option>
-        </select>
+      <input disabled="true" type="text" class="p-2 w-full border" name="ingresador" [(ngModel)]="encuestaSeleccionada.observaciones_validador">
+    </div>
 
+    <div> 
         <textarea
-          *ngIf="encuesta.observaciones_validador === 'Error particular'"
+        [(ngModel)]="encuestaSeleccionada.observaciones_particular"
           maxlength="250"
           rows="3"
           class="p-2 w-full border"
           placeholder="Describa el error particular (máx. 250 caracteres)"
-          [(ngModel)]="encuesta.observaciones_particular"
           name="observacion_particular"
         ></textarea>
       </div>
